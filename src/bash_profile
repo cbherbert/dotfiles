@@ -19,6 +19,8 @@ export GLOBIGNORE=.:..
 export EDITOR="emacs"
 [ -d "/Developer" ] && PATH="${PATH}:/Developer/usr/bin:/Developer/usr/sbin"
 [ -d "$HOME/bin" ] && PATH="${PATH}:$HOME/bin"
+[ -d "/usr/local/cuda/bin" ] && PATH="${PATH}:/usr/local/cuda/bin"
+[ -d "/usr/local/cuda/lib" ] && DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}:/usr/local/cuda/lib"
 
 if [ -f "$HOME/.profile" ]; then
     source "$HOME/.profile"
