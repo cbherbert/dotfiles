@@ -1,4 +1,4 @@
-LINK_FILES	= bash_profile bashrc dircolors
+LINK_FILES	= bash_profile bashrc dircolors gitignore_global
 DOTHOME		= $(PWD)
 
 install: $(LINK_FILES)
