@@ -1,0 +1,305 @@
+# Configuration file for dircolors, a utility to help you set the
+# LS_COLORS environment variable used by GNU ls with the --color option.
+# Copyright (C) 1996, 1999-2011 Free Software Foundation, Inc.
+# Copying and distribution of this file, with or without modification,
+# are permitted provided the copyright notice and this notice are preserved.
+# The keywords COLOR, OPTIONS, and EIGHTBIT (honored by the
+# slackware version of dircolors) are recognized but ignored.
+# Below, there should be one TERM entry for each termtype that is colorizable
+TERM Eterm
+TERM ansi
+TERM color-xterm
+TERM con132x25
+TERM con132x30
+TERM con132x43
+TERM con132x60
+TERM con80x25
+TERM con80x28
+TERM con80x30
+TERM con80x43
+TERM con80x50
+TERM con80x60
+TERM cons25
+TERM console
+TERM cygwin
+TERM dtterm
+TERM eterm-color
+TERM gnome
+TERM gnome-256color
+TERM jfbterm
+TERM konsole
+TERM kterm
+TERM linux
+TERM linux-c
+TERM mach-color
+TERM mlterm
+TERM putty
+TERM rxvt
+TERM rxvt-256color
+TERM rxvt-cygwin
+TERM rxvt-cygwin-native
+TERM rxvt-unicode
+TERM rxvt-unicode-256color
+TERM rxvt-unicode256
+TERM screen
+TERM screen-256color
+TERM screen-256color-bce
+TERM screen-bce
+TERM screen-w
+TERM screen.Eterm
+TERM screen.rxvt
+TERM screen.linux
+TERM terminator
+TERM vt100
+TERM xterm
+TERM xterm-16color
+TERM xterm-256color
+TERM xterm-88color
+TERM xterm-color
+TERM xterm-debian
+# Below are the color init strings for the basic file types. A color init
+# string consists of one or more of the following numeric codes:
+# Attribute codes:
+# 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
+# Text color codes:
+# 30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
+# Background color codes:
+# 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+#NORMAL 00 # no color code at all
+#FILE 00 # regular file: use no color at all
+RESET 0 # reset to "normal" color
+DIR 01;35 # directory
+LINK 00;35 # symbolic link. (If you set this to 'target' instead of a
+ # numerical value, the color is as for the file pointed to.)
+MULTIHARDLINK 00 # regular file with more than one link
+FIFO 40;33 # pipe
+SOCK 01;35 # socket
+DOOR 01;35 # door
+BLK 40;33;01 # block device driver
+CHR 40;33;01 # character device driver
+ORPHAN 40;31;01 # symlink to nonexistent file, or non-stat'able file
+SETUID 37;41 # file that is setuid (u+s)
+SETGID 30;43 # file that is setgid (g+s)
+CAPABILITY 30;41 # file with capability
+STICKY_OTHER_WRITABLE 30;42 # dir that is sticky and other-writable (+t,o+w)
+OTHER_WRITABLE 34;42 # dir that is other-writable (o+w) and not sticky
+STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
+# This is for files with execute permission: (bright red)
+EXEC 01;31
+# List any file extensions like '.gz' or '.tar' that you would like ls
+# to colorize below. Put the extension, a space, and the color init string.
+# (and any comments you want to add after a '#')
+# Or if you want to colorize scripts even if they do not have the
+# executable bit actually set. (red)
+.sh 00;31
+.csh 00;31
+.lsf 00;31
+.sge 00;31
+# OS X Applications (overridden by the directory settings!!)
+.app 01;31
+ # archives or compressed (green)
+.tar  00;32
+.tgz  00;32
+.arj  00;32
+.taz  00;32
+.lzh  00;32
+.lzma 00;32
+.tlz  00;32
+.txz  00;32
+.zip  00;32
+.z    00;32
+.Z    00;32
+.dz   00;32
+.gz   00;32
+.lz   00;32
+.xz   00;32
+.bz2  00;32
+.bz   00;32
+.tbz  00;32
+.tbz2 00;32
+.tz   00;32
+.deb  00;32
+.rpm  00;32
+.jar  00;32
+.war  00;32
+.ear  00;32
+.sar  00;32
+.rar  00;32
+.ace  00;32
+.zoo  00;32
+.cpio 00;32
+.7z   00;32
+.rz   00;32
+.dmg  00;32
+.img  00;32
+.iso  00;32
+.enc  00;32
+.aes  00;32
+.des  00;32
+# image formats (blue)
+.jpg 00;34
+.JPG 00;34
+.jpeg 00;34
+.gif 00;34
+.bmp 00;34
+.pbm 00;34
+.pgm 00;34
+.ppm 00;34
+.tga 00;34
+.xbm 00;34
+.xpm 00;34
+.tif 00;34
+.tiff 00;34
+.png 00;34
+.svg 00;34
+.svgz 00;34
+.mng 00;34
+.pcx 00;34
+.mov 00;34
+.MOV 00;34
+.mpg 00;34
+.MPG 00;34
+.mpeg 00;34
+.m2v 00;34
+.mkv 00;34
+.webm 00;34
+.ogm 00;34
+.mp4 00;34
+.MP4 00;34
+.m4v 00;34
+.mp4v 00;34
+.vob 00;34
+.qt 00;34
+.nuv 00;34
+.wmv 00;34
+.asf 00;34
+.rm 00;34
+.rmvb 00;34
+.flc 00;34
+.avi 00;34
+.AVI 00;34
+.fli 00;34
+.flv 00;34
+.gl 00;34
+.dl 00;34
+.xcf 00;34
+.xwd 00;34
+.yuv 00;34
+.cgm 00;34
+.emf 00;34
+# http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions
+.axv 00;34
+.anx 00;34
+.ogv 00;34
+.ogx 00;34
+# audio formats (blue)
+.aac 00;34
+.au 00;34
+.flac 00;34
+.mid 00;34
+.midi 00;34
+.mka 00;34
+.mp3 00;34
+.m4a 00;34
+.mpc 00;34
+.ogg 00;34
+.ra 00;34
+.wav 00;34
+# http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions
+.axa 00;34
+.oga 00;34
+.spx 00;34
+.xspf 00;34
+# Code files (yellow)
+.h 00;33
+.c 00;33
+.cpp 00;33
+.f 00;33
+.F 00;33
+.for 00;33
+.f90 00;33
+.F90 00;33
+.f95 00;33
+.F95 00;33
+.f03 00;33
+.F03 00;33
+.fpp 00;33
+.nb 00;33
+.m 00;33
+.py 00;33
+.ipynb 00;33
+.cu 00;33
+.hcu 00;33
+.el 00;33
+*Makefile 00;33
+*Makefile.in 00;33
+# pdfs
+.pdf       00;97
+.ps        00;97
+.djvu      00;97
+.eps       00;97
+.early.pdf 01;37
+# text, TeX et al (cyan)
+.tex 00;36
+.bib 00;36
+.org 00;36
+.txt 00;36
+.md  00;36
+.rtf 00;36
+.doc 00;36
+.docx 00;36
+.pages 00;36
+.html 00;36
+.1   00;36
+.1pm 00;36
+.2   00;36
+.3   00;36
+.4   00;36
+.5   00;36
+.6   00;36
+.7   00;36
+.8   00;36
+.9   00;36
+*ACKNOWLEDGMENTS 00;36
+*CHANGES 00;36
+*FAQ     00;36
+*INSTALL 00;36
+*LICENSE 00;36
+*NEWS    00;36
+*PROBLEMS 00;36
+*README 00;36
+*README.txt 00;36
+*readme 00;36
+*readme.txt 00;36
+*README.VDCPIO 00;36
+*SOLVERS 00;36
+*TODO 00;36
+
+*ID 00;97
+.out 00;97
+.nc  00;97
+
+# Unimportant files (bright green i.e. dark grey with solarized)
+.log        01;32
+.bak        01;32
+.aux        01;32
+.lof        01;32
+.lol        01;32
+.lot        01;32
+.toc        01;32
+.bbl        01;32
+.blg        01;32
+.nav	    01;32
+.snm        01;32
+*~          01;32
+*#          01;32
+.part       01;32
+.incomplete 01;32
+.swp        01;32
+.tmp        01;32
+.temp       01;32
+.o          01;32
+.mod	    01;32
+.pyc        01;32
+.class      01;32
+.cache      01;32

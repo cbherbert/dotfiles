@@ -1,0 +1,33 @@
+# -*- mode: shell-script-*-
+Cyan='\x1B[0;36m'         # Cyan
+NC="\x1B[m"               # Color Reset
+echo -e "${Cyan}BASH ${BASH_VERSION%.*} - $(date)${NC}"
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# Terminal and colors
+export TERM=xterm-256color
+export CLICOLOR=1
+
+# Bash settings: history, globs
+export HISTCONTROL=ignorespace:erasedups
+export HISTIGNORE="ls:[bf]g:cd:exit:pwd"
+export GLOBIGNORE=.:..
+
+# Default programs and paths
+export EDITOR="emacs"
+[ -d "/Developer" ] && PATH="${PATH}:/Developer/usr/bin:/Developer/usr/sbin"
+[ -d "$HOME/bin" ] && PATH="${PATH}:$HOME/bin"
+
+if [ -f "$HOME/.profile" ]; then
+    source "$HOME/.profile"
+fi
+
+if [ -f "$HOME/.bashrc" ]; then
+    source "$HOME/.bashrc"
+fi
+
+if [ -f "/opt/local/etc/profile.d/bash_completion.sh" ]; then
+    source "/opt/local/etc/profile.d/bash_completion.sh"
+fi
