@@ -1,29 +1,53 @@
-; -*-mode: emacs-lisp-*-
 ;;; Compilation mode:
 (setq compilation-scroll-output 'first-error)
-;;; Automatically wrap lines for text modes:
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 ;;; Idutils:
 (autoload 'gid "idutils" nil t)
-;;; Fortran namelist mode:
-(add-to-list 'load-path "~/.emacs.d/f90-namelist-mode/")
-(require 'f90-namelist-mode)
 ;;; Custom Mode Bindings:
 (add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
-(add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
 (add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode))
 ;;; Solarized theme colors:
-(when (>= emacs-major-version 24)
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized/")
-  (load-theme 'solarized t))
+(if (>= emacs-major-version 24)
+    (progn (add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
+	   (load-theme 'solarized t))
+  (when (>= emacs-major-version 23)
+    ;; Not sure this is the proper way of doing it but it is the only hack I found to get reasonable colors so far:
+    (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
+    (require 'color-theme)
+    (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized")
+    (require 'color-theme-solarized)
+    (color-theme-solarized)
+    (custom-set-faces  '(default ((t (:background "black"))) t))
+    )
+  )
 ;;; MELPA Packages:
 (when (>= emacs-major-version 24)
   (require 'package)
-  (add-to-list
-   'package-archives
-   '("melpa" . "http://melpa.org/packages/")
-   t)					
-  (package-initialize))
+  (add-to-list 'package-archives
+	       '("melpa" . "https://melpa.org/packages/")
+	       )					
+  (package-initialize)
+  )
+
+;;; python-mode
+;(setq py-install-directory "~/.emacs.d/python-mode-6.0.11")
+;(add-to-list 'load-path py-install-directory)
+(require 'python-mode)
+; use IPython
+(setq-default py-shell-name "ipython")
+(setq-default py-which-bufname "IPython")
+; use the wx backend, for both mayavi and matplotlib
+;(setq py-python-command-args
+;      '("--gui=wx" "--pylab=wx" "-colors" "Linux"))
+(setq py-force-py-shell-name-p t)
+
+; switch to the interpreter after executing code
+(setq py-shell-switch-buffers-on-execute-p t)
+;(setq py-switch-buffers-on-execute-p t)
+; don't split windows
+(setq py-split-windows-on-execute-p nil)
+; try to automagically figure out indentation
+(setq py-smart-indentation t)
+
 ;;; Other custom variables:
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -31,18 +55,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(frame-background-mode (quote dark))
- '(org-n-level-faces 5))
+ '(org-export-backends
+   (quote
+    (ascii beamer html icalendar latex man md odt texinfo))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-done ((t (:background "white" :foreground "green" :inverse-video nil :underline nil :slant normal :weight normal))))
- '(org-level-1 ((t (:inherit outline-1 :foreground "brightred"))))
- '(org-level-2 ((t (:inherit outline-2 :foreground "yellow"))))
- '(org-level-3 ((t (:inherit outline-3 :foreground "blue"))))
- '(org-level-4 ((t (:inherit outline-4 :foreground "brightmagenta"))))
- '(org-level-5 ((t (:inherit outline-5 :foreground "brightcyan"))))
- '(org-tag ((t (:foreground "green"))))
- '(org-todo ((t (:background "brightred" :foreground "white" :inverse-video nil :underline nil :slant normal :weight bold)))))
-(put 'narrow-to-region 'disabled nil)
+ )
