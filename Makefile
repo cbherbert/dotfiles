@@ -1,4 +1,4 @@
-LINK_FILES	= bash_profile bashrc dircolors gitignore_global emacs
+LINK_FILES	= bash_profile bashrc dircolors gitignore_global emacs id-lang.map
 DOTHOME		= $(PWD)
 
 install: $(LINK_FILES)

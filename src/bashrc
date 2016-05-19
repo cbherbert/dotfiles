@@ -33,7 +33,7 @@ else
     alias ls="ls -F"
 fi
 command -v colormake > /dev/null 2>&1 && alias make='colormake'
-
+[ -f "${HOME}/.id-lang.map" ] && alias mkid='mkid -m ~/.id-lang.map'
 
 
 ##
