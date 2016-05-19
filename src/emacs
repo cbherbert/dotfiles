@@ -1,37 +1,79 @@
 ; -*-mode: emacs-lisp-*-
-;;; Compilation mode:
-(setq compilation-scroll-output 'first-error)
-;;; Automatically wrap lines for text modes:
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-;;; Idutils:
-(autoload 'gid "idutils" nil t)
-;;; Fortran namelist mode:
-(add-to-list 'load-path "~/.emacs.d/f90-namelist-mode/")
-(require 'f90-namelist-mode)
-;;; Custom Mode Bindings:
-(add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
-(add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
-(add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode))
-;;; Solarized theme colors:
-(when (>= emacs-major-version 24)
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized/")
-  (load-theme 'solarized t))
-;;; MELPA Packages:
+
+;;;
+;;   Packages
+;;;
+
 (when (>= emacs-major-version 24)
   (require 'package)
+  (require 'cl)
   (add-to-list
    'package-archives
    '("melpa" . "http://melpa.org/packages/")
-   t)					
-  (package-initialize))
-;;; Other custom variables:
+   t)
+  (setq package-list '(color-theme-sanityinc-solarized ; https://github.com/purcell/color-theme-sanityinc-solarized
+		       color-theme-solarized ; This is the solarized theme by Greg Pfeil, https://github.com/sellout/emacs-color-theme-solarized
+		       solarized-theme       ; This is the solarized theme by Bozhidar Batsov, https://github.com/bbatsov/solarized-emacs
+		       cuda-mode
+		       lua-mode
+		       markdown-mode
+		       matlab-mode
+		       ))
+  (package-initialize)
+
+  (defun packages-installed-p ()
+    (cl-every 'package-installed-p package-list))
+
+  (unless (packages-installed-p)
+    (message "%s" "Some packages are missing. Installing them now...")    
+    (message "%s" "Refreshing package database...")
+    (package-refresh-contents)
+    (dolist (p package-list)
+      (unless (package-installed-p p)
+	(package-install p))))
+  )
+
+
+;;;
+;;   Basic Settings
+;;;
+
+(put 'narrow-to-region 'disabled nil)
+
+;; Compilation mode:
+(setq compilation-scroll-output 'first-error)
+
+;; Automatically wrap lines for text modes:
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+
+;; Custom Mode Bindings:
+(add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
+(add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
+(add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode))
+
+;; Idutils:
+(autoload 'gid "idutils" nil t)
+;; Fortran namelist mode:
+;;(add-to-list 'load-path "~/.emacs.d/f90-namelist-mode/")
+;;(require 'f90-namelist-mode)
+;; Solarized theme colors:
+(when (>= emacs-major-version 24)
+  (load-theme 'solarized t)
+  )
+
+
+;;;
+;;   Other custom variables:
+;;;
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(frame-background-mode (quote dark))
- '(org-n-level-faces 5))
+ '(org-n-level-faces 5)
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -44,5 +86,6 @@
  '(org-level-4 ((t (:inherit outline-4 :foreground "brightmagenta"))))
  '(org-level-5 ((t (:inherit outline-5 :foreground "brightcyan"))))
  '(org-tag ((t (:foreground "green"))))
- '(org-todo ((t (:background "brightred" :foreground "white" :inverse-video nil :underline nil :slant normal :weight bold)))))
-(put 'narrow-to-region 'disabled nil)
+ '(org-todo ((t (:background "brightred" :foreground "white" :inverse-video nil :underline nil :slant normal :weight bold))))
+ )
+
