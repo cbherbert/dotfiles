@@ -51,7 +51,8 @@
 ;; Custom Mode Bindings:
 (add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
 (add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
-(add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode))
+(if (>= emacs-major-version 24) 
+    (add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode)))
 
 ;; Idutils:
 (autoload 'gid "idutils" nil t)
@@ -79,24 +80,26 @@
 ;;  Python
 ;;;
 
-;(setq py-install-directory "~/.emacs.d/python-mode-6.0.11")
-;(add-to-list 'load-path py-install-directory)
-(require 'python-mode)
-; use IPython
-(setq-default py-shell-name "ipython")
-(setq-default py-which-bufname "IPython")
-; use the wx backend, for both mayavi and matplotlib
-;(setq py-python-command-args
-;      '("--gui=wx" "--pylab=wx" "-colors" "Linux"))
-(setq py-force-py-shell-name-p t)
+(if (>= emacs-major-version 24)
+    ;;(setq py-install-directory "~/.emacs.d/python-mode-6.0.11")
+    ;;(add-to-list 'load-path py-install-directory)
+    (require 'python-mode)
+  ;; use IPython
+  (setq-default py-shell-name "ipython")
+  (setq-default py-which-bufname "IPython")
+  ;; use the wx backend, for both mayavi and matplotlib
+  ;;(setq py-python-command-args
+  ;;      '("--gui=wx" "--pylab=wx" "-colors" "Linux"))
+  (setq py-force-py-shell-name-p t)
 
-; switch to the interpreter after executing code
-(setq py-shell-switch-buffers-on-execute-p t)
-;(setq py-switch-buffers-on-execute-p t)
-; don't split windows
-(setq py-split-windows-on-execute-p nil)
-; try to automagically figure out indentation
-(setq py-smart-indentation t)
+  ;; switch to the interpreter after executing code
+  (setq py-shell-switch-buffers-on-execute-p t)
+  ;;(setq py-switch-buffers-on-execute-p t)
+  ;; don't split windows
+  (setq py-split-windows-on-execute-p nil)
+  ;; try to automagically figure out indentation
+  (setq py-smart-indentation t)
+  )
 
 
 ;;;
@@ -109,15 +112,17 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(frame-background-mode (quote dark))
- '(org-n-level-faces 5)
  '(org-export-backends
    (quote
-    (ascii beamer html icalendar latex man md odt texinfo))))
+    (ascii beamer html icalendar latex man md odt texinfo)))
+ '(org-n-level-faces 5))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-document-info ((t (:foreground "brightmagenta"))))
+ '(org-document-title ((t (:foreground "brightmagenta" :weight bold))))
  '(org-done ((t (:background "white" :foreground "green" :inverse-video nil :underline nil :slant normal :weight normal))))
  '(org-level-1 ((t (:inherit outline-1 :foreground "brightred"))))
  '(org-level-2 ((t (:inherit outline-2 :foreground "yellow"))))
@@ -125,5 +130,4 @@
  '(org-level-4 ((t (:inherit outline-4 :foreground "brightmagenta"))))
  '(org-level-5 ((t (:inherit outline-5 :foreground "brightcyan"))))
  '(org-tag ((t (:foreground "green"))))
- '(org-todo ((t (:background "brightred" :foreground "white" :inverse-video nil :underline nil :slant normal :weight bold))))
- )
+ '(org-todo ((t (:background "brightred" :foreground "white" :inverse-video nil :underline nil :slant normal :weight bold)))))
