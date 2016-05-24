@@ -41,6 +41,13 @@
 ;;;
 
 (put 'narrow-to-region 'disabled nil)
+(setq require-final-newline t)
+
+;; Line and column numbers:
+;(global-linum-mode t)
+;;(setq linum-format "%6d ")
+(line-number-mode t)
+(column-number-mode t)
 
 ;; Compilation mode:
 (setq compilation-scroll-output 'first-error)
@@ -51,8 +58,8 @@
 ;; Custom Mode Bindings:
 (add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
 (add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
-(if (>= emacs-major-version 24) 
-    (add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode)))
+(when (>= emacs-major-version 24) 
+  (add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode)))
 
 ;; Idutils:
 (autoload 'gid "idutils" nil t)
@@ -75,15 +82,20 @@
     )
   )
 
+(require 'comint)
+(define-key comint-mode-map (kbd "M-") 'comint-next-input)
+(define-key comint-mode-map (kbd "M-") 'comint-previous-input)
+(define-key comint-mode-map [down] 'comint-next-matching-input-from-input)
+(define-key comint-mode-map [up] 'comint-previous-matching-input-from-input)
 
 ;;;
 ;;  Python
 ;;;
 
-(if (>= emacs-major-version 24)
+(when (>= emacs-major-version 24)
     ;;(setq py-install-directory "~/.emacs.d/python-mode-6.0.11")
     ;;(add-to-list 'load-path py-install-directory)
-    (require 'python-mode)
+  (require 'python-mode)
   ;; use IPython
   (setq-default py-shell-name "ipython")
   (setq-default py-which-bufname "IPython")
@@ -96,7 +108,8 @@
   (setq py-shell-switch-buffers-on-execute-p t)
   ;;(setq py-switch-buffers-on-execute-p t)
   ;; don't split windows
-  (setq py-split-windows-on-execute-p nil)
+  ;;(setq py-split-windows-on-execute-p nil)
+  (setq py-split-windows-on-execute-function 'split-window-horizontally)
   ;; try to automagically figure out indentation
   (setq py-smart-indentation t)
   )
