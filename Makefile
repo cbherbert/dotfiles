@@ -4,7 +4,7 @@ DOTHOME		= $(PWD)
 
 help:
 	@echo "This repository contains the following configuration files: $(LINK_FILES)"
-	@echo "\nRun 'make install' to create symlinks to the configuration files in your home directory \
+	@echo "\nRun 'make install' to create symlinks to the configuration files in your home directory. \
 		\nExisting files will be backed up in ~/.dotfiles_bak.tar. \
 		\nRun 'make restore' to replace the symbolic links by the files backed up in ~/.dotfiles_bak.tar. \
 		\n\nYou can also run 'make dotfile' to install only a specific dotfile."
@@ -19,5 +19,5 @@ $(LINK_FILES):
 	ln -sf $(DOTHOME)/src/$@ ~/.$@
 
 solarized:
-	git clone git://github.com/altercation/solarized.git
+	git clone "git://github.com/altercation/solarized.git"
 
