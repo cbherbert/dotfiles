@@ -16,6 +16,8 @@
 		       solarized-theme       ; This is the solarized theme by Bozhidar Batsov, https://github.com/bbatsov/solarized-emacs
 		       cuda-mode
 		       ein
+		       gitconfig-mode
+		       gitignore-mode
 		       lua-mode
 		       markdown-mode
 		       matlab-mode
@@ -62,6 +64,7 @@
 (add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
 (when (>= emacs-major-version 24) 
   (add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode)))
+(add-to-list 'auto-mode-alist '("\\.conkyrc" . shell-script-mode))
 
 ;; Idutils:
 (autoload 'gid "idutils" nil t)
@@ -69,6 +72,9 @@
 ;; Fortran namelist mode:
 ;;(add-to-list 'load-path "~/.emacs.d/f90-namelist-mode/")
 ;;(require 'f90-namelist-mode)
+;; (add-to-list 'load-path "~/.emacs.d/namelist-mode/")
+;; (require 'namelist-mode)
+
 
 ;; Solarized theme colors:
 (if (>= emacs-major-version 24)
