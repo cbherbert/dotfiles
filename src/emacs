@@ -40,8 +40,10 @@
 ;;   Basic Settings
 ;;;
 
+(setq fill-column 80)
 (put 'narrow-to-region 'disabled nil)
 (setq require-final-newline t)
+(setq vc-follow-symlinks t)
 
 ;; Line and column numbers:
 ;(global-linum-mode t)
