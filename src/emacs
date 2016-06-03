@@ -58,8 +58,9 @@
 (autoload 'gid "idutils" nil t)
 
 ;; Fortran namelist mode:
-;;(add-to-list 'load-path "~/.emacs.d/f90-namelist-mode/")
-;;(require 'f90-namelist-mode)
+(if (file-exists-p "~/.emacs.d/f90-namelist-mode/f90-namelist-mode.el")
+    (add-to-list 'load-path "~/.emacs.d/f90-namelist-mode/")
+  (require 'f90-namelist-mode))
 
 ;; Solarized theme colors:
 (if (>= emacs-major-version 24)
