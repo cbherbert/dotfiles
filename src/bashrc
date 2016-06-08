@@ -106,13 +106,17 @@ function disk_color()
 	echo -en ${ALERT}
 	# No 'write' privilege in the current directory.
     elif [ -s "${PWD}" ] ; then
-	local used=$(command df -P "$PWD" | awk 'END {print $5}')
-	if [ ${used%\%} -gt 95 ]; then
-	    echo -en ${BRed}           # Disk almost full (>95%).
-	elif [ ${used%\%} -gt 90 ]; then
-	    echo -en ${Yellow}            # Free disk space almost gone.
+	local used=$(command df "$PWD" | awk 'END {print $5}')
+	if [ -z "${used}" ]; then
+	    echo -en ${NC}
 	else
-	    echo -en ${Green}           # Free disk space is ok.
+	    if [ ${used%\%} -gt 95 ]; then
+		echo -en ${BRed}           # Disk almost full (>95%).
+	    elif [ ${used%\%} -gt 90 ]; then
+		echo -en ${Yellow}            # Free disk space almost gone.
+	    else
+		echo -en ${Green}           # Free disk space is ok.
+	    fi
 	fi
     else
 	echo -en ${Cyan}
