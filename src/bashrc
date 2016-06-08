@@ -14,46 +14,6 @@ if [ "$os" == "Darwin" ]; then
     for dir in "${macportspath[@]}"; do dir="${macportsprefix}/$dir"; [ -d "$dir" ] && PATH="$dir:$PATH"; done
     export PATH
     [ -d "${macportsprefix}/share/man" ] && export MANPATH="${macportsprefix}/share/man:$MANPATH"
-elif [ "$os" == "SunOS" ]; then
-#  @allo-psmn = no tools
-#  export PATH=".:~/:~/bin:/bin:/usr/bin:/usr/local/bin:/usr/ucb:/usr/bin/X11/"
-#  export PATH="$PATH:/usr/ccs/bin/:/opt/SUNWspro/bin/:/etc"
-    export MANPATH="/usr/man:/opt/SUNWspro/man:/opt/SUNWhpc/man:/usr/share/pvm3/man"
-    export LD_LIBRARY_PATH="/usr/openwin/lib:/opt/SUNWpvm3/lib/SUNMP:/opt/SUNWmpi1/lib/solaris/ch_lfshmem"
-elif [ "$os" == "Linux" ]; then
-# ! allo-psmn
-# PSMN basics without modulefiles
-    export LD_LIBRARY_PATH="/gridware/sge/lib/lx24-amd64:$LD_LIBRARY_PATH"
-    export SGE_ROOT="/gridware/sge"
-    export PGI="/softs/pgi"
-    export TERM="xterm-256color"
-
-# general aliases
-#  alias cd='cd \!*;echo $cwd'
-    alias cp='cp -i'
-    alias mv='mv -i'
-#  alias rm='rm -i'
-    alias emacs="emacs -nw"
-
-# OS specific
-    if [[ -e "/etc/redhat-release" ]]; then
-# Centos
-#     export PATH=".:~/:~/bin:/usr/bin:/bin:/gridware/sge/bin/lx24-amd64:/usr/local/bin"
-	export PATH="$PATH"
-   else
-# Debian
-#     export PATH=".:~/:~/bin:/usr/bin:/bin:/gridware/sge/bin/lx24-amd64"
-  
-  # init EnvironmentModule, see Profile
-  #source /usr/share/modules/init/bash
-  #module use /applis/PSMN/Modules
-  #module load Base/psmn
-
-  # perl5
-    export PERL_MB_OPT="--install_base \"${HOME}/perl5\""
-    export PERL_MM_OPT="INSTALL_BASE=${HOME}/perl5"
-    export PERL5OPT="-I${HOME}/perl5/lib/perl5 -I${HOME}/perl5/lib/perl5/site_perl"
-  fi
 fi
 
 # Load custom stuff
