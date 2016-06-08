@@ -4,14 +4,52 @@
 ;;   Packages
 ;;;
 
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (require 'cl)
-  (add-to-list
-   'package-archives
-   '("melpa" . "http://melpa.org/packages/")
-   t)
-  (setq package-list '(color-theme-sanityinc-solarized ; https://github.com/purcell/color-theme-sanityinc-solarized
+;; When running emacs23, install package.el manually
+;; This is strongly inspired from http://tromey.com/elpa/package-install.el
+;; but for some reason the package.el available there does not work; 
+;; downloading from a different location
+(when (and (eq emacs-major-version 23) (not (file-exists-p "~/.emacs.d/elpa/package.el")))
+  (let ((my-archive-base "http://git.savannah.gnu.org/gitweb/?p=emacs.git;a=blob_plain;hb=ba08b24186711eaeb3748f3d1f23e2c2d9ed0d09;f=lisp/emacs-lisp/")
+	(my-user-dir (expand-file-name "~/.emacs.d/elpa")))
+    (require 'pp)
+    (let ((download
+	   (lambda (url)
+	     (if (fboundp 'url-retrieve-synchronously)
+		 ;; Use URL to download.
+		 (let ((buffer (url-retrieve-synchronously url)))
+		   (save-excursion
+		     (set-buffer buffer)
+		     (goto-char (point-min))
+		     (re-search-forward "^$" nil 'move)
+		     (forward-char)
+		     (delete-region (point-min) (point))
+		     buffer))
+	       ;; Use wget to download.
+	       (save-excursion
+		 (with-current-buffer
+		     (get-buffer-create
+		      (generate-new-buffer-name " *Download*"))
+		   (shell-command (concat "wget -q -O- " url)
+				  (current-buffer))
+		   (goto-char (point-min))
+		   (current-buffer)))))))
+
+      ;; Make the ELPA directory.
+      (make-directory my-user-dir t)
+
+      ;; Download package.el and put it in the user dir.
+      (let ((pkg-buffer (funcall download (concat my-archive-base "package.el"))))
+    	(save-excursion
+    	  (set-buffer pkg-buffer)
+    	  (setq buffer-file-name (concat (file-name-as-directory my-user-dir) "package.el"))
+    	  (save-buffer)
+    	  (kill-buffer pkg-buffer))))))
+
+(when (>= emacs-major-version 23)
+  (when (file-exists-p "~/.emacs.d/elpa/package.el")
+    (add-to-list 'load-path "~/.emacs.d/elpa"))
+  (if (>= emacs-major-version 24)
+      (setq package-list '(color-theme-sanityinc-solarized ; https://github.com/purcell/color-theme-sanityinc-solarized
 		       color-theme-solarized ; This is the solarized theme by Greg Pfeil, https://github.com/sellout/emacs-color-theme-solarized
 		       solarized-theme       ; This is the solarized theme by Bozhidar Batsov, https://github.com/bbatsov/solarized-emacs
 		       cuda-mode
@@ -19,21 +57,32 @@
 		       lua-mode
 		       markdown-mode
 		       matlab-mode
-		       python-mode
-		       ))
+		       python-mode))
+    (setq package-list '(color-theme
+			 color-theme-solarized
+			 cuda-mode
+			 lua-mode
+			 matlab-mode
+			 python-mode)))
+  (require 'package))
+
+
+(when (featurep 'package)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
   (package-initialize)
 
-  (defun packages-installed-p ()
-    (cl-every 'package-installed-p package-list))
+  (when (boundp 'package-list)
+    (require 'cl)
+    (defun packages-installed-p ()
+      (every 'package-installed-p package-list))
 
-  (unless (packages-installed-p)
-    (message "%s" "Some packages are missing. Installing them now...")    
-    (message "%s" "Refreshing package database...")
-    (package-refresh-contents)
-    (dolist (p package-list)
-      (unless (package-installed-p p)
-	(package-install p))))
-  )
+    (unless (packages-installed-p)
+      (message "%s" "Some packages are missing. Installing them now...")    
+      (message "%s" "Refreshing package database...")
+      (package-refresh-contents)
+      (dolist (p package-list)
+	(unless (package-installed-p p)
+	  (package-install p))))))
 
 
 ;;;
@@ -51,15 +100,15 @@
 ;; Custom Mode Bindings:
 (add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
 (add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
-(if (>= emacs-major-version 24) 
-    (add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode)))
+(when (featurep 'cuda-mode) 
+  (add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode)))
 
 ;; Idutils:
 (autoload 'gid "idutils" nil t)
 
 ;; Fortran namelist mode:
-(if (file-exists-p "~/.emacs.d/f90-namelist-mode/f90-namelist-mode.el")
-    (add-to-list 'load-path "~/.emacs.d/f90-namelist-mode/")
+(when (file-exists-p "~/.emacs.d/f90-namelist-mode/f90-namelist-mode.el")
+  (add-to-list 'load-path "~/.emacs.d/f90-namelist-mode/")
   (require 'f90-namelist-mode))
 
 ;; Solarized theme colors:
@@ -67,12 +116,10 @@
     (load-theme 'solarized t)
   (when (>= emacs-major-version 23)
     ;; How to get Solarized color theme when using Emacs 23 ?
-    ;; (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
-    ;; (require 'color-theme)
-    ;; (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized")
-    ;; (require 'color-theme-solarized)
-    ;; (color-theme-solarized)
-    ;; (custom-set-faces  '(default ((t (:background "black"))) t))
+    (require 'color-theme)
+    (require 'color-theme-solarized)
+    (color-theme-solarized)
+    (custom-set-faces  '(default ((t (:background "black"))) t))
     )
   )
 
@@ -81,10 +128,10 @@
 ;;  Python
 ;;;
 
-(if (>= emacs-major-version 24)
-    ;;(setq py-install-directory "~/.emacs.d/python-mode-6.0.11")
-    ;;(add-to-list 'load-path py-install-directory)
-    (require 'python-mode)
+(when (>= emacs-major-version 24)
+  ;;(setq py-install-directory "~/.emacs.d/python-mode-6.0.11")
+  ;;(add-to-list 'load-path py-install-directory)
+  (require 'python-mode)
   ;; use IPython
   (setq-default py-shell-name "ipython")
   (setq-default py-which-bufname "IPython")
