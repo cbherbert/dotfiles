@@ -106,7 +106,7 @@ function disk_color()
 	echo -en ${ALERT}
 	# No 'write' privilege in the current directory.
     elif [ -s "${PWD}" ] ; then
-	local used=$(command df "$PWD" | awk 'END {print $5}')
+	local used=$(command df -h "$PWD" | awk '{print $(NF-1)}' | tail -1)
 	if [ -z "${used}" ]; then
 	    echo -en ${NC}
 	else
