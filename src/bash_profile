@@ -33,3 +33,7 @@ fi
 if [ -f "/opt/local/etc/profile.d/bash_completion.sh" ]; then
     source "/opt/local/etc/profile.d/bash_completion.sh"
 fi
+
+if [ -f "/etc/bash_completion" ]; then
+    source /etc/bash_completion
+fi

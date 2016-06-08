@@ -5,6 +5,7 @@
 *.o
 *.mod
 *.pyc
+*.err
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
