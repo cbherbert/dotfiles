@@ -16,6 +16,17 @@ if [ "$os" == "Darwin" ]; then
     [ -d "${macportsprefix}/share/man" ] && export MANPATH="${macportsprefix}/share/man:$MANPATH"
 fi
 
+if [[ ${HOSTNAME#access?.} ==  "wexac.weizmann.ac.il" ]]; then
+    module load emacs
+    module load git
+    module load gnuplot
+    module load python
+    module load icompiler/2015
+    module load gcc
+    module load openmpi/1.6.5
+    eval "$(ssh-agent -s)" > /dev/null
+fi
+
 # Load custom stuff
 [ -d "${HOME}/scripts" ] && export PATH="${HOME}/scripts:${PATH}" # Custom scripts
 [ -d "${HOME}/scripts/crypto" ] && export PATH="${HOME}/scripts/crypto:${PATH}" # Custom scripts
@@ -35,6 +46,7 @@ elif ls -G -d . > /dev/null 2>&1; then
 else
     alias ls="ls -F"
 fi
+alias emacs='emacs -nw'
 command -v colormake > /dev/null 2>&1 && alias make='colormake'
 [ -f "${HOME}/.id-lang.map" ] && alias mkid='mkid -m ~/.id-lang.map'
 
