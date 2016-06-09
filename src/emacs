@@ -108,6 +108,13 @@
 ;; Automatically wrap lines for text modes:
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
+;; Highlight matching parenthesis
+(show-paren-mode 1)
+(setq show-paren-style 'parenthesis) ; highlight brackets - can also be expression or mixed
+(set-face-background 'show-paren-match (face-background 'default))
+(set-face-foreground 'show-paren-match "magenta")
+(set-face-attribute 'show-paren-match nil :weight 'normal)
+
 ;; Custom Mode Bindings:
 (add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
 (add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
@@ -155,17 +162,20 @@
   (require 'python-mode)
   ;; use IPython
   (setq-default py-shell-name "ipython")
-  (setq-default py-which-bufname "IPython")
-  ;; use the wx backend, for both mayavi and matplotlib
-  ;;(setq py-python-command-args
-  ;;      '("--gui=wx" "--pylab=wx" "-colors" "Linux"))
   (setq py-force-py-shell-name-p t)
+  (setq-default py-which-bufname "IPython")  
+  ;; use the wx backend, for both mayavi and matplotlib
+  (setq py-python-command-args
+	'("--pylab=TkAgg"))
+  ;;      '("--gui=wx" "--pylab=wx" "-colors" "Linux"))
+  
 
   ;; switch to the interpreter after executing code
   (setq py-shell-switch-buffers-on-execute-p t)
-  ;;(setq py-switch-buffers-on-execute-p t)
-  ;; don't split windows
-  ;;(setq py-split-windows-on-execute-p nil)
+  (setq py-switch-buffers-on-execute-p nil)
+  ;; split windows
+  (setq py-split-windows-on-execute-p t)
+  (setq py-split-window-on-execute-threshold 4)
   (setq py-split-windows-on-execute-function 'split-window-horizontally)
   ;; try to automagically figure out indentation
   (setq py-smart-indentation t)
