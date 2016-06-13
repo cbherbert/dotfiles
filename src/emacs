@@ -52,6 +52,7 @@
       (setq package-list '(color-theme-sanityinc-solarized ; https://github.com/purcell/color-theme-sanityinc-solarized
 		       color-theme-solarized ; This is the solarized theme by Greg Pfeil, https://github.com/sellout/emacs-color-theme-solarized
 		       solarized-theme       ; This is the solarized theme by Bozhidar Batsov, https://github.com/bbatsov/solarized-emacs
+		       auctex
 		       cuda-mode
 		       ein
 		       gitconfig-mode
