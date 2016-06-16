@@ -19,8 +19,15 @@ export GLOBIGNORE=.:..
 export EDITOR="emacs -nw"
 [ -d "/Developer" ] && PATH="${PATH}:/Developer/usr/bin:/Developer/usr/sbin"
 [ -d "$HOME/bin" ] && PATH="${PATH}:$HOME/bin"
-[ -d "/usr/local/cuda/bin" ] && PATH="${PATH}:/usr/local/cuda/bin"
-[ -d "/usr/local/cuda/lib" ] && DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}:/usr/local/cuda/lib64:/usr/local/cuda/lib"
+[ -d "/usr/local/cuda/bin" ] && PATH="/usr/local/cuda/bin:${PATH}"
+if [ "$(uname -s)" == "Darwin" ]; then
+    LIB_PATH="DYLD_LIBRARY_PATH"
+else
+    LIB_PATH="LD_LIBRARY_PATH"
+fi
+[ -d "/usr/local/cuda/lib" ] && export "${LIB_PATH}=/usr/local/cuda/lib:${!LIB_PATH}"
+[ -d "/usr/local/cuda/lib64" ] && export "${LIB_PATH}=/usr/local/cuda/lib64:${!LIB_PATH}"
+
 
 if [ -f "$HOME/.profile" ]; then
     source "$HOME/.profile"
