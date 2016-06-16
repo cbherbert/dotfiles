@@ -119,7 +119,6 @@
 ;; Custom Mode Bindings:
 (add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
 (add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
-(add-to-list 'auto-mode-alist '("\\.conkyrc" . shell-script-mode))
 (when (featurep 'cuda-mode) 
   (add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode)))
 

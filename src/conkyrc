@@ -1,0 +1,87 @@
+# -*- mode: shell-script -*-
+alignment bottom_left
+background yes
+border_width 2
+cpu_avg_samples 2
+#default_color 222222
+#default_outline_color 222222
+double_buffer yes
+draw_borders yes
+draw_graph_borders yes
+draw_outline no
+draw_shades no
+use_xft yes
+xftfont Sans Mono:size=9
+gap_x 0
+gap_y 0
+minimum_size 1920 6
+maximum_width 1920
+net_avg_samples 2
+no_buffers yes
+out_to_console no
+out_to_stderr no
+extra_newline no
+own_window no
+own_window_class Conky
+own_window_type desktop
+own_window_transparent no
+#own_window_colour 002B36
+own_window_colour 073642
+stippled_borders 0
+update_interval 1.0
+uppercase no
+use_spacer right
+show_graph_scale no
+show_graph_range no
+format_human_readable yes
+pad_percents 3
+
+
+# Zenburn theme colors:
+#color2 F0DFAF  #beige
+#color2 CC9393  #red
+#color2 3F3F3F  #dark grey
+#color2 1E2320  #black
+
+
+
+# color1 DCDCCC #white
+# # Pastel colors:
+# color2 1B85b8 #blue
+# color3 AE5A41 #red
+# color4 C3CB71 #yellow
+# color5 559E83 #green
+# color6 5A5255 #dark grey
+
+
+# Solarized colors
+color1 FDF6E3 #white
+ #color1  EEE8D5 #beige 
+ #color2 268BD2 #blue
+color2 6C71C4 #violet
+ #color3 DC322F #red
+color3 D33682 #magenta
+color4 B58900 #yellow
+ #orange CB4B16
+color5 859900 #green
+ #cyan   2AA198
+color6 93A1A1 #light grey
+
+
+TEXT
+#${color2}Up:${color2} ${upspeed eth0} ${color2} - Down:${color2} ${downspeed eth0}     \
+
+${color2}DISK: \
+${color3}/ ${color1} ${fs_used /}/${fs_size /} \
+${color3}/data ${color1} ${fs_used /data}/${fs_size /data} \
+${color3}/bigdata ${color1} ${fs_used /bigdata}/${fs_size /bigdata} \
+#${color3} IO:${color1} ${diskio} \
+
+${color6}| \
+${color2}RAM:  ${color1} ${membar 5,50} ${mem}/${memmax} ${color6}| \
+${color2}CPU1: ${color1} ${cpubar cpu1 5,50} ${cpu cpu1}% \
+${color2}CPU2: ${color1}${cpubar cpu2 5,50} ${cpu cpu2}% \
+${color2}CPU3: ${color1}${cpubar cpu3 5,50} ${cpu cpu3}% \
+${color2}CPU4: ${color1}${cpubar cpu4 5,50} ${cpu cpu4}% \
+${color2} GPU: ${color1}${exec nvidia-settings -t -q GPUUtilization | cut -d ',' -f 1 | tr -dc '[0-9]'}% ${color6}| \
+${color2} TOP: ${color4}${top name 1} ${color1}${top cpu 1} ${color4}${top_mem name 1} ${color1}${top_mem mem 1} ${color6}|

@@ -1,5 +1,7 @@
-LINK_FILES	= bash_profile bashrc dircolors gitignore_global emacs id-lang.map
-DOTHOME		= $(PWD)
+LINK_FILES_Linux  = conkyrc
+LINK_FILES_Darwin = 
+LINK_FILES	  = bash_profile bashrc dircolors gitignore_global emacs id-lang.map $(LINK_FILES_$(shell uname -s))
+DOTHOME		  = $(PWD)
 
 
 help:
