@@ -1,6 +1,8 @@
 LINK_FILES_Linux  = conkyrc
 LINK_FILES_Darwin = 
 LINK_FILES	  = bash_profile bashrc dircolors gitignore_global emacs id-lang.map $(LINK_FILES_$(shell uname -s))
+MPLHOME_Darwin    = $(HOME)/.matplotlib
+MPLHOME           = $(MPLHOME_$(shell uname -s))
 DOTHOME		  = $(PWD)
 
 
@@ -19,6 +21,10 @@ restore:
 $(LINK_FILES):
 	test -f ~/.$@ && (test -L ~/.$@ || tar -Prf ~/.dotfiles_bak.tar ~/.$@ ) || true
 	ln -sf $(DOTHOME)/src/$@ ~/.$@
+
+matplotlibrc:
+	test -f $(MPLHOME)/$@ && (test -L $(MPLHOME)/$@ || tar -Prf ~/.dotfiles_bak.tar $(MPLHOME)/$@ ) || true
+	ln -sf $(DOTHOME)/src/$@ $(MPLHOME)/$@
 
 texshop:
 	./bin/texshop-colorscheme.sh -c my_solarized_light
