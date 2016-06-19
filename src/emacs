@@ -133,6 +133,10 @@
   (add-to-list 'load-path "~/.emacs.d/f90-namelist-mode/")
   (require 'f90-namelist-mode))
 
+;; Custom Key Bindings
+(define-key global-map (kbd "C-c r") 'replace-string)
+(define-key global-map (kbd "C-c q") 'query-replace)
+(define-key global-map (kbd "C-c TAB") 'indent-region)
 
 ;; Solarized theme colors:
 (if (>= emacs-major-version 24)
