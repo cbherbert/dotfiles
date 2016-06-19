@@ -1,6 +1,7 @@
 LINK_FILES_Linux  = conkyrc
 LINK_FILES_Darwin = 
 LINK_FILES	  = bash_profile bashrc dircolors gitignore_global emacs id-lang.map $(LINK_FILES_$(shell uname -s))
+MPLHOME_Linux     = $(HOME)/.config/matplotlib
 MPLHOME_Darwin    = $(HOME)/.matplotlib
 MPLHOME           = $(MPLHOME_$(shell uname -s))
 DOTHOME		  = $(PWD)
@@ -13,7 +14,7 @@ help:
 		\nRun 'make restore' to replace the symbolic links by the files backed up in ~/.dotfiles_bak.tar. \
 		\n\nYou can also run 'make dotfile' to install only a specific dotfile."
 
-install: $(LINK_FILES)
+install: $(LINK_FILES) matplotlibrc
 
 restore:
 	tar -Pxf ~/.dotfiles_bak.tar
@@ -24,7 +25,7 @@ $(LINK_FILES):
 
 matplotlibrc:
 	test -f $(MPLHOME)/$@ && (test -L $(MPLHOME)/$@ || tar -Prf ~/.dotfiles_bak.tar $(MPLHOME)/$@ ) || true
-	ln -sf $(DOTHOME)/src/$@ $(MPLHOME)/$@
+	ln -sf $(DOTHOME)/src/$@_$(shell uname -s) $(MPLHOME)/$@
 
 texshop:
 	./bin/texshop-colorscheme.sh -c my_solarized_light

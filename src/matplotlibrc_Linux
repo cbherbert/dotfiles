@@ -1,4 +1,5 @@
 # -*- mode: python -*-
+# This matplotlibrc is for Linux machines with matplotlib version < 1.5
 ### MATPLOTLIBRC FORMAT
 
 # This is a sample matplotlib configuration file - you can find a copy
@@ -36,7 +37,7 @@
 # You can also deploy your own backend outside of matplotlib by
 # referring to the module name (which must be in the PYTHONPATH) as
 # 'module://my_backend'.
-backend      : MacOSX
+backend      : gtk3agg
 
 # If you are using the Qt4Agg backend, you can choose here
 # to use the PyQt4 bindings or the newer PySide bindings to
@@ -268,8 +269,7 @@ backend      : MacOSX
 #axes.unicode_minus  : True    # use unicode for the minus symbol
                                # rather than hyphen.  See
                                # http://en.wikipedia.org/wiki/Plus_and_minus_signs#Character_codes
-#axes.prop_cycle    : cycler('color', 'bgrcmyk')
-axes.prop_cycle    : cycler('color', ['348ABD', '7A68A6', 'A60628', '467821', 'CF4457', '188487', 'E24A33'])
+axes.color_cycle    : 348ABD, 7A68A6, A60628, 467821, CF4457, 188487, E24A33
                       # E24A33 : orange
                       # 7A68A6 : purple
                       # 348ABD : blue
