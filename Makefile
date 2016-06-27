@@ -1,10 +1,16 @@
+DOTHOME		  = $(PWD)
+OS                = $(shell uname -s)
 LINK_FILES_Linux  = conkyrc
 LINK_FILES_Darwin = 
-LINK_FILES	  = bash_profile bashrc dircolors gitignore_global emacs id-lang.map $(LINK_FILES_$(shell uname -s))
+LINK_FILES	  = bash_profile bashrc dircolors gitignore_global emacs id-lang.map $(LINK_FILES_$(OS))
+PKGFILE           = packages_$(OS)
+PKGMGR_Darwin     = port
+PKGMGR_Linux      = apt-get
+PKGMGR            = $(PKGMGR_$(OS))
 MPLHOME_Linux     = $(HOME)/.config/matplotlib
 MPLHOME_Darwin    = $(HOME)/.matplotlib
-MPLHOME           = $(MPLHOME_$(shell uname -s))
-DOTHOME		  = $(PWD)
+MPLHOME           = $(MPLHOME_$(OS))
+
 
 
 help:
@@ -22,6 +28,11 @@ restore:
 $(LINK_FILES):
 	test -f ~/.$@ && (test -L ~/.$@ || tar -Prf ~/.dotfiles_bak.tar ~/.$@ ) || true
 	ln -sf $(DOTHOME)/src/$@ ~/.$@
+
+packages:
+	@while IFS='' read -r pkg; do \
+		if [ ! -z "$${pkg}" ]; then sudo $(PKGMGR) install "$${pkg}"; fi; \
+	done < $(PKGFILE)
 
 matplotlibrc:
 	test -f $(MPLHOME)/$@ && (test -L $(MPLHOME)/$@ || tar -Prf ~/.dotfiles_bak.tar $(MPLHOME)/$@ ) || true
