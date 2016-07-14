@@ -52,8 +52,9 @@
       (setq package-list '(color-theme-sanityinc-solarized ; https://github.com/purcell/color-theme-sanityinc-solarized
 		       color-theme-solarized ; This is the solarized theme by Greg Pfeil, https://github.com/sellout/emacs-color-theme-solarized
 		       solarized-theme       ; This is the solarized theme by Bozhidar Batsov, https://github.com/bbatsov/solarized-emacs
-		       auctex
+		       auctex		       
 		       cuda-mode
+		       diredful
 		       ein
 		       gitconfig-mode
 		       gitignore-mode
@@ -122,6 +123,10 @@
 (when (featurep 'cuda-mode) 
   (add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode)))
 
+;; Color dired mode
+(when (fboundp 'diredful-mode)
+  (setq diredful-init-file "~/dotfiles/src/diredful-conf.el")
+  (diredful-mode 1))
 
 ;; Idutils:
 (autoload 'gid "idutils" nil t)
