@@ -61,7 +61,8 @@
 		       lua-mode
 		       markdown-mode
 		       matlab-mode
-		       python-mode))
+		       python-mode
+		       tuareg))
     (setq package-list '(color-theme
 			 color-theme-solarized
 			 cuda-mode
@@ -156,8 +157,6 @@
   )
 
 (require 'comint)
-(define-key comint-mode-map (kbd "M-") 'comint-next-input)
-(define-key comint-mode-map (kbd "M-") 'comint-previous-input)
 (define-key comint-mode-map [down] 'comint-next-matching-input-from-input)
 (define-key comint-mode-map [up] 'comint-previous-matching-input-from-input)
 
@@ -239,4 +238,6 @@
  '(org-level-5 ((t (:inherit outline-5 :foreground "brightcyan"))))
  '(org-tag ((t (:foreground "green"))))
  '(org-todo ((t (:background "brightred" :foreground "white" :inverse-video nil :underline nil :slant normal :weight bold))))
- '(py-variable-name-face ((t (:inherit default :foreground "blue")))))
+ '(py-variable-name-face ((t (:inherit default :foreground "blue"))))
+ '(tuareg-font-lock-governing-face ((t (:foreground "yellow"))))
+ '(tuareg-font-lock-operator-face ((t (:foreground "cyan")))))
