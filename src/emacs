@@ -218,6 +218,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(Buffer-menu-name-width 30)
+ '(calendar-today-visible-hook (quote (calendar-mark-today)))
+ '(calendar-week-start-day 1)
  '(frame-background-mode (quote dark))
  '(org-export-backends
    (quote
@@ -229,7 +231,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(Man-overstrike ((t (:inherit bold :foreground "brightred"))))
+ '(Man-underline ((t (:foreground "brightgreen"))))
  '(buffer-menu-buffer ((t (:foreground "yellow"))))
+ '(calendar-today ((t (:foreground "red" :underline t))))
+ '(calendar-weekend-header ((t (:inherit font-lock-comment-face :foreground "green"))))
  '(dired-directory ((t (:inherit default :foreground "brightmagenta"))))
  '(dired-perm-write ((t (:inherit default :foreground "green"))))
  '(dired-symlink ((t (:inherit default :foreground "magenta"))))
@@ -238,6 +244,9 @@
  '(info-title-1 ((t (:foreground "brightred" :weight bold))))
  '(info-title-2 ((t (:foreground "yellow"))))
  '(info-title-3 ((t (:foreground "green"))))
+ '(magit-diff-file-heading ((t (:foreground "brightred" :weight bold))))
+ '(magit-diffstat-added ((t (:foreground "green"))))
+ '(magit-diffstat-removed ((t (:foreground "red"))))
  '(org-document-info ((t (:foreground "brightmagenta"))))
  '(org-document-title ((t (:foreground "brightmagenta" :weight bold))))
  '(org-done ((t (:background "white" :foreground "green" :inverse-video nil :underline nil :slant normal :weight normal))))
@@ -249,6 +258,9 @@
  '(org-tag ((t (:foreground "green"))))
  '(org-todo ((t (:background "brightred" :foreground "white" :inverse-video nil :underline nil :slant normal :weight bold))))
  '(py-decorators-face ((t (:inherit font-lock-preprocessor-face :weight bold))))
+ '(py-import-from-face ((t (:foreground "brightred" :weight bold))))
  '(py-variable-name-face ((t (:inherit default :foreground "blue"))))
  '(tuareg-font-lock-governing-face ((t (:foreground "yellow"))))
- '(tuareg-font-lock-operator-face ((t (:foreground "cyan")))))
+ '(tuareg-font-lock-operator-face ((t (:foreground "cyan"))))
+ '(woman-bold ((t (:inherit bold :foreground "brightred"))))
+ '(woman-italic ((t (:inherit italic :foreground "blue")))))
