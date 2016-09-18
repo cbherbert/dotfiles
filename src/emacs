@@ -64,7 +64,8 @@
 		       matlab-mode
 		       pydoc
 		       python-mode
-		       tuareg))
+		       tuareg
+		       yasnippet))
     (setq package-list '(color-theme
 			 color-theme-solarized
 			 cuda-mode
@@ -209,6 +210,12 @@
 (setq TeX-PDF-mode t)
 
 ;;;
+;;   YASnippet
+;;;
+(yas-global-mode 1)
+(setq yas-wrap-around-region t)
+
+;;;
 ;;   Other custom variables:
 ;;;
 
@@ -220,6 +227,8 @@
  '(Buffer-menu-name-width 30)
  '(calendar-today-visible-hook (quote (calendar-mark-today)))
  '(calendar-week-start-day 1)
+ '(eol-mnemonic-dos "\\")
+ '(eol-mnemonic-mac "/")
  '(frame-background-mode (quote dark))
  '(org-export-backends
    (quote
@@ -239,6 +248,9 @@
  '(dired-directory ((t (:inherit default :foreground "brightmagenta"))))
  '(dired-perm-write ((t (:inherit default :foreground "green"))))
  '(dired-symlink ((t (:inherit default :foreground "magenta"))))
+ '(font-latex-sectioning-2-face ((t (:inherit font-latex-sectioning-3-face :foreground "brightred" :height 1.1))))
+ '(font-latex-sectioning-3-face ((t (:inherit font-latex-sectioning-4-face :foreground "yellow" :height 1.1))))
+ '(font-latex-sectioning-4-face ((t (:inherit font-latex-sectioning-5-face :foreground "blue" :height 1.1))))
  '(font-latex-slide-title-face ((t (:inherit (variable-pitch font-lock-type-face) :weight normal :height 1.2))))
  '(info-menu-header ((t (:foreground "blue" :underline t :weight normal))))
  '(info-title-1 ((t (:foreground "brightred" :weight bold))))
@@ -250,13 +262,24 @@
  '(org-document-info ((t (:foreground "brightmagenta"))))
  '(org-document-title ((t (:foreground "brightmagenta" :weight bold))))
  '(org-done ((t (:background "white" :foreground "green" :inverse-video nil :underline nil :slant normal :weight normal))))
- '(org-level-1 ((t (:inherit outline-1 :foreground "brightred"))))
- '(org-level-2 ((t (:inherit outline-2 :foreground "yellow"))))
- '(org-level-3 ((t (:inherit outline-3 :foreground "blue"))))
- '(org-level-4 ((t (:inherit outline-4 :foreground "brightmagenta"))))
- '(org-level-5 ((t (:inherit outline-5 :foreground "brightcyan"))))
+ '(org-level-1 ((t (:inherit outline-1))))
+ '(org-level-2 ((t (:inherit outline-2))))
+ '(org-level-3 ((t (:inherit outline-3))))
+ '(org-level-4 ((t (:inherit outline-4))))
+ '(org-level-5 ((t (:inherit outline-5))))
+ '(org-level-6 ((t (:inherit outline-6))))
+ '(org-level-7 ((t (:inherit outline-7))))
+ '(org-level-8 ((t (:inherit outline-8))))
  '(org-tag ((t (:foreground "green"))))
  '(org-todo ((t (:background "brightred" :foreground "white" :inverse-video nil :underline nil :slant normal :weight bold))))
+ '(outline-1 ((t (:foreground "brightred"))))
+ '(outline-2 ((t (:foreground "yellow"))))
+ '(outline-3 ((t (:foreground "blue"))))
+ '(outline-4 ((t (:foreground "brightmagenta"))))
+ '(outline-5 ((t (:foreground "brightwhite"))))
+ '(outline-6 ((t (:foreground "brightcyan"))))
+ '(outline-7 ((t (:foreground "brightblue"))))
+ '(outline-8 ((t (:foreground "brightyellow"))))
  '(py-decorators-face ((t (:inherit font-lock-preprocessor-face :weight bold))))
  '(py-import-from-face ((t (:foreground "brightred" :weight bold))))
  '(py-variable-name-face ((t (:inherit default :foreground "blue"))))

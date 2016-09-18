@@ -98,7 +98,7 @@ EXEC 01;31
 .sge 00;31
 # OS X Applications (overridden by the directory settings!!)
 .app 01;31
- # archives or compressed (green)
+ # archives or compressed or encrypted (green)
 .tar  00;32
 .tgz  00;32
 .arj  00;32
@@ -137,6 +137,8 @@ EXEC 01;31
 .enc  00;32
 .aes  00;32
 .des  00;32
+.keychain 00;32
+.cer  00;32
 # image formats (blue)
 .jpg 00;34
 .JPG 00;34

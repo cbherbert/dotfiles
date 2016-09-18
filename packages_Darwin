@@ -30,6 +30,7 @@ pdftk
 port_cutleaves
 py-jupyter
 py-netcdf4
+py-numba
 py-tkinter
 py27-ipython
 py27-matplotlib
@@ -41,3 +42,4 @@ python_select
 subversion
 tardiff
 tcsh
+wget
