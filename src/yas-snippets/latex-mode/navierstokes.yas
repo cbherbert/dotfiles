@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: Corentin Herbert <corentin.herbert@ens-lyon.fr>
+# name: navierstokes
+# key: navierstokes
+# --
+\begin{align*}
+	\partial_t \vec{u} + \vec{u} \cdot \nabla \vec{u} &= - \nabla P + \nu \Delta \vec{u} \\\\
+	\nabla \cdot \vec{u} &= 0
+\end{align*}

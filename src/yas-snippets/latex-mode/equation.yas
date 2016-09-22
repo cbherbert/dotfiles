@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: Corentin Herbert <corentin.herbert@ens-lyon.fr>
+# name: equation
+# key: eq
+# group: math
+# --
+\begin{equation}
+$0
+\end{equation}

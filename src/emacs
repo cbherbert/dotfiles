@@ -214,6 +214,8 @@
 ;;;
 (yas-global-mode 1)
 (setq yas-wrap-around-region t)
+(setq yas-snippet-dirs (append '("~/dotfiles/src/yas-snippets") yas-snippet-dirs))
+(yas-reload-all)
 
 ;;;
 ;;   Other custom variables:
