@@ -26,7 +26,7 @@ defaults write com.apple.finder "AppleShowAllExtensions" -bool true
 defaults write com.apple.finder "ShowStatusBar" -bool true
 defaults write com.apple.finder "ShowPathbar" -bool false
 defaults write com.apple.finder "FXEnableExtensionChangeWarning" -bool false
-chflags nohidden "~/Library"
+chflags nohidden "$HOME/Library"
 
 ##
 #  TextEdit
@@ -61,7 +61,10 @@ fi
 #  iTerm2
 ##
 
-# TODO Create solarized profiles automatically: com.googlecode.iterm2.plist
+# Import profiles automatically:
+for profile in $(dirname $0)/../src/iterm-profiles/*.plist; do
+    /usr/libexec/PlistBuddy -c "Merge $profile 'New Bookmarks'" "$HOME/Library/Preferences/com.googlecode.iterm2.plist"
+done
 # Preferences>Keys opt+left arrow send escape code b; opt+right arrow send escape code f; remove corresponding keymappings from individual profiles
 # in org-mode alt+up/down arrows to move headlines: alt behaves as esc?
 
