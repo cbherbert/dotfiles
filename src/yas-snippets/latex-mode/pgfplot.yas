@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# contributor: Corentin Herbert <corentin.herbert@ens-lyon.fr>
+# name: pgfplot
+# key: pgfplot
+# --
+\begin{tikzpicture}
+\begin{axis}
+$0
+\end{axis}
+\end{tikzpicture}
