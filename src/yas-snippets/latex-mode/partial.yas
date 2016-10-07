@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Corentin Herbert <corentin.herbert@ens-lyon.fr>
+# name: partial
+# key: partial
+# --
+\frac{\partial $0}{\partial x}

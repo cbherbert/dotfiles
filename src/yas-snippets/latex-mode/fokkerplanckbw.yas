@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: Corentin Herbert <corentin.herbert@ens-lyon.fr>
+# name: fokkerplanckbw
+# key: fokkerplanckbw
+# --
+\begin{equation}
+	\frac{\partial P(x',t'|x,t)}{\partial t} = - a(x,t) \frac{\partial}{\partial x}P(x',t'|x,t) - \epsilon \frac{\partial^2}{\partial x^2} P(x',t'|x,t).
+\end{equation}

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: Corentin Herbert <corentin.herbert@ens-lyon.fr>
+# name: align
+# key: align
+# --
+\begin{align}
+	$0
+\end{align}
