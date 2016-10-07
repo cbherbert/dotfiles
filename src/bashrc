@@ -36,6 +36,8 @@ fi
 [ -f "${HOME}/.shortcuts" ] && source "${HOME}/.shortcuts"        # Strongly machine dependent aliases like shortcuts to favorite directories
 
 # Machine-independent definitions:
+function printpath { echo "$PATH" | tr ':' '\n'; }
+
 if command -v most > /dev/null 2>&1; then export PAGER="most"; else export PAGER="less"; fi
 export MANPAGER="$PAGER"
 

@@ -16,6 +16,11 @@ export HISTIGNORE="ls:[bf]g:cd:exit:pwd"
 export GLOBIGNORE=.:..
 
 # Default programs and paths
+function varappend { var="${!1}:"; export "$1=${var//$2:}$2"; }
+function varprepend { var=":${!1}"; export "$1=$2${var//:$2}"; }
+function pathappend { varappend PATH "$1"; }
+function pathprepend { varprepend PATH "$1"; }
+
 export EDITOR="emacs -nw"
 [ -d "/Developer" ] && PATH="${PATH}:/Developer/usr/bin:/Developer/usr/sbin"
 [ -d "$HOME/bin" ] && PATH="${PATH}:$HOME/bin"
@@ -28,6 +33,8 @@ fi
 [ -d "/usr/local/cuda/lib" ] && export "${LIB_PATH}=/usr/local/cuda/lib:${!LIB_PATH}"
 [ -d "/usr/local/cuda/lib64" ] && export "${LIB_PATH}=/usr/local/cuda/lib64:${!LIB_PATH}"
 
+function python_distrib_std { export PATH="${PATH/\/usr\/local\/anaconda2\/bin:}"; export "${LIB_PATH}=${!LIB_PATH/\/usr\/local\/anaconda2\/lib:}"; }
+function python_distrib_anaconda  { pathprepend "/usr/local/anaconda2/bin"; varprepend "${LIB_PATH}" "/usr/local/anaconda2/lib"; }
 
 if [ -f "$HOME/.profile" ]; then
     source "$HOME/.profile"
