@@ -74,5 +74,16 @@ done
 
 defaults write net.sourceforge.skim-app.skim "SKAutoCheckFileUpdate" -bool true
 # set Skim as the default application to open pdf files
-defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{ LSHandlerContentType = "com.adobe.pdf"; LSHandlerRoleAll = "net.sourceforge.skim-app.skim"; }'
+PLpath="$HOME/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure.plist"
+nb=$(/usr/libexec/PlistBuddy -c "Print :LSHandlers" "$PLpath" | grep -x '\s*Dict {' | wc -l)
+for i in $(seq 0 $((nb-1))); do
+    type=$(/usr/libexec/PlistBuddy -c "Print :LSHandlers:$i:LSHandlerContentType" "$PLpath" 2> /dev/null)
+    if [ "$type" == "com.adobe.pdf" ]; then
+	/usr/libexec/PlistBuddy -c "Set :LSHandlers:$i:LSHandlerRoleAll net.sourceforge.skim-app.skim" "$PLpath"
+	status=1
+    fi
+done
+if [ "$status" != 1 ]; then
+    defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{ LSHandlerContentType = "com.adobe.pdf"; LSHandlerRoleAll = "net.sourceforge.skim-app.skim"; }'    
+fi
 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local
