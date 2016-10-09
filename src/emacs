@@ -209,6 +209,10 @@
 (setq reftex-plug-into-AUCTeX t)
 (setq TeX-PDF-mode t)
 
+(add-to-list 'auto-mode-alist '("\\.lbx" . latex-mode))
+(add-to-list 'auto-mode-alist '("\\.bbx" . latex-mode))
+(add-to-list 'auto-mode-alist '("\\.cbx" . latex-mode))
+
 ;;;
 ;;   YASnippet
 ;;;

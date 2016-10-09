@@ -250,6 +250,11 @@ EXEC 01;31
 # text, TeX et al (cyan)
 .tex 00;36
 .bib 00;36
+.sty 00;36
+.cls 00;36
+.bbx 00;36
+.cbx 00;36
+.lbx 00;36
 .org 00;36
 .txt 00;36
 .md  00;36
