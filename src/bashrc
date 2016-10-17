@@ -2,18 +2,16 @@
 [ -z "$PS1" ] && return
 
 ##
-#  Environment variables and aliases
+#  Aliases and other custom stuff
 ##
 
-# Some machine-dependent code, including building the path for OS X with Macports
-os=$(uname -s)
-if [ "$os" == "Darwin" ]; then
-    # Updating the path for macports:
-    macportsprefix="/opt/local"
-    macportspath=( "bin" "sbin" "libexec/gnubin" )
-    for dir in "${macportspath[@]}"; do dir="${macportsprefix}/$dir"; [ -d "$dir" ] && PATH="$dir:$PATH"; done
-    export PATH
-    [ -d "${macportsprefix}/share/man" ] && export MANPATH="${macportsprefix}/share/man:$MANPATH"
+# Some machine-dependent code
+
+# I think I need to duplicate this code from bash_profile because it is needed for python_distrib_* stuff, and it would not be defined in non-login shells
+if [ "$(uname -s)" == "Darwin" ]; then
+    LIB_PATH="DYLD_LIBRARY_PATH"
+else
+    LIB_PATH="LD_LIBRARY_PATH"
 fi
 
 if [[ ${HOSTNAME#access?.} ==  "wexac.weizmann.ac.il" ]]; then
@@ -28,18 +26,21 @@ if [[ ${HOSTNAME#access?.} ==  "wexac.weizmann.ac.il" ]]; then
 fi
 
 # Load custom stuff
-[ -d "${HOME}/scripts" ] && export PATH="${HOME}/scripts:${PATH}" # Custom scripts
-[ -d "${HOME}/scripts/crypto" ] && export PATH="${HOME}/scripts/crypto:${PATH}" # Custom scripts
-[ -d "${HOME}/scripts/fms-scripts" ] && export PATH="${HOME}/scripts/fms-scripts:${PATH}" # Custom scripts
-[ -d "${HOME}/scripts/ghost-scripts" ] && export PATH="${HOME}/scripts/ghost-scripts:${PATH}" # Custom scripts
 [ -f "${HOME}/scripts/ghost-scripts/ghostrc.sh" ] && source "${HOME}/scripts/ghost-scripts/ghostrc.sh" # GHOST shell tools
 [ -f "${HOME}/.shortcuts" ] && source "${HOME}/.shortcuts"        # Strongly machine dependent aliases like shortcuts to favorite directories
 
 # Machine-independent definitions:
-function printpath { echo "$PATH" | tr ':' '\n'; }
 
-if command -v most > /dev/null 2>&1; then export PAGER="most"; else export PAGER="less"; fi
-export MANPAGER="$PAGER"
+# Higher-level utilities for path manipulation (bash-specific)
+function varappend { var="${!1}:"; export "$1=${var//$2:}$2"; }
+function varprepend { var=":${!1}"; export "$1=$2${var//:$2}"; }
+function pathappend { varappend PATH "$1"; }
+function pathprepend { varprepend PATH "$1"; }
+
+alias printpath='echo -e ${PATH//:/\\n}'
+
+function python_distrib_std { export PATH="${PATH/\/usr\/local\/anaconda2\/bin:}"; export "${LIB_PATH}=${!LIB_PATH/\/usr\/local\/anaconda2\/lib:}"; }
+function python_distrib_anaconda  { pathprepend "/usr/local/anaconda2/bin"; varprepend "${LIB_PATH}" "/usr/local/anaconda2/lib"; }
 
 if ls --color -d . > /dev/null 2>&1; then
     alias ls="ls -F --color"

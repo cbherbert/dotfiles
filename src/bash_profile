@@ -3,6 +3,12 @@ Cyan='\x1B[0;36m'         # Cyan
 NC="\x1B[m"               # Color Reset
 echo -e "${Cyan}BASH ${BASH_VERSION%.*} - $(date)${NC}"
 
+
+##
+#  Environment variables
+##
+
+# Language
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
@@ -15,16 +21,24 @@ export HISTCONTROL=ignorespace:erasedups
 export HISTIGNORE="ls:[bf]g:cd:exit:pwd"
 export GLOBIGNORE=.:..
 
-# Default programs and paths
-function varappend { var="${!1}:"; export "$1=${var//$2:}$2"; }
-function varprepend { var=":${!1}"; export "$1=$2${var//:$2}"; }
-function pathappend { varappend PATH "$1"; }
-function pathprepend { varprepend PATH "$1"; }
-
-export EDITOR="emacs -nw"
-[ -d "/Developer" ] && PATH="${PATH}:/Developer/usr/bin:/Developer/usr/sbin"
-[ -d "$HOME/bin" ] && PATH="${PATH}:$HOME/bin"
+# Building the path
+if [ "$(uname -s)" == "Darwin" ]; then
+    # Macports path for OS X
+    macportsprefix="/opt/local"
+    macportspath=( "sbin" "bin" "libexec/gnubin" )
+    for dir in "${macportspath[@]}"; do dir="${macportsprefix}/$dir"; [ -d "$dir" ] && PATH="$dir:$PATH"; done    
+    [ -d "${macportsprefix}/share/man" ] && export MANPATH="${macportsprefix}/share/man:$MANPATH"
+fi
+[ -d "/Developer" ] && PATH="/Developer/usr/bin:/Developer/usr/sbin:${PATH}"
 [ -d "/usr/local/cuda/bin" ] && PATH="/usr/local/cuda/bin:${PATH}"
+[ -d "${HOME}/bin" ] && PATH="$HOME/bin:${PATH}"
+[ -d "${HOME}/scripts" ] && PATH="${HOME}/scripts:${PATH}" # Custom scripts
+[ -d "${HOME}/scripts/crypto" ] && PATH="${HOME}/scripts/crypto:${PATH}" # Custom scripts
+[ -d "${HOME}/scripts/fms-scripts" ] && PATH="${HOME}/scripts/fms-scripts:${PATH}" # Custom scripts
+[ -d "${HOME}/scripts/ghost-scripts" ] && PATH="${HOME}/scripts/ghost-scripts:${PATH}" # Custom scripts
+export PATH
+
+# Library path
 if [ "$(uname -s)" == "Darwin" ]; then
     LIB_PATH="DYLD_LIBRARY_PATH"
 else
@@ -33,8 +47,15 @@ fi
 [ -d "/usr/local/cuda/lib" ] && export "${LIB_PATH}=/usr/local/cuda/lib:${!LIB_PATH}"
 [ -d "/usr/local/cuda/lib64" ] && export "${LIB_PATH}=/usr/local/cuda/lib64:${!LIB_PATH}"
 
-function python_distrib_std { export PATH="${PATH/\/usr\/local\/anaconda2\/bin:}"; export "${LIB_PATH}=${!LIB_PATH/\/usr\/local\/anaconda2\/lib:}"; }
-function python_distrib_anaconda  { pathprepend "/usr/local/anaconda2/bin"; varprepend "${LIB_PATH}" "/usr/local/anaconda2/lib"; }
+# Default programs
+export EDITOR="emacs -nw"
+if command -v most > /dev/null 2>&1; then export PAGER="most"; else export PAGER="less"; fi
+export MANPAGER="$PAGER"
+
+
+##
+#  Sourcing other files
+##
 
 if [ -f "$HOME/.profile" ]; then
     source "$HOME/.profile"
