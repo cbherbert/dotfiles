@@ -101,6 +101,7 @@
 (put 'narrow-to-region 'disabled nil)
 (setq require-final-newline t)
 (setq vc-follow-symlinks t)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Line and column numbers:
 ;(global-linum-mode t)
