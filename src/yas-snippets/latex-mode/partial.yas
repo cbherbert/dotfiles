@@ -3,4 +3,4 @@
 # name: partial
 # key: partial
 # --
-\frac{\partial $0}{\partial x}
+\frac{\partial $1}{\partial ${2:x}}$0

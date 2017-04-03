@@ -1,8 +1,9 @@
 # -*- mode: snippet -*-
 # contributor: Corentin Herbert <corentin.herbert@ens-lyon.fr>
-# name: fokkerplanck 
+# name: fokkerplanck
 # key: fokkerplanck
 # --
 \begin{equation}
-	\frac{\partial P(x,t)}{\partial t} = - \frac{\partial}{\partial x} \lbrack a(x,t)P(x,t)\rbrack + \epsilon \frac{\partial^2}{\partial x^2} P(x,t).
+	\frac{\partial ${1:P(x,t)}}{\partial t} = - \frac{\partial}{\partial x} \lbrack a(x,t)$1\rbrack + \epsilon \frac{\partial^2}{\partial x^2} $1.
 \end{equation}
+$0

@@ -42,6 +42,9 @@ alias printpath='echo -e ${PATH//:/\\n}'
 function python_distrib_std { export PATH="${PATH/\/usr\/local\/anaconda2\/bin:}"; export "${LIB_PATH}=${!LIB_PATH/\/usr\/local\/anaconda2\/lib:}"; }
 function python_distrib_anaconda  { pathprepend "/usr/local/anaconda2/bin"; varprepend "${LIB_PATH}" "/usr/local/anaconda2/lib"; }
 
+# rename file by replacing all white spaces with underscores:
+function trspaces { mv "$1" "${1// /_}"; }
+
 if ls --color -d . > /dev/null 2>&1; then
     alias ls="ls -F --color"
 elif ls -G -d . > /dev/null 2>&1; then
@@ -58,7 +61,7 @@ command -v colormake > /dev/null 2>&1 && alias make='colormake'
 #  Customize ls colors:
 ##
 
-[ -r "$HOME/.dircolors" ] && d="$HOME/.dircolors"   
+[ -r "$HOME/.dircolors" ] && d="$HOME/.dircolors"
 command -v dircolors > /dev/null 2>&1 && eval "$(dircolors $d)"
 
 

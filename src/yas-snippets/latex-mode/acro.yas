@@ -3,7 +3,7 @@
 # name: acro
 # key: acro
 # --
-\DeclareAcronym{$0}{
-	short=,
-	long=,
+\DeclareAcronym{$1}{
+	short=$2,
+	long=$0,
 }

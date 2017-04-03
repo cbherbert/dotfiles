@@ -48,8 +48,10 @@ defaults write com.apple.TextEdit RichText -int 0
 if command -v port > /dev/null 2>&1; then
     sudo port select --set python python27
     sudo port select --set python2 python27
+    sudo port select --set python3 python36
     sudo port select --set ipython py27-ipython
     sudo port select --set ipython2 py27-ipython
+    sudo port select --set ipython3 py36-ipython
     sudo port select --set cython cython27
     sudo port select --set mpi openmpi-mp-fortran
     sudo port select --set llvm mp-llvm-3.8
@@ -87,6 +89,6 @@ for i in $(seq 0 $((nb-1))); do
     fi
 done
 if [ "$status" != 1 ]; then
-    defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{ LSHandlerContentType = "com.adobe.pdf"; LSHandlerRoleAll = "net.sourceforge.skim-app.skim"; }'    
+    defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{ LSHandlerContentType = "com.adobe.pdf"; LSHandlerRoleAll = "net.sourceforge.skim-app.skim"; }'
 fi
 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local

@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# contributor: Corentin Herbert <corentin.herbert@ens-lyon.fr>
+# name: rans
+# key: rans
+# --
+\begin{align*}
+	\partial_t \bar{${1:u}}_i + \bar{$1}_j \partial^j \bar{$1}_i &= - \partial_i \bar{P} - \partial^j \overline{$1'_i$1'_j} + \nu \partial_j \partial^j \bar{$1}_i, \\\\
+	\partial_t $1'_i + \bar{$1}_j \partial^j $1'_i + $1'_j \partial^j \bar{$1}_i &= - \partial_i P' - \partial^j $1'_i$1'_j+\partial^j \overline{$1'_i$1'_j} + \nu \partial_j \partial^j $1'_i.
+\end{align*}
+$0

@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# contributor: Corentin Herbert <corentin.herbert@ens-lyon.fr>
+# name: navierstokesfourier
+# key: nsfour
+# --
+\begin{align*}
+	(\partial_t+\nu $2^2) \hat{${1:u}}_i(\vec{${2:k}}) &= \sum_{\vec{${3:p}},\vec{${4:q}}} \mathcal{P}_i^{jl}(\vec{$2}) \delta(\vec{$2}-\vec{$3}-\vec{$4}) \hat{$1}_j(\vec{$3})\hat{$1}_l(\vec{$4}), \\\\
+	$2^i \hat{$1}_i(\vec{$2}) &= 0.
+\end{align*}
+$0

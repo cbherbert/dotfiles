@@ -4,6 +4,7 @@
 # key: navierstokes
 # --
 \begin{align*}
-	\partial_t \vec{u} + \vec{u} \cdot \nabla \vec{u} &= - \nabla P + \nu \Delta \vec{u} \\\\
-	\nabla \cdot \vec{u} &= 0
+	\partial_t \vec{${1:u}} + \vec{$1} \cdot \nabla \vec{$1} &= - \nabla P + \nu \Delta \vec{$1}, \\\\
+	\nabla \cdot \vec{$1} &= 0.
 \end{align*}
+$0
