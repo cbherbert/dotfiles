@@ -1,8 +1,12 @@
 # -*- mode: shell-script-*-
-Cyan='\x1B[0;36m'         # Cyan
-NC="\x1B[m"               # Color Reset
-echo -e "${Cyan}BASH ${BASH_VERSION%.*} - $(date)${NC}"
 
+##
+#  First load the generic profile
+##
+
+if [ -f "$HOME/.profile" ]; then
+    source "$HOME/.profile"
+fi
 
 ##
 #  Environment variables
@@ -26,7 +30,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
     # Macports path for OS X
     macportsprefix="/opt/local"
     macportspath=( "sbin" "bin" "libexec/gnubin" )
-    for dir in "${macportspath[@]}"; do dir="${macportsprefix}/$dir"; [ -d "$dir" ] && PATH="$dir:$PATH"; done    
+    for dir in "${macportspath[@]}"; do dir="${macportsprefix}/$dir"; [ -d "$dir" ] && PATH="$dir:$PATH"; done
     [ -d "${macportsprefix}/share/man" ] && export MANPATH="${macportsprefix}/share/man:$MANPATH"
 fi
 [ -d "/Developer" ] && PATH="/Developer/usr/bin:/Developer/usr/sbin:${PATH}"
@@ -54,12 +58,16 @@ export MANPAGER="$PAGER"
 
 
 ##
+#  Greetings
+##
+Cyan='\x1B[0;36m'         # Cyan
+NC="\x1B[m"               # Color Reset
+echo -e "${Cyan}BASH ${BASH_VERSION%.*} - $(date)${NC}"
+
+
+##
 #  Sourcing other files
 ##
-
-if [ -f "$HOME/.profile" ]; then
-    source "$HOME/.profile"
-fi
 
 if [ -f "$HOME/.bashrc" ]; then
     source "$HOME/.bashrc"
