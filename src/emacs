@@ -6,7 +6,7 @@
 
 ;; When running emacs23, install package.el manually
 ;; This is strongly inspired from http://tromey.com/elpa/package-install.el
-;; but for some reason the package.el available there does not work; 
+;; but for some reason the package.el available there does not work;
 ;; downloading from a different location
 (when (and (eq emacs-major-version 23) (not (file-exists-p "~/.emacs.d/elpa/package.el")))
   (let ((my-archive-base "http://git.savannah.gnu.org/gitweb/?p=emacs.git;a=blob_plain;hb=ba08b24186711eaeb3748f3d1f23e2c2d9ed0d09;f=lisp/emacs-lisp/")
@@ -52,7 +52,7 @@
       (setq package-list '(color-theme-sanityinc-solarized ; https://github.com/purcell/color-theme-sanityinc-solarized
 		       color-theme-solarized ; This is the solarized theme by Greg Pfeil, https://github.com/sellout/emacs-color-theme-solarized
 		       solarized-theme       ; This is the solarized theme by Bozhidar Batsov, https://github.com/bbatsov/solarized-emacs
-		       auctex		       
+		       auctex
 		       cuda-mode
 		       diredful
 		       ein
@@ -85,7 +85,7 @@
       (every 'package-installed-p package-list))
 
     (unless (packages-installed-p)
-      (message "%s" "Some packages are missing. Installing them now...")    
+      (message "%s" "Some packages are missing. Installing them now...")
       (message "%s" "Refreshing package database...")
       (package-refresh-contents)
       (dolist (p package-list)
@@ -108,6 +108,9 @@
 ;;(setq linum-format "%6d ")
 (line-number-mode t)
 (column-number-mode t)
+
+;; Show current function name in mode-line
+(which-function-mode 1)
 
 ;; Custom automatic window splitting: try to split horizontally first
 (defun split-window-hfirst (&optional window)
@@ -149,7 +152,7 @@
 ;; Custom Mode Bindings:
 (add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
 (add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
-(when (featurep 'cuda-mode) 
+(when (featurep 'cuda-mode)
   (add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode)))
 
 ;; Color dired mode
@@ -203,12 +206,12 @@
   ;; use IPython
   (setq-default py-shell-name "ipython")
   (setq py-force-py-shell-name-p t)
-  (setq-default py-which-bufname "IPython")  
+  (setq-default py-which-bufname "IPython")
   ;; use the wx backend, for both mayavi and matplotlib
   (setq py-python-command-args
 	'("--pylab=TkAgg"))
   ;;      '("--gui=wx" "--pylab=wx" "-colors" "Linux"))
-  
+
 
   ;; switch to the interpreter after executing code
   (setq py-shell-switch-buffers-on-execute-p t)
@@ -317,7 +320,11 @@
  '(py-decorators-face ((t (:inherit font-lock-preprocessor-face :weight bold))))
  '(py-import-from-face ((t (:foreground "brightred" :weight bold))))
  '(py-variable-name-face ((t (:inherit default :foreground "blue"))))
+ '(tty-menu-disabled-face ((t (:background "brightwhite" :foreground "brightcyan"))))
+ '(tty-menu-enabled-face ((t (:background "brightwhite" :foreground "brightblack"))))
+ '(tty-menu-selected-face ((t (:background "brightred" :foreground "brightwhite"))))
  '(tuareg-font-lock-governing-face ((t (:foreground "yellow"))))
  '(tuareg-font-lock-operator-face ((t (:foreground "cyan"))))
+ '(which-func ((t (:background "magenta"))))
  '(woman-bold ((t (:inherit bold :foreground "brightred"))))
  '(woman-italic ((t (:inherit italic :foreground "blue")))))
