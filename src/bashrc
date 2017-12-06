@@ -44,6 +44,8 @@ function python_distrib_anaconda  { pathprepend "/usr/local/anaconda2/bin"; varp
 
 # rename file by replacing all white spaces with underscores:
 function trspaces { mv "$1" "${1// /_}"; }
+# rename tex file with all the auxiliary files:
+function texmv { for file in "${1%.tex}.*"; do mv "$file" "${2%.tex}.${file#*.}"; done }
 
 if ls --color -d . > /dev/null 2>&1; then
     alias ls="ls -F --color"
