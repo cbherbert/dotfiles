@@ -101,7 +101,11 @@
 (put 'narrow-to-region 'disabled nil)
 (setq require-final-newline t)
 (setq vc-follow-symlinks t)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; Remove trailing whitespace upon saving, except for markdown where two spaces at the end of the line indicate line break:
+(add-hook 'before-save-hook
+	  (lambda ()
+	    (unless (derived-mode-p 'markdown-mode)
+	      (delete-trailing-whitespace))))
 
 ;; Line and column numbers:
 ;(global-linum-mode t)
