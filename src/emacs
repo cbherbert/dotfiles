@@ -116,6 +116,9 @@
 ;; Show current function name in mode-line
 (which-function-mode 1)
 
+;; Buffer list
+(defalias 'list-buffers 'ibuffer-other-window)
+
 ;; Custom automatic window splitting: try to split horizontally first
 (defun split-window-hfirst (&optional window)
   (let ((window (or window (selected-window))))
