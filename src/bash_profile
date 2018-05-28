@@ -29,8 +29,10 @@ export GLOBIGNORE=.:..
 if [ "$(uname -s)" == "Darwin" ]; then
     # Macports path for OS X
     macportsprefix="/opt/local"
-    macportspath=( "sbin" "bin" "libexec/gnubin" )
+    macportspath=( "Library/Frameworks/Python.framework/Versions/Current/bin" "sbin" "bin" "libexec/gnubin" )
     for dir in "${macportspath[@]}"; do dir="${macportsprefix}/$dir"; [ -d "$dir" ] && PATH="$dir:$PATH"; done
+    PATH="/Library/TeX/texbin:$PATH"
+    PATH="${HOME}/Library/Python/2.7/bin:$PATH"
     [ -d "${macportsprefix}/share/man" ] && export MANPATH="${macportsprefix}/share/man:$MANPATH"
 fi
 [ -d "/Developer" ] && PATH="/Developer/usr/bin:/Developer/usr/sbin:${PATH}"
