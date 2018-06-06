@@ -37,7 +37,7 @@ packages:
 
 matplotlibrc:
 	test -f $(MPLHOME)/$@ && (test -L $(MPLHOME)/$@ || tar -Prf ~/.dotfiles_bak.tar $(MPLHOME)/$@ ) || true
-	ln -sf $(DOTHOME)/src/$@_$(shell uname -s) $(MPLHOME)/$@
+	ln -sf $(DOTHOME)/src/$@_$(OS) $(MPLHOME)/$@
 
 texshop:
 	./bin/texshop-colorscheme.sh -c my_solarized_light
