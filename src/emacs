@@ -56,6 +56,7 @@
 		       cuda-mode
 		       diredful
 		       ein
+		       flycheck
 		       gitconfig-mode
 		       gitignore-mode
 		       lua-mode
@@ -115,6 +116,9 @@
 
 ;; Show current function name in mode-line
 (which-function-mode 1)
+
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; Buffer list
 (defalias 'list-buffers 'ibuffer-other-window)
