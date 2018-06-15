@@ -46,5 +46,5 @@ solarized:
 	git clone "git://github.com/altercation/solarized.git"
 
 private:
-	git clone framagit $(DOT_PRIVATE) $@
+	git clone --origin framagit $(DOT_PRIVATE) $@
 	cd private && $(MAKE)
