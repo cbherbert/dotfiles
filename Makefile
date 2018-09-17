@@ -21,6 +21,10 @@ help:
 	@echo "\nTo install configuration files specific to the user (e.g. containing private information) \
 	\nrun 'make private' after editing the Makefile to set the variable DOT_PRIVATE to point to the right repository"
 
+# Note: We create the links by hand rather than using a program such as GNU stow for portability reasons.
+#       Those programs often have dependencies which may not be installed on some machines.
+#       Even stow for instance is typically not available on supercomputers.
+
 install: $(LINK_FILES) matplotlibrc
 
 restore:
