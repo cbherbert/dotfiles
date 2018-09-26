@@ -1,4 +1,5 @@
 bash
+bat
 bcwipe
 binutils
 coreutils
@@ -8,10 +9,10 @@ ffmpeg
 fftw-3
 findutils
 gawk
-gcc49
 gcc5
 gcc6
 gcc7
+gcc8
 git
 gnuplot
 gnutar
@@ -45,6 +46,7 @@ py-numpy
 py-pandas
 py-pint
 py-pip
+py-pylint
 py-tkinter
 py-tqdm
 py-virtualenv
@@ -52,9 +54,11 @@ py-xarray
 python27
 renameutils
 ruby24
+stow
 subversion
 tardiff
 tcsh
+tldr-cpp-client
 w3m
 wdiff
 wget
