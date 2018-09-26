@@ -100,6 +100,8 @@
 
 (setq fill-column 80)
 (put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 (setq require-final-newline t)
 (setq vc-follow-symlinks t)
 ;; Remove trailing whitespace upon saving, except for markdown where two spaces at the end of the line indicate line break:
@@ -117,6 +119,7 @@
 ;; Show current function name in mode-line
 (which-function-mode 1)
 
+(global-eldoc-mode -1)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
