@@ -39,6 +39,11 @@ packages:
 		if [ ! -z "$${pkg}" ]; then sudo $(PKGMGR) install "$${pkg}"; fi; \
 	done < $(PKGFILE)
 
+bat:
+	mkdir -p "$(shell bat cache --config-dir)/themes"
+	cd "$(shell bat cache --config-dir)/themes" && git clone "https://github.com/paulcpederson/solarized-sublime"
+	bat cache --init
+
 matplotlibrc:
 	test -f $(MPLHOME)/$@ && (test -L $(MPLHOME)/$@ || tar -Prf ~/.dotfiles_bak.tar $(MPLHOME)/$@ ) || true
 	ln -sf $(DOTHOME)/src/$@_$(OS) $(MPLHOME)/$@
