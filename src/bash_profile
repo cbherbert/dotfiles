@@ -32,7 +32,7 @@ if [ "$(uname -s)" == "Darwin" ]; then
     macportspath=( "Library/Frameworks/Python.framework/Versions/Current/bin" "sbin" "bin" "libexec/gnubin" )
     for dir in "${macportspath[@]}"; do dir="${macportsprefix}/$dir"; [ -d "$dir" ] && PATH="$dir:$PATH"; done
     PATH="/Library/TeX/texbin:$PATH"
-    PATH="${HOME}/Library/Python/2.7/bin:$PATH"
+    PATH="${HOME}/Library/Python/3.7/bin:${HOME}/Library/Python/2.7/bin:$PATH"
     [ -d "${macportsprefix}/share/man" ] && export MANPATH="${macportsprefix}/share/man:$MANPATH"
 fi
 [ -d "/Developer" ] && PATH="/Developer/usr/bin:/Developer/usr/sbin:${PATH}"
