@@ -40,9 +40,10 @@ packages:
 	done < $(PKGFILE)
 
 bat:
-	mkdir -p "$(shell bat cache --config-dir)/themes"
-	cd "$(shell bat cache --config-dir)/themes" && git clone "https://github.com/paulcpederson/solarized-sublime"
-	bat cache --init
+	mkdir -p "$(shell bat --config-dir)/themes"
+	cd "$(shell bat --config-dir)/themes" && git clone "https://github.com/paulcpederson/solarized-sublime"
+	bat cache --build
+
 
 matplotlibrc:
 	test -f $(MPLHOME)/$@ && (test -L $(MPLHOME)/$@ || tar -Prf ~/.dotfiles_bak.tar $(MPLHOME)/$@ ) || true
