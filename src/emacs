@@ -264,6 +264,44 @@
 (yas-reload-all)
 
 ;;;
+;;   Agenda
+;;;
+
+(setq org-agenda-custom-commands
+      '(("c" "Agenda and TODO by priority"
+         ((agenda "")
+	  (alltodo ""
+		     ((org-agenda-files '("~/org/projects.org"))
+		      (org-agenda-overriding-header "Projects:")))
+	  (alltodo ""
+		     ((org-agenda-files '("~/org/todo.org"))
+		      (org-agenda-overriding-header "Tasks:")))))))
+
+(require 'appt)
+(appt-activate t)
+;; Add org-mode TODOs to appointments: at startup, every day at midnight, and when saving todo file
+(org-agenda-to-appt)
+(run-at-time "12:05am" (* 24 3600) 'org-agenda-to-appt)
+(add-hook 'after-save-hook
+          '(lambda ()
+             (if (string= (buffer-file-name) (concat (getenv "HOME") "/org/todo.org"))
+                 (org-agenda-to-appt))))
+;; Display warning in a notification window
+(require 'alert)
+(setq alert-default-style 'notifier)
+(defun appt-alert (min-to-app new-time msg)
+  (alert msg :title "Reminder"))
+(setq appt-disp-window-function 'appt-alert)
+(setq appt-delete-window-function (lambda () t))
+(setq appt-display-mode-line nil)
+;; Send one persistent warning 5 minutes before the event
+(setq appt-message-warning-time 5)
+(setq appt-display-interval appt-message-warning-time)
+(setq appt-display-duration (* appt-message-warning-time 60))
+(setq alert-fade-time (* appt-message-warning-time 60))
+
+
+;;;
 ;;   Other custom variables:
 ;;;
 
@@ -278,6 +316,10 @@
  '(eol-mnemonic-dos "\\")
  '(eol-mnemonic-mac "/")
  '(frame-background-mode (quote dark))
+ '(org-agenda-files (quote ("~/org/todo.org" "~/org/projects.org")))
+ '(org-agenda-skip-deadline-prewarning-if-scheduled t)
+ '(org-agenda-todo-ignore-deadlines (quote near))
+ '(org-agenda-todo-ignore-scheduled (quote all))
  '(org-export-backends
    (quote
     (ascii beamer html icalendar latex man md odt texinfo)))
@@ -313,9 +355,17 @@
  '(magit-diff-file-heading ((t (:foreground "brightred" :weight bold))))
  '(magit-diffstat-added ((t (:foreground "green"))))
  '(magit-diffstat-removed ((t (:foreground "red"))))
+ '(org-agenda-date ((t (:foreground "brightcyan" :weight bold))))
+ '(org-agenda-date-today ((t (:inherit org-agenda-date :foreground "brightwhite" :slant italic :weight bold))))
+ '(org-agenda-date-weekend ((t (:inherit org-agenda-date :foreground "brightyellow" :weight bold))))
+ '(org-agenda-structure ((t (:foreground "blue" :weight normal))))
  '(org-document-info ((t (:foreground "brightmagenta"))))
  '(org-document-title ((t (:foreground "brightmagenta" :weight bold))))
  '(org-done ((t (:background "white" :foreground "green" :inverse-video nil :underline nil :slant normal :weight normal))))
+ '(org-habit-alert-face ((t (:background "yellow" :foreground "brightwhite"))))
+ '(org-habit-clear-face ((t (:background "blue" :foreground "brightwhite"))))
+ '(org-habit-overdue-face ((t (:background "red" :foreground "brightwhite"))))
+ '(org-habit-ready-face ((t (:background "green" :foreground "brightwhite"))))
  '(org-level-1 ((t (:inherit outline-1))))
  '(org-level-2 ((t (:inherit outline-2))))
  '(org-level-3 ((t (:inherit outline-3))))
@@ -324,7 +374,11 @@
  '(org-level-6 ((t (:inherit outline-6))))
  '(org-level-7 ((t (:inherit outline-7))))
  '(org-level-8 ((t (:inherit outline-8))))
- '(org-tag ((t (:foreground "green"))))
+ '(org-priority ((t (:foreground "magenta" :slant italic))))
+ '(org-scheduled ((t (:foreground "cyan" :slant italic :weight normal))))
+ '(org-scheduled-previously ((t (:foreground "red" :weight normal))))
+ '(org-scheduled-today ((t (:foreground "magenta" :slant italic :weight normal))))
+ '(org-tag ((t (:foreground "green" :weight normal))))
  '(org-todo ((t (:background "brightred" :foreground "white" :inverse-video nil :underline nil :slant normal :weight bold))))
  '(outline-1 ((t (:foreground "brightred"))))
  '(outline-2 ((t (:foreground "yellow"))))
