@@ -45,6 +45,16 @@ bat:
 	bat cache --build
 
 
+python:
+# This installs a list of python packages in the user repository using pip.
+# This should be reserved for packages that you want to add to the system python,
+# use virtual environments for fine-grained package management.
+# In the future I should implement an automatic install of my typical virtual
+# environments with conda.
+	@while IFS='' read -r pkg; do \
+		if [ -z "$${pkg}" ]; then pip install "$${pkg}" --user; fi; \
+	done < packages_python
+
 matplotlibrc:
 	test -f $(MPLHOME)/$@ && (test -L $(MPLHOME)/$@ || tar -Prf ~/.dotfiles_bak.tar $(MPLHOME)/$@ ) || true
 	ln -sf $(DOTHOME)/src/$@_$(OS) $(MPLHOME)/$@
