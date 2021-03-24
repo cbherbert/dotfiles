@@ -29,7 +29,7 @@ export GLOBIGNORE=.:..
 if [ "$(uname -s)" == "Darwin" ]; then
     # Macports path for OS X
     macportsprefix="/opt/local"
-    macportspath=( "Library/Frameworks/Python.framework/Versions/Current/bin" "sbin" "bin" "libexec/gnubin" )
+    macportspath=( "sbin" "bin" "libexec/gnubin" )
     for dir in "${macportspath[@]}"; do dir="${macportsprefix}/$dir"; [ -d "$dir" ] && PATH="$dir:$PATH"; done
     PATH="/Library/TeX/texbin:$PATH"
     PATH="${HOME}/Library/Python/3.7/bin:${HOME}/Library/Python/2.7/bin:$PATH"
@@ -83,3 +83,18 @@ fi
 if [ -f "/etc/bash_completion" ]; then
     source /etc/bash_completion
 fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/corentin/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/corentin/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/corentin/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/corentin/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
