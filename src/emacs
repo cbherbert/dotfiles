@@ -232,6 +232,12 @@
 (define-key comint-mode-map [down] 'comint-next-matching-input-from-input)
 (define-key comint-mode-map [up] 'comint-previous-matching-input-from-input)
 
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
+
+;; Ivy-based interface to standard commands
+(global-set-key (kbd "C-s") 'swiper-isearch)
 ;;;
 ;;  Python
 ;;;
@@ -340,6 +346,7 @@
  '(eol-mnemonic-mac "/")
  '(frame-background-mode (quote dark))
  '(org-agenda-files (quote ("~/org/todo.org" "~/org/projects.org")))
+ '(ivy-use-selectable-prompt t)
  '(org-agenda-skip-deadline-prewarning-if-scheduled t)
  '(org-agenda-todo-ignore-deadlines (quote near))
  '(org-agenda-todo-ignore-scheduled (quote all))
@@ -372,6 +379,13 @@
  '(info-title-1 ((t (:foreground "brightred" :weight bold))))
  '(info-title-2 ((t (:foreground "yellow"))))
  '(info-title-3 ((t (:foreground "green"))))
+ '(ivy-current-match ((t (:extend t :background "cyan" :foreground "white" :weight bold))))
+ '(ivy-minibuffer-match-face-1 ((t (:background "brightgreen" :foreground "brightmagenta"))))
+ '(ivy-minibuffer-match-face-2 ((t (:background "brightmagenta" :foreground "white"))))
+ '(ivy-minibuffer-match-face-3 ((t (:background "brightmagenta" :foreground "white"))))
+ '(ivy-minibuffer-match-face-4 ((t (:background "brightmagenta" :foreground "white"))))
+ '(ivy-org ((t (:inherit diredful-face-text))))
+ '(ivy-remote ((t (:foreground "magenta"))))
  '(magit-branch-current ((t (:inherit magit-branch-local :foreground "red" :box 1 :slant italic))))
  '(magit-branch-local ((t (:foreground "blue"))))
  '(magit-branch-remote ((t (:foreground "magenta"))))
@@ -415,6 +429,13 @@
  '(py-import-from-face ((t (:foreground "brightred" :weight bold))))
  '(py-variable-name-face ((t (:inherit default :foreground "blue"))))
  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "brightwhite"))))
+ '(swiper-background-match-face-1 ((t (:background "brightgreen" :foreground "yellow"))))
+ '(swiper-background-match-face-2 ((t (:inherit lazy-highlight))))
+ '(swiper-background-match-face-3 ((t (:inherit swiper-background-match-face-2))))
+ '(swiper-background-match-face-4 ((t (:inherit swiper-background-match-face-2))))
+ '(swiper-match-face-1 ((t (:background "brightgreen" :foreground "brightred"))))
+ '(swiper-match-face-3 ((t (:inherit swiper-match-face-2))))
+ '(swiper-match-face-4 ((t (:inherit swiper-match-face-2))))
  '(tty-menu-disabled-face ((t (:background "brightwhite" :foreground "brightcyan"))))
  '(tty-menu-enabled-face ((t (:background "brightwhite" :foreground "brightblack"))))
  '(tty-menu-selected-face ((t (:background "brightred" :foreground "brightwhite"))))
