@@ -351,6 +351,8 @@
  '(org-agenda-todo-ignore-deadlines 'near)
  '(org-agenda-todo-ignore-scheduled 'all)
  '(org-export-backends '(ascii beamer html icalendar latex man md odt texinfo))
+ '(org-modules
+   '(org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m))
  '(org-n-level-faces 5)
  '(org-todo-keyword-faces
    '(("INPROGRESS" :inherit org-todo :background "yellow")
@@ -358,6 +360,7 @@
      ("CANCELLED" :inherit org-done :foreground "blue")))
  '(org-todo-keywords
    '((sequence "TODO" "INPROGRESS" "WAIT" "|" "DONE" "CANCELLED")))
+ '(org-use-property-inheritance '("PRIORITY"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
