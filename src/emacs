@@ -344,6 +344,7 @@
  '(calendar-week-start-day 1)
  '(eol-mnemonic-dos "\\")
  '(eol-mnemonic-mac "/")
+ '(epg-pinentry-mode 'loopback)
  '(frame-background-mode 'dark)
  '(ivy-use-selectable-prompt t)
  '(org-agenda-files '("~/org/todo.org" "~/org/projects.org"))
