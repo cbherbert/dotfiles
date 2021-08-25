@@ -340,19 +340,17 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(Buffer-menu-name-width 30)
- '(calendar-today-visible-hook (quote (calendar-mark-today)))
+ '(calendar-today-visible-hook '(calendar-mark-today))
  '(calendar-week-start-day 1)
  '(eol-mnemonic-dos "\\")
  '(eol-mnemonic-mac "/")
- '(frame-background-mode (quote dark))
- '(org-agenda-files (quote ("~/org/todo.org" "~/org/projects.org")))
+ '(frame-background-mode 'dark)
  '(ivy-use-selectable-prompt t)
+ '(org-agenda-files '("~/org/todo.org" "~/org/projects.org"))
  '(org-agenda-skip-deadline-prewarning-if-scheduled t)
- '(org-agenda-todo-ignore-deadlines (quote near))
- '(org-agenda-todo-ignore-scheduled (quote all))
- '(org-export-backends
-   (quote
-    (ascii beamer html icalendar latex man md odt texinfo)))
+ '(org-agenda-todo-ignore-deadlines 'near)
+ '(org-agenda-todo-ignore-scheduled 'all)
+ '(org-export-backends '(ascii beamer html icalendar latex man md odt texinfo))
  '(org-n-level-faces 5)
  '(org-todo-keywords (quote ((sequence "TODO" "WAIT" "DONE")))))
 (custom-set-faces
