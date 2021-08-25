@@ -173,6 +173,14 @@
             (set-window-buffer-start-and-point w1 b2 s2 p2)
             (set-window-buffer-start-and-point w2 b1 s1 p1)))))))
 
+(defun tex-green ()
+  (interactive)
+  (save-excursion
+    (goto-char (region-beginning))
+    (insert "\\textcolor{green}{"))
+  (goto-char (region-end))
+  (insert "}\n"))
+
 ;; Compilation mode:
 (setq compilation-scroll-output 'first-error)
 
