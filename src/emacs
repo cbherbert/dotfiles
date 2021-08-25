@@ -153,7 +153,7 @@
 ;; Custom command to rotate windows
 ;; see https://www.emacswiki.org/emacs/TransposeWindows
 (defun rotate-windows (arg)
-  "Rotate your windows; use the prefix argument to rotate the other direction"
+  "Rotate your windows; use the prefix argument ARG to rotate the other direction."
   (interactive "P")
   (if (not (> (count-windows) 1))
       (message "You can't rotate a single window!")
