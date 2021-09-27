@@ -445,6 +445,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
  '(magit-diff-file-heading ((t (:foreground "brightred" :weight bold))))
  '(magit-diffstat-added ((t (:foreground "green"))))
  '(magit-diffstat-removed ((t (:foreground "red"))))
+ '(org-agenda-clocking ((t (:inherit secondary-selection :background "white"))))
  '(org-agenda-date ((t (:foreground "brightcyan" :weight bold))))
  '(org-agenda-date-today ((t (:inherit org-agenda-date :foreground "brightwhite" :slant italic :weight bold))))
  '(org-agenda-date-weekend ((t (:inherit org-agenda-date :foreground "brightyellow" :weight bold))))
