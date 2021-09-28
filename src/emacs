@@ -377,18 +377,19 @@ Version 2020-12-02 2021-04-14 2021-08-01"
              (if (string= (buffer-file-name) (concat (getenv "HOME") "/org/todo.org"))
                  (org-agenda-to-appt))))
 ;; Display warning in a notification window
-(require 'alert)
-(setq alert-default-style 'notifier)
-(defun appt-alert (min-to-app new-time msg)
-  (alert msg :title "Reminder"))
-(setq appt-disp-window-function 'appt-alert)
-(setq appt-delete-window-function (lambda () t))
-(setq appt-display-mode-line nil)
-;; Send one persistent warning 5 minutes before the event
-(setq appt-message-warning-time 5)
-(setq appt-display-interval appt-message-warning-time)
-(setq appt-display-duration (* appt-message-warning-time 60))
-(setq alert-fade-time (* appt-message-warning-time 60))
+(use-package alert
+  :ensure t
+  :config
+  (setq alert-default-style 'notifier)
+  (defun appt-alert (min-to-app new-time msg) (alert msg :title "Reminder"))
+  (setq appt-disp-window-function 'appt-alert)
+  (setq appt-delete-window-function (lambda () t))
+  (setq appt-display-mode-line nil)
+  ;; Send one persistent warning 5 minutes before the event
+  (setq appt-message-warning-time 5)
+  (setq appt-display-interval appt-message-warning-time)
+  (setq appt-display-duration (* appt-message-warning-time 60))
+  (setq alert-fade-time (* appt-message-warning-time 60)))
 
 
 ;;;
