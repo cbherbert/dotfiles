@@ -45,54 +45,6 @@
     	  (save-buffer)
     	  (kill-buffer pkg-buffer))))))
 
-(when (>= emacs-major-version 23)
-  (when (file-exists-p "~/.emacs.d/elpa/package.el")
-    (add-to-list 'load-path "~/.emacs.d/elpa"))
-  (if (>= emacs-major-version 24)
-      (setq package-list '(color-theme-sanityinc-solarized ; https://github.com/purcell/color-theme-sanityinc-solarized
-		       color-theme-solarized ; This is the solarized theme by Greg Pfeil, https://github.com/sellout/emacs-color-theme-solarized
-		       solarized-theme       ; This is the solarized theme by Bozhidar Batsov, https://github.com/bbatsov/solarized-emacs
-		       auctex
-		       cuda-mode
-		       diredful
-		       ein
-		       flycheck
-		       gitconfig-mode
-		       gitignore-mode
-		       lua-mode
-		       magit
-		       markdown-mode
-		       matlab-mode
-		       pydoc
-		       python-mode
-		       tuareg
-		       yasnippet))
-    (setq package-list '(color-theme
-			 color-theme-solarized
-			 cuda-mode
-			 lua-mode
-			 matlab-mode
-			 python-mode)))
-  (require 'package))
-
-
-(when (featurep 'package)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-  (package-initialize)
-
-  (when (boundp 'package-list)
-    (require 'cl)
-    (defun packages-installed-p ()
-      (every 'package-installed-p package-list))
-
-    (unless (packages-installed-p)
-      (message "%s" "Some packages are missing. Installing them now...")
-      (message "%s" "Refreshing package database...")
-      (package-refresh-contents)
-      (dolist (p package-list)
-	(unless (package-installed-p p)
-	  (package-install p))))))
-
 
 ;;;
 ;;   Basic Settings
@@ -120,8 +72,6 @@
 (which-function-mode 1)
 
 (global-eldoc-mode -1)
-
-(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; Buffer list
 (defalias 'list-buffers 'ibuffer-other-window)
@@ -173,13 +123,7 @@
             (set-window-buffer-start-and-point w1 b2 s2 p2)
             (set-window-buffer-start-and-point w2 b1 s1 p1)))))))
 
-(defun tex-green ()
-  (interactive)
-  (save-excursion
-    (goto-char (region-beginning))
-    (insert "\\textcolor{green}{"))
-  (goto-char (region-end))
-  (insert "}\n"))
+
 
 ;; Compilation mode:
 (setq compilation-scroll-output 'first-error)
@@ -225,14 +169,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;; Custom Mode Bindings:
 (add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
 (add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
-(when (featurep 'cuda-mode)
-  (add-to-list 'auto-mode-alist '("\\.hcu" . cuda-mode)))
-
-;; Color dired mode
-(when (fboundp 'diredful-mode)
-  (setq diredful-init-file "~/dotfiles/src/diredful-conf.el")
-  (diredful-mode 1))
-
 ;; Idutils:
 (autoload 'gid "idutils" nil t)
 
@@ -250,48 +186,205 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 (define-key global-map (kbd "C-x +") 'enlarge-window)
 (define-key global-map (kbd "C-x -") 'balance-windows)
 (define-key global-map (kbd "C-x ^") 'shrink-window-if-larger-than-buffer)
-(global-set-key (kbd "C-x g") 'magit-status)
 
-;; Solarized theme colors:
-(if (>= emacs-major-version 24)
-    (load-theme 'solarized t)
-  (when (>= emacs-major-version 23)
-    ;; How to get Solarized color theme when using Emacs 23 ?
-    (require 'color-theme)
-    (require 'color-theme-solarized)
-    (color-theme-solarized)
-    (custom-set-faces  '(default ((t (:background "black"))) t))
+
+;;;
+;;  Packages
+;;;
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+;;;
+;; Theme and mode line
+;;;
+(use-package solarized-theme
+  :demand t
+  :config
+  (load-theme 'solarized t)
+  )
+
+
+(use-package comint
+  :config
+  (define-key comint-mode-map [down] 'comint-next-matching-input-from-input)
+  (define-key comint-mode-map [up] 'comint-previous-matching-input-from-input)
+  )
+
+(use-package flycheck
+  :ensure t
+  :config
+  (global-flycheck-mode))
+
+(use-package markdown-mode
+  :ensure t)
+
+(use-package csv-mode
+  :ensure t
+  :mode ("\\.tsv$" . csv-mode)
+  :hook ((csv-mode . hl-line-mode)
+	 (csv-mode . csv-align-mode))
+  )
+
+;; Color dired mode
+(use-package diredful
+  :ensure t
+  :config
+  (setq diredful-init-file "~/dotfiles/src/diredful-conf.el")
+  (diredful-mode 1)
+  )
+
+
+;;;
+;;   AUCTeX
+;;;
+(use-package auctex
+  :ensure t
+  :mode (("\\.lbx" . latex-mode) ("\\.bbx" . latex-mode) ("\\.cbx" . latex-mode))
+  :hook ((LaTeX-mode . visual-line-mode)
+	 (LaTeX-mode . flyspell-mode)
+	 (LaTeX-mode . latex-math-mode)
+	 (LaTeX-mode . reftex-mode))
+  :config
+  (progn
+    (setq TeX-auto-save t)
+    (setq TeX-parse-self t)
+    (setq-default TeX-master nil)
+    (setq reftex-plug-into-AUCTeX t)
+    (setq TeX-PDF-mode t)
     )
   )
 
-(require 'comint)
-(define-key comint-mode-map [down] 'comint-next-matching-input-from-input)
-(define-key comint-mode-map [up] 'comint-previous-matching-input-from-input)
+(defun tex-green ()
+  (interactive)
+  (save-excursion
+    (goto-char (region-beginning))
+    (insert "\\textcolor{green}{"))
+  (goto-char (region-end))
+  (insert "}\n"))
 
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(setq ivy-count-format "(%d/%d) ")
+;;;
+;;   YASnippet
+;;;
+(use-package yasnippet
+  :ensure t
+  :config
+  (progn
+    (yas-global-mode 1)
+    (setq yas-wrap-around-region t)
+    (setq yas-snippet-dirs (append '("~/dotfiles/src/yas-snippets") yas-snippet-dirs))
+    (yas-reload-all)
+    )
+  )
+
+
+;; ido-mode
+;; (setq ido-enable-flex-matching t)
+;; (setq ido-everywhere t)
+;; (ido-mode 1)
+(use-package swiper
+	     :ensure t
+	     :config
+	     (progn
+	       (ivy-mode 1)
+	       (setq ivy-use-virtual-buffers t)
+	       (setq ivy-count-format "(%d/%d) ")
+	       ))
 
 ;; Ivy-based interface to standard commands
 (global-set-key (kbd "C-s") 'swiper-isearch)
+;; (global-set-key (kbd "M-x") 'counsel-M-x)
+;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+;; (global-set-key (kbd "M-y") 'counsel-yank-pop)
+;; (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+;; (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+;; (global-set-key (kbd "<f1> l") 'counsel-find-library)
+;; (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+;; (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+;; (global-set-key (kbd "<f2> j") 'counsel-set-variable)
+;; (global-set-key (kbd "C-c v") 'ivy-push-view)
+;; (global-set-key (kbd "C-c V") 'ivy-pop-view)
+
+;; Ivy-based interface to shell and system tools
+;; (global-set-key (kbd "C-c c") 'counsel-compile)
+;; (global-set-key (kbd "C-c g") 'counsel-git)
+;; (global-set-key (kbd "C-c j") 'counsel-git-grep)
+;; (global-set-key (kbd "C-c L") 'counsel-git-log)
+;; (global-set-key (kbd "C-c k") 'counsel-rg)
+;; (global-set-key (kbd "C-c m") 'counsel-linux-app)
+;; (global-set-key (kbd "C-c n") 'counsel-fzf)
+;; (global-set-key (kbd "C-x l") 'counsel-locate)
+;; (global-set-key (kbd "C-c J") 'counsel-file-jump)
+;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+;; (global-set-key (kbd "C-c w") 'counsel-wmctrl)
+
+;; Ivy-resume and other commands
+;; ivy-resume resumes the last Ivy-based completion.
+;; (global-set-key (kbd "C-c C-r") 'ivy-resume)
+;; (global-set-key (kbd "C-c b") 'counsel-bookmark)
+;; (global-set-key (kbd "C-c d") 'counsel-descbinds)
+;; (global-set-key (kbd "C-c g") 'counsel-git)
+;; (global-set-key (kbd "C-c o") 'counsel-outline)
+;; (global-set-key (kbd "C-c t") 'counsel-load-theme)
+;; (global-set-key (kbd "C-c F") 'counsel-org-file)
+
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+
+(use-package gitconfig-mode
+  :ensure t)
+
+(use-package gitignore-mode
+  :ensure t)
+
+(use-package magit
+  :ensure t
+  :config
+  (global-set-key (kbd "C-x g") 'magit-status))
+
+(use-package lua-mode
+  :ensure t)
+
+(use-package tuareg
+  :ensure t)
+
+(use-package cuda-mode
+  :ensure t
+  :mode ("\\.hcu" . cuda-mode)
+  )
+
+(use-package matlab
+  :ensure matlab-mode
+  :mode ("\\.m\\'" . matlab-mode)
+  :config
+  (setq matlab-indent-function t)
+  (setq matlab-shell-command "matlab")
+  )
+
 ;;;
 ;;  Python
 ;;;
-
-(when (>= emacs-major-version 24)
-  ;;(setq py-install-directory "~/.emacs.d/python-mode-6.0.11")
-  ;;(add-to-list 'load-path py-install-directory)
-  (require 'python-mode)
+(use-package pydoc
+  :ensure t)
+(use-package ein
+  :ensure t)
+(use-package python-mode
+  :ensure t
+  :config
   ;; use IPython
   (setq-default py-shell-name "ipython")
   (setq py-force-py-shell-name-p t)
   (setq-default py-which-bufname "IPython")
   ;; use the wx backend, for both mayavi and matplotlib
-  (setq py-python-command-args
-	'("--pylab=TkAgg"))
+  (setq py-python-command-args '("--pylab=TkAgg"))
   ;;      '("--gui=wx" "--pylab=wx" "-colors" "Linux"))
-
-
   ;; switch to the interpreter after executing code
   (setq py-shell-switch-buffers-on-execute-p t)
   (setq py-switch-buffers-on-execute-p nil)
@@ -303,30 +396,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (setq py-smart-indentation t)
   )
 
-;;;
-;;   AUCTeX
-;;;
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-(add-hook 'LaTeX-mode-hook 'visual-line-mode)
-(add-hook 'LaTeX-mode-hook 'flyspell-mode)
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
-(setq TeX-PDF-mode t)
-
-(add-to-list 'auto-mode-alist '("\\.lbx" . latex-mode))
-(add-to-list 'auto-mode-alist '("\\.bbx" . latex-mode))
-(add-to-list 'auto-mode-alist '("\\.cbx" . latex-mode))
-
-;;;
-;;   YASnippet
-;;;
-(yas-global-mode 1)
-(setq yas-wrap-around-region t)
-(setq yas-snippet-dirs (append '("~/dotfiles/src/yas-snippets") yas-snippet-dirs))
-(yas-reload-all)
 
 ;;;
 ;;   Agenda
@@ -378,6 +447,8 @@ Version 2020-12-02 2021-04-14 2021-08-01"
  '(Buffer-menu-name-width 30)
  '(calendar-today-visible-hook '(calendar-mark-today))
  '(calendar-week-start-day 1)
+ '(custom-safe-themes
+   '("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default))
  '(eol-mnemonic-dos "\\")
  '(eol-mnemonic-mac "/")
  '(epg-pinentry-mode 'loopback)
@@ -398,6 +469,9 @@ Version 2020-12-02 2021-04-14 2021-08-01"
  '(org-todo-keywords
    '((sequence "TODO" "INPROGRESS" "WAIT" "|" "DONE" "CANCELLED")))
  '(org-use-property-inheritance '("PRIORITY"))
+ '(package-selected-packages
+   '(csv-mode which-key counsel alert flycheck-julia flycheck jinja2-mode 2048-game ecb yasnippet tuareg solarized-theme python-mode pydoc matlab-mode markdown-mode magit lua-mode gitignore-mode gitconfig-mode ein diredful cuda-mode color-theme-solarized color-theme-sanityinc-solarized auctex))
+ '(reftex-default-bibliography '("~/Library/texmf/bibtex/bib/bibtexlib.bib")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
