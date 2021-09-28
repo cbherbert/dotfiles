@@ -1,52 +1,6 @@
 ; -*-mode: emacs-lisp-*-
 
 ;;;
-;;   Packages
-;;;
-
-;; When running emacs23, install package.el manually
-;; This is strongly inspired from http://tromey.com/elpa/package-install.el
-;; but for some reason the package.el available there does not work;
-;; downloading from a different location
-(when (and (eq emacs-major-version 23) (not (file-exists-p "~/.emacs.d/elpa/package.el")))
-  (let ((my-archive-base "http://git.savannah.gnu.org/gitweb/?p=emacs.git;a=blob_plain;hb=ba08b24186711eaeb3748f3d1f23e2c2d9ed0d09;f=lisp/emacs-lisp/")
-	(my-user-dir (expand-file-name "~/.emacs.d/elpa")))
-    (require 'pp)
-    (let ((download
-	   (lambda (url)
-	     (if (fboundp 'url-retrieve-synchronously)
-		 ;; Use URL to download.
-		 (let ((buffer (url-retrieve-synchronously url)))
-		   (save-excursion
-		     (set-buffer buffer)
-		     (goto-char (point-min))
-		     (re-search-forward "^$" nil 'move)
-		     (forward-char)
-		     (delete-region (point-min) (point))
-		     buffer))
-	       ;; Use wget to download.
-	       (save-excursion
-		 (with-current-buffer
-		     (get-buffer-create
-		      (generate-new-buffer-name " *Download*"))
-		   (shell-command (concat "wget -q -O- " url)
-				  (current-buffer))
-		   (goto-char (point-min))
-		   (current-buffer)))))))
-
-      ;; Make the ELPA directory.
-      (make-directory my-user-dir t)
-
-      ;; Download package.el and put it in the user dir.
-      (let ((pkg-buffer (funcall download (concat my-archive-base "package.el"))))
-    	(save-excursion
-    	  (set-buffer pkg-buffer)
-    	  (setq buffer-file-name (concat (file-name-as-directory my-user-dir) "package.el"))
-    	  (save-buffer)
-    	  (kill-buffer pkg-buffer))))))
-
-
-;;;
 ;;   Basic Settings
 ;;;
 
