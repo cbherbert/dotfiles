@@ -143,8 +143,8 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;;;
 ;;    Theme and mode line
 ;;;
-(use-package solarized-theme
-  :demand t
+(use-package color-theme-solarized
+  :ensure t
   :config
   (load-theme 'solarized t)
   )
