@@ -1,9 +1,8 @@
 ; -*-mode: emacs-lisp-*-
 
 ;;;
-;;   Basic Settings
+;;   Vanilla emacs settings
 ;;;
-
 (setq fill-column 80)
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -15,17 +14,30 @@
 	  (lambda ()
 	    (unless (derived-mode-p 'markdown-mode)
 	      (delete-trailing-whitespace))))
-
+;; Automatically wrap lines for text modes:
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 ;; Line and column numbers:
 ;(global-linum-mode t)
 ;;(setq linum-format "%6d ")
 (line-number-mode t)
 (column-number-mode t)
-
-;; Show current function name in mode-line
-(which-function-mode 1)
-
 (global-eldoc-mode -1)
+
+;; Highlight matching parenthesis
+(show-paren-mode 1)
+(setq show-paren-style 'parenthesis) ; highlight brackets - can also be expression or mixed
+(set-face-background 'show-paren-match (face-background 'default))
+(set-face-foreground 'show-paren-match "magenta")
+(set-face-attribute 'show-paren-match nil :weight 'normal)
+
+;; Compilation mode:
+(setq compilation-scroll-output 'first-error)
+;; Idutils:
+(autoload 'gid "idutils" nil t)
+
+;;;
+;;   Buffers and Windows
+;;;
 
 ;; Buffer list
 (defalias 'list-buffers 'ibuffer-other-window)
@@ -79,18 +91,6 @@
 
 
 
-;; Compilation mode:
-(setq compilation-scroll-output 'first-error)
-
-;; Automatically wrap lines for text modes:
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-
-;; Highlight matching parenthesis
-(show-paren-mode 1)
-(setq show-paren-style 'parenthesis) ; highlight brackets - can also be expression or mixed
-(set-face-background 'show-paren-match (face-background 'default))
-(set-face-foreground 'show-paren-match "magenta")
-(set-face-attribute 'show-paren-match nil :weight 'normal)
 
 (defun format-sentence-lines ()
   "Break a long line or text block into multiple lines by ending period.
@@ -120,19 +120,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
       (insert "\n\n"))))
 
 
-;; Custom Mode Bindings:
-(add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
-(add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
-;; Idutils:
-(autoload 'gid "idutils" nil t)
-
-;; Fortran namelist mode:
-;; (add-to-list 'load-path "~/.emacs.d/namelist-mode/")
-;; (require 'namelist-mode)
-(when (file-exists-p "~/.emacs.d/f90-namelist-mode/f90-namelist-mode.el")
-  (add-to-list 'load-path "~/.emacs.d/f90-namelist-mode/")
-  (require 'f90-namelist-mode))
-
 ;; Custom Key Bindings
 (define-key global-map (kbd "C-c r") 'replace-string)
 (define-key global-map (kbd "C-c q") 'query-replace)
@@ -145,7 +132,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;;;
 ;;  Packages
 ;;;
-
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
@@ -155,15 +141,19 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (package-install 'use-package))
 
 ;;;
-;; Theme and mode line
+;;    Theme and mode line
 ;;;
 (use-package solarized-theme
   :demand t
   :config
   (load-theme 'solarized t)
   )
+;; Show current function name in mode-line
+(which-function-mode 1)
 
-
+;;;
+;;    Text editing and spelling
+;;;
 (use-package comint
   :config
   (define-key comint-mode-map [down] 'comint-next-matching-input-from-input)
@@ -193,54 +183,9 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (diredful-mode 1)
   )
 
-
 ;;;
-;;   AUCTeX
+;;    Completion
 ;;;
-(use-package auctex
-  :ensure t
-  :mode (("\\.lbx" . latex-mode) ("\\.bbx" . latex-mode) ("\\.cbx" . latex-mode))
-  :hook ((LaTeX-mode . visual-line-mode)
-	 (LaTeX-mode . flyspell-mode)
-	 (LaTeX-mode . latex-math-mode)
-	 (LaTeX-mode . reftex-mode))
-  :config
-  (progn
-    (setq TeX-auto-save t)
-    (setq TeX-parse-self t)
-    (setq-default TeX-master nil)
-    (setq reftex-plug-into-AUCTeX t)
-    (setq TeX-PDF-mode t)
-    )
-  )
-
-(defun tex-green ()
-  (interactive)
-  (save-excursion
-    (goto-char (region-beginning))
-    (insert "\\textcolor{green}{"))
-  (goto-char (region-end))
-  (insert "}\n"))
-
-;;;
-;;   YASnippet
-;;;
-(use-package yasnippet
-  :ensure t
-  :config
-  (progn
-    (yas-global-mode 1)
-    (setq yas-wrap-around-region t)
-    (setq yas-snippet-dirs (append '("~/dotfiles/src/yas-snippets") yas-snippet-dirs))
-    (yas-reload-all)
-    )
-  )
-
-
-;; ido-mode
-;; (setq ido-enable-flex-matching t)
-;; (setq ido-everywhere t)
-;; (ido-mode 1)
 (use-package swiper
 	     :ensure t
 	     :config
@@ -292,6 +237,52 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :config
   (which-key-mode))
 
+
+;;;
+;;   AUCTeX
+;;;
+(use-package auctex
+  :ensure t
+  :mode (("\\.lbx" . latex-mode) ("\\.bbx" . latex-mode) ("\\.cbx" . latex-mode))
+  :hook ((LaTeX-mode . visual-line-mode)
+	 (LaTeX-mode . flyspell-mode)
+	 (LaTeX-mode . latex-math-mode)
+	 (LaTeX-mode . reftex-mode))
+  :config
+  (progn
+    (setq TeX-auto-save t)
+    (setq TeX-parse-self t)
+    (setq-default TeX-master nil)
+    (setq reftex-plug-into-AUCTeX t)
+    (setq TeX-PDF-mode t)
+    )
+  )
+
+(defun tex-green ()
+  (interactive)
+  (save-excursion
+    (goto-char (region-beginning))
+    (insert "\\textcolor{green}{"))
+  (goto-char (region-end))
+  (insert "}\n"))
+
+;;;
+;;   YASnippet
+;;;
+(use-package yasnippet
+  :ensure t
+  :config
+  (progn
+    (yas-global-mode 1)
+    (setq yas-wrap-around-region t)
+    (setq yas-snippet-dirs (append '("~/dotfiles/src/yas-snippets") yas-snippet-dirs))
+    (yas-reload-all)
+    )
+  )
+
+;;;
+;;    Git
+;;;
 (use-package gitconfig-mode
   :ensure t)
 
@@ -302,6 +293,17 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :ensure t
   :config
   (global-set-key (kbd "C-x g") 'magit-status))
+
+;;;
+;;    Programming languages
+;;;
+(add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
+(add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
+;; Fortran namelist mode:
+(when (file-exists-p "~/.emacs.d/f90-namelist-mode/f90-namelist-mode.el")
+  (add-to-list 'load-path "~/.emacs.d/f90-namelist-mode/")
+  (require 'f90-namelist-mode))
+
 
 (use-package lua-mode
   :ensure t)
