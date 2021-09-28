@@ -187,16 +187,34 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;;    Completion
 ;;;
 (use-package swiper
-	     :ensure t
-	     :config
-	     (progn
-	       (ivy-mode 1)
-	       (setq ivy-use-virtual-buffers t)
-	       (setq ivy-count-format "(%d/%d) ")
-	       ))
+  :ensure t
+  :custom
+  (ivy-use-selectable-prompt t)
+  :custom-face
+  (ivy-current-match ((t (:extend t :background "cyan" :foreground "white" :weight bold))))
+  (ivy-minibuffer-match-face-1 ((t (:background "brightgreen" :foreground "brightmagenta"))))
+  (ivy-minibuffer-match-face-2 ((t (:background "brightmagenta" :foreground "white"))))
+  (ivy-minibuffer-match-face-3 ((t (:background "brightmagenta" :foreground "white"))))
+  (ivy-minibuffer-match-face-4 ((t (:background "brightmagenta" :foreground "white"))))
+  (ivy-org ((t (:inherit diredful-face-text))))
+  (ivy-remote ((t (:foreground "magenta"))))
+  (swiper-background-match-face-1 ((t (:background "brightgreen" :foreground "yellow"))))
+  (swiper-background-match-face-2 ((t (:inherit lazy-highlight))))
+  (swiper-background-match-face-3 ((t (:inherit swiper-background-match-face-2))))
+  (swiper-background-match-face-4 ((t (:inherit swiper-background-match-face-2))))
+  (swiper-match-face-1 ((t (:background "brightgreen" :foreground "brightred"))))
+  (swiper-match-face-3 ((t (:inherit swiper-match-face-2))))
+  (swiper-match-face-4 ((t (:inherit swiper-match-face-2))))
+  :bind
+  ("C-s" . 'swiper-isearch)
+  :config
+  (progn
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
+    ))
 
 ;; Ivy-based interface to standard commands
-(global-set-key (kbd "C-s") 'swiper-isearch)
 ;; (global-set-key (kbd "M-x") 'counsel-M-x)
 ;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 ;; (global-set-key (kbd "M-y") 'counsel-yank-pop)
@@ -248,6 +266,14 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 	 (LaTeX-mode . flyspell-mode)
 	 (LaTeX-mode . latex-math-mode)
 	 (LaTeX-mode . reftex-mode))
+  :custom
+  (reftex-default-bibliography '("~/Library/texmf/bibtex/bib/bibtexlib.bib"))
+  :custom-face
+  (font-latex-math-face ((t (:foreground "brightmagenta"))))
+  (font-latex-sectioning-2-face ((t (:inherit font-latex-sectioning-3-face :foreground "brightred" :height 1.1))))
+  (font-latex-sectioning-3-face ((t (:inherit font-latex-sectioning-4-face :foreground "yellow" :height 1.1))))
+  (font-latex-sectioning-4-face ((t (:inherit font-latex-sectioning-5-face :foreground "blue" :height 1.1))))
+  (font-latex-slide-title-face ((t (:inherit (variable-pitch font-lock-type-face) :weight normal :height 1.2))))
   :config
   (progn
     (setq TeX-auto-save t)
@@ -291,8 +317,15 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 
 (use-package magit
   :ensure t
-  :config
-  (global-set-key (kbd "C-x g") 'magit-status))
+  :bind ("C-x g" . 'magit-status)
+  :custom-face
+  (magit-branch-current ((t (:inherit magit-branch-local :foreground "red" :box 1 :slant italic))))
+  (magit-branch-local ((t (:foreground "blue"))))
+  (magit-branch-remote ((t (:foreground "magenta"))))
+  (magit-diff-file-heading ((t (:foreground "brightred" :weight bold))))
+  (magit-diffstat-added ((t (:foreground "green"))))
+  (magit-diffstat-removed ((t (:foreground "red"))))
+  )
 
 ;;;
 ;;    Programming languages
@@ -309,7 +342,11 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :ensure t)
 
 (use-package tuareg
-  :ensure t)
+  :ensure t
+  :custom-face
+  (tuareg-font-lock-governing-face ((t (:foreground "yellow"))))
+  (tuareg-font-lock-operator-face ((t (:foreground "cyan"))))
+  )
 
 (use-package cuda-mode
   :ensure t
@@ -333,6 +370,10 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :ensure t)
 (use-package python-mode
   :ensure t
+  :custom-face
+  (py-decorators-face ((t (:inherit font-lock-preprocessor-face :weight bold))))
+  (py-import-from-face ((t (:foreground "brightred" :weight bold))))
+  (py-variable-name-face ((t (:inherit default :foreground "blue"))))
   :config
   ;; use IPython
   (setq-default py-shell-name "ipython")
@@ -356,7 +397,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;;;
 ;;   Agenda
 ;;;
-
 (setq org-agenda-custom-commands
       '(("c" "Agenda and TODO by priority"
          ((agenda "")
@@ -379,6 +419,10 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;; Display warning in a notification window
 (use-package alert
   :ensure t
+  :custom-face
+  (alert-high-face ((t (:foreground "red"))))
+  (alert-low-face ((t (:foreground "green"))))
+  (alert-moderate-face ((t (:foreground "yellow"))))
   :config
   (setq alert-default-style 'notifier)
   (defun appt-alert (min-to-app new-time msg) (alert msg :title "Reminder"))
@@ -410,7 +454,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
  '(eol-mnemonic-mac "/")
  '(epg-pinentry-mode 'loopback)
  '(frame-background-mode 'dark)
- '(ivy-use-selectable-prompt t)
  '(org-agenda-files '("~/org/todo.org" "~/org/projects.org"))
  '(org-agenda-skip-deadline-prewarning-if-scheduled t)
  '(org-agenda-todo-ignore-deadlines 'near)
@@ -427,8 +470,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
    '((sequence "TODO" "INPROGRESS" "WAIT" "|" "DONE" "CANCELLED")))
  '(org-use-property-inheritance '("PRIORITY"))
  '(package-selected-packages
-   '(csv-mode which-key counsel alert flycheck-julia flycheck jinja2-mode 2048-game ecb yasnippet tuareg solarized-theme python-mode pydoc matlab-mode markdown-mode magit lua-mode gitignore-mode gitconfig-mode ein diredful cuda-mode color-theme-solarized color-theme-sanityinc-solarized auctex))
- '(reftex-default-bibliography '("~/Library/texmf/bibtex/bib/bibtexlib.bib")))
+   '(solarized-theme color-theme-sanityinc-solarized csv-mode alert 2048-game color-theme-solarized)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -436,9 +478,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
  ;; If there is more than one, they won't work right.
  '(Man-overstrike ((t (:inherit bold :foreground "brightred"))))
  '(Man-underline ((t (:foreground "brightgreen"))))
- '(alert-high-face ((t (:foreground "red"))))
- '(alert-low-face ((t (:foreground "green"))))
- '(alert-moderate-face ((t (:foreground "yellow"))))
  '(bookmark-menu-bookmark ((t (:foreground "brightmagenta"))))
  '(buffer-menu-buffer ((t (:foreground "yellow"))))
  '(calendar-today ((t (:foreground "red" :underline t))))
@@ -453,29 +492,11 @@ Version 2020-12-02 2021-04-14 2021-08-01"
  '(epa-validity-high ((t (:foreground "green"))))
  '(epa-validity-low ((t (:foreground "yellow"))))
  '(epa-validity-medium ((t (:foreground "blue"))))
- '(font-latex-math-face ((t (:foreground "brightmagenta"))))
- '(font-latex-sectioning-2-face ((t (:inherit font-latex-sectioning-3-face :foreground "brightred" :height 1.1))))
- '(font-latex-sectioning-3-face ((t (:inherit font-latex-sectioning-4-face :foreground "yellow" :height 1.1))))
- '(font-latex-sectioning-4-face ((t (:inherit font-latex-sectioning-5-face :foreground "blue" :height 1.1))))
- '(font-latex-slide-title-face ((t (:inherit (variable-pitch font-lock-type-face) :weight normal :height 1.2))))
  '(ido-first-match ((t (:foreground "yellow" :weight normal))))
  '(info-menu-header ((t (:foreground "blue" :underline t :weight normal))))
  '(info-title-1 ((t (:foreground "brightred" :weight bold))))
  '(info-title-2 ((t (:foreground "yellow"))))
  '(info-title-3 ((t (:foreground "green"))))
- '(ivy-current-match ((t (:extend t :background "cyan" :foreground "white" :weight bold))))
- '(ivy-minibuffer-match-face-1 ((t (:background "brightgreen" :foreground "brightmagenta"))))
- '(ivy-minibuffer-match-face-2 ((t (:background "brightmagenta" :foreground "white"))))
- '(ivy-minibuffer-match-face-3 ((t (:background "brightmagenta" :foreground "white"))))
- '(ivy-minibuffer-match-face-4 ((t (:background "brightmagenta" :foreground "white"))))
- '(ivy-org ((t (:inherit diredful-face-text))))
- '(ivy-remote ((t (:foreground "magenta"))))
- '(magit-branch-current ((t (:inherit magit-branch-local :foreground "red" :box 1 :slant italic))))
- '(magit-branch-local ((t (:foreground "blue"))))
- '(magit-branch-remote ((t (:foreground "magenta"))))
- '(magit-diff-file-heading ((t (:foreground "brightred" :weight bold))))
- '(magit-diffstat-added ((t (:foreground "green"))))
- '(magit-diffstat-removed ((t (:foreground "red"))))
  '(org-agenda-clocking ((t (:inherit secondary-selection :background "white"))))
  '(org-agenda-date ((t (:foreground "brightcyan" :weight bold))))
  '(org-agenda-date-today ((t (:inherit org-agenda-date :foreground "brightwhite" :slant italic :weight bold))))
@@ -512,22 +533,10 @@ Version 2020-12-02 2021-04-14 2021-08-01"
  '(outline-6 ((t (:foreground "brightcyan"))))
  '(outline-7 ((t (:foreground "brightblue"))))
  '(outline-8 ((t (:foreground "brightyellow"))))
- '(py-decorators-face ((t (:inherit font-lock-preprocessor-face :weight bold))))
- '(py-import-from-face ((t (:foreground "brightred" :weight bold))))
- '(py-variable-name-face ((t (:inherit default :foreground "blue"))))
  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "brightwhite"))))
- '(swiper-background-match-face-1 ((t (:background "brightgreen" :foreground "yellow"))))
- '(swiper-background-match-face-2 ((t (:inherit lazy-highlight))))
- '(swiper-background-match-face-3 ((t (:inherit swiper-background-match-face-2))))
- '(swiper-background-match-face-4 ((t (:inherit swiper-background-match-face-2))))
- '(swiper-match-face-1 ((t (:background "brightgreen" :foreground "brightred"))))
- '(swiper-match-face-3 ((t (:inherit swiper-match-face-2))))
- '(swiper-match-face-4 ((t (:inherit swiper-match-face-2))))
  '(tty-menu-disabled-face ((t (:background "brightwhite" :foreground "brightcyan"))))
  '(tty-menu-enabled-face ((t (:background "brightwhite" :foreground "brightblack"))))
  '(tty-menu-selected-face ((t (:background "brightred" :foreground "brightwhite"))))
- '(tuareg-font-lock-governing-face ((t (:foreground "yellow"))))
- '(tuareg-font-lock-operator-face ((t (:foreground "cyan"))))
  '(which-func ((t (:background "magenta"))))
  '(woman-bold ((t (:inherit bold :foreground "brightred"))))
  '(woman-italic ((t (:inherit italic :foreground "blue")))))
