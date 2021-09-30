@@ -395,8 +395,12 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 
 
 ;;;
-;;   Agenda
+;;   Org mode
 ;;;
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t) (latex . t)))
+(add-to-list 'org-src-lang-modes '("latex" . latex))
 (setq org-agenda-custom-commands
       '(("c" "Agenda and TODO by priority"
          ((agenda "")
