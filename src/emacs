@@ -143,13 +143,26 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;;;
 ;;    Theme and mode line
 ;;;
-(use-package color-theme-solarized
-  :ensure t
-  :config
-  (load-theme 'solarized t)
-  )
-;; Show current function name in mode-line
-(which-function-mode 1)
+(if (display-graphic-p)
+    ;; doom-themes do not appear properly in iTerm.
+    ;; therefore, we only use it if running with a GUI
+    (progn
+      (use-package doom-themes
+	:ensure t
+	:config
+	(load-theme 'doom-solarized-dark t)
+	)
+      (use-package doom-modeline
+	:ensure t
+	:hook (after-init . doom-modeline-mode)))
+  ;; otherwise, fall back to the 'old' solarized theme
+      (use-package color-theme-solarized
+	:ensure t
+	:config
+	(load-theme 'solarized t)
+	;; Show current function name in mode-line
+	(which-function-mode 1)
+	))
 
 ;;;
 ;;    Text editing and spelling
