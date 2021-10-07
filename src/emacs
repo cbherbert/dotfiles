@@ -191,6 +191,19 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :config
   (global-flycheck-mode))
 
+(use-package flycheck-aspell
+  :ensure t
+  :config
+  (add-to-list 'flycheck-checkers 'c-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'html-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'mail-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'markdown-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'nroff-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'texinfo-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'xml-aspell-dynamic)
+  )
+
 (use-package markdown-mode
   :ensure t)
 
