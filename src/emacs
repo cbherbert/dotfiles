@@ -166,7 +166,16 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 	)
       (use-package doom-modeline
 	:ensure t
-	:hook (after-init . doom-modeline-mode)))
+	:hook (after-init . doom-modeline-mode))
+      (when (eq system-type 'darwin)
+	(set-face-attribute 'default nil :family "Hack")
+	;; default font size (point * 10)
+	;;
+	;; WARNING!  Depending on the default font,
+	;; if the size is not supported very well, the frame will be clipped
+	;; so that the beginning of the buffer may not be visible correctly.
+	(set-face-attribute 'default nil :height 141))
+      )
   ;; otherwise, fall back to the 'old' solarized theme
       (use-package color-theme-solarized
 	:ensure t
