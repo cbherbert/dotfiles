@@ -230,7 +230,8 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 (use-package diredful
   :ensure t
   :config
-  (setq diredful-init-file "~/dotfiles/src/diredful-conf.el")
+  (unless (display-graphic-p)
+    (setq diredful-init-file "~/dotfiles/src/diredful-conf.el"))
   (diredful-mode 1)
   )
 
