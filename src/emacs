@@ -465,3 +465,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (setq appt-display-interval appt-message-warning-time)
   (setq appt-display-duration (* appt-message-warning-time 60))
   (setq alert-fade-time (* appt-message-warning-time 60)))
+
+(use-package try
+  :ensure t)
