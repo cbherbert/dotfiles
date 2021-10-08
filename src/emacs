@@ -424,20 +424,20 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (org-n-level-faces 5)
   (org-todo-keywords
    '((sequence "TODO" "INPROGRESS" "WAIT" "|" "DONE" "CANCELLED")))
-  )
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t) (latex . t)))
-(add-to-list 'org-src-lang-modes '("latex" . latex))
-(setq org-agenda-custom-commands
-      '(("c" "Agenda and TODO by priority"
-         ((agenda "")
-	  (alltodo ""
+  :config
+  (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (latex . t)))
+  (add-to-list 'org-src-lang-modes '("latex" . latex))
+  (setq org-agenda-custom-commands
+	'(("c" "Agenda and TODO by priority"
+           ((agenda "")
+	    (alltodo ""
 		     ((org-agenda-files '("~/org/projects.org"))
 		      (org-agenda-overriding-header "Projects:")))
-	  (alltodo ""
+	    (alltodo ""
 		     ((org-agenda-files '("~/org/todo.org"))
 		      (org-agenda-overriding-header "Tasks:")))))))
+  )
+
 
 (require 'appt)
 (appt-activate t)
