@@ -422,10 +422,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (org-export-backends '(ascii beamer html icalendar latex man md odt texinfo))
   (org-modules '(org-habit))
   (org-n-level-faces 5)
-  (org-todo-keyword-faces
-   '(("INPROGRESS" :inherit org-todo :background "yellow")
-     ("WAIT" :inherit org-todo :background "cyan")
-     ("CANCELLED" :inherit org-done :foreground "blue")))
   (org-todo-keywords
    '((sequence "TODO" "INPROGRESS" "WAIT" "|" "DONE" "CANCELLED")))
   )
