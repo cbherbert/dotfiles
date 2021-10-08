@@ -219,6 +219,9 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 (use-package markdown-mode
   :ensure t)
 
+(use-package yaml-mode
+  :ensure t)
+
 (use-package csv-mode
   :ensure t
   :mode ("\\.tsv$" . csv-mode)
