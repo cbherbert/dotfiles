@@ -238,6 +238,11 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (diredful-mode 1)
   )
 
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode))
+
 ;;;
 ;;    Completion
 ;;;
