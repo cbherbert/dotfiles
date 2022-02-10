@@ -300,6 +300,40 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :config
   (which-key-mode))
 
+;; projectile
+(use-package projectile
+  :ensure t
+  :init
+  (projectile-mode +1)
+  (setq projectile-completion-system 'ivy)
+  :bind (:map projectile-mode-map
+              ("C-c p" . projectile-command-map))
+  )
+
+(use-package counsel-projectile
+  :ensure t
+  :config
+  (counsel-projectile-mode))
+
+(use-package treemacs
+  :ensure t
+  :defer t
+  :config
+  (treemacs-follow-mode t)
+  (treemacs-project-follow-mode t)
+  :bind
+  (:map global-map
+        ("M-0"       . treemacs-select-window)
+        ("C-x t 1"   . treemacs-delete-other-windows)
+        ("C-x t t"   . treemacs)
+        ("C-x t d"   . treemacs-select-directory)
+        ("C-x t B"   . treemacs-bookmark)
+        ("C-x t C-t" . treemacs-find-file)
+        ("C-x t M-t" . treemacs-find-tag)))
+
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :ensure t)
 
 ;;;
 ;;   AUCTeX
