@@ -304,6 +304,24 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;; (global-set-key (kbd "C-c t") 'counsel-load-theme)
 ;; (global-set-key (kbd "C-c F") 'counsel-org-file)
 
+(use-package embark
+  :ensure t
+
+  :bind
+  (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
 (use-package which-key
   :ensure t
   :config
@@ -505,6 +523,32 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :ensure t
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+(use-package citar
+  :ensure t
+  :custom
+  (org-cite-insert-processor 'citar)
+  (org-cite-follow-processor 'citar)
+  (org-cite-activate-processor 'citar)
+  (citar-bibliography org-cite-global-bibliography)
+  ;; optional: org-cite-insert is also bound to C-c C-x C-@
+  :config
+  ;; note: the symbols defined below are only visible when using vertico as the completion framework
+  (setq citar-symbols
+	`((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
+          (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
+          (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
+  (setq citar-symbol-separator "  ")
+  (setq citar-at-point-function 'embark-act)
+  :bind
+  (:map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
+
+(use-package citar-embark
+  :ensure t
+  :after citar embark
+  :config
+  (citar-embark-mode)
+  )
 
 (use-package org-roam
   :ensure t
