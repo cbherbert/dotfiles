@@ -43,7 +43,9 @@
 (autoload 'gid "idutils" nil t)
 
 ;; Define path to bibtex file for various tools (auctex, org-mode, etc)
-(setq bibtexfile '("~/Library/texmf/bibtex/bib/bibtexlib2.bib"))
+(setq bibtexfile (if (eq system-type 'darwin)
+		     '("~/Library/texmf/bibtex/bib/bibtexlib2.bib")
+		   '("~/texmf/bibtex/bib/bibtexlib.bib")))
 
 ;;;
 ;;   Buffers and Windows
