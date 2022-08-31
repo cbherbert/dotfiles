@@ -485,6 +485,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :config
   (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (latex . t)))
   (add-to-list 'org-src-lang-modes '("latex" . latex))
+  (setq org-startup-indented t)
   (setq org-agenda-custom-commands
 	'(("c" "Agenda and TODO by priority"
            ((agenda "")
@@ -494,6 +495,10 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 	    (alltodo ""
 		     ((org-agenda-files '("~/org/todo.org"))
 		      (org-agenda-overriding-header "Tasks:")))))))
+  :bind
+  (("C-c a" . org-agenda)
+   ("C-c c" . org-capture)
+   ("C-c l" . org-store-link))
   )
 
 (use-package org-bullets
