@@ -42,6 +42,9 @@
 ;; Idutils:
 (autoload 'gid "idutils" nil t)
 
+;; Define path to bibtex file for various tools (auctex, org-mode, etc)
+(setq bibtexfile '("~/Library/texmf/bibtex/bib/bibtexlib2.bib"))
+
 ;;;
 ;;   Buffers and Windows
 ;;;
@@ -355,7 +358,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 	 (LaTeX-mode . latex-math-mode)
 	 (LaTeX-mode . reftex-mode))
   :custom
-  (reftex-default-bibliography '("~/Library/texmf/bibtex/bib/bibtexlib.bib"))
+  (reftex-default-bibliography bibtexfile)
   :config
   (progn
     (setq TeX-auto-save t)
@@ -470,6 +473,8 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (org-agenda-skip-deadline-prewarning-if-scheduled t)
   (org-agenda-todo-ignore-deadlines 'near)
   (org-agenda-todo-ignore-scheduled 'all)
+  ;;(org-cite-global-bibliography '("~/Library/texmf/bibtex/bib/bibtexlib.bib"))
+  (org-cite-global-bibliography bibtexfile)
   (org-export-backends '(ascii beamer html icalendar latex man md odt texinfo))
   (org-modules '(org-habit))
   (org-n-level-faces 5)
