@@ -17,19 +17,24 @@
 ;;   Vanilla emacs settings
 ;;;
 (use-package emacs
+  :custom
+  (fill-column 80)
+  (require-final-newline t)
+  (vc-follow-symlinks t)
+  (calendar-today-visible-hook '(calendar-mark-today))
+  (calendar-week-start-day 1)
+  ;;(Buffer-menu-name-width 30)
+  (eol-mnemonic-dos "\\")
+  (eol-mnemonic-mac "/")
+  (epg-pinentry-mode 'loopback)
+  ;; Compilation mode:
+  (compilation-scroll-output 'first-error)
+  (recentf-max-menu-items 25)
+  (recentf-max-saved-items 25)
   :init
-  (setq fill-column 80)
   (put 'narrow-to-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
-  (setq require-final-newline t)
-  (setq vc-follow-symlinks t)
-  (setq Buffer-menu-name-width 30)
-  (setq calendar-today-visible-hook '(calendar-mark-today))
-  (setq calendar-week-start-day 1)
-  (setq eol-mnemonic-dos "\\")
-  (setq eol-mnemonic-mac "/")
-  (setq epg-pinentry-mode 'loopback)
   ;; Remove trailing whitespace upon saving, except for markdown where two spaces at the end of the line indicate line break:
   (add-hook 'before-save-hook
 	    (lambda ()
@@ -79,8 +84,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (set-face-foreground 'show-paren-match "magenta")
   (set-face-attribute 'show-paren-match nil :weight 'normal)
 
-  ;; Compilation mode:
-  (setq compilation-scroll-output 'first-error)
   ;; Idutils:
   (autoload 'gid "idutils" nil t)
 
@@ -91,9 +94,9 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 
   (recentf-mode 1)
 
-;;;
+  ;;;
   ;;   Buffers and Windows
-;;;
+  ;;;
 
   ;; Buffer list
   (defalias 'list-buffers 'ibuffer-other-window)
@@ -148,17 +151,13 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   ; Move through past window configuration:
   (winner-mode 1)
 
-  ;; Custom Key Bindings
-  (define-key global-map (kbd "C-c r") 'replace-string)
-  (define-key global-map (kbd "C-c q") 'query-replace)
-  (define-key global-map (kbd "C-c TAB") 'indent-region)
-  (define-key global-map (kbd "C-x +") 'enlarge-window)
-  (define-key global-map (kbd "C-x -") 'balance-windows)
-  (define-key global-map (kbd "C-x ^") 'shrink-window-if-larger-than-buffer)
-
-  :custom
-  (recentf-max-menu-items 25)
-  (recentf-max-saved-items 25)
+  :bind
+  ("C-c r" . 'replace-string)
+  ("C-c q" . 'query-replace)
+  ("C-c TAB" . 'indent-region)
+  ("C-x +" . 'enlarge-window)
+  ("C-x -" . 'balance-windows)
+  ("C-x ^" . 'shrink-window-if-larger-than-buffer)
   )
 
 ;;;
