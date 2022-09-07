@@ -304,6 +304,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (marginalia-mode))
 
 (use-package consult
+  :ensure t
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings (mode-specific-map)
          ("C-c h" . consult-history)
