@@ -299,8 +299,11 @@ Version 2020-12-02 2021-04-14 2021-08-01"
         completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package marginalia
+  :after vertico
   :ensure t
-  :config
+  :custom
+  (marginalia-align 'right)
+  :init
   (marginalia-mode))
 
 (use-package consult
