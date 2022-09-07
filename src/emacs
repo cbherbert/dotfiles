@@ -90,7 +90,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   ;; Define path to bibtex file for various tools (auctex, org-mode, etc)
   (setq bibtexfile (if (eq system-type 'darwin)
 		       '("~/Library/texmf/bibtex/bib/bibtexlib2.bib")
-		     '("~/texmf/bibtex/bib/bibtexlib.bib")))
+		     '("~/texmf/bibtex/bib/bibtexlib2.bib")))
 
   (recentf-mode 1)
 
@@ -666,7 +666,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory "~/owncloud/org/roam")
+  (org-roam-directory (file-truename "~/owncloud/org/roam"))
   (org-roam-capture-templates '(
 				("d" "default" plain "%?" :target (file+head "${slug}-%<%Y%m%d%H%M%S>.org" "#+title: ${title}\n#+author: Corentin Herbert")
 				 :unnarrowed t)
