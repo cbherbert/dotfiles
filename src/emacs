@@ -680,6 +680,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :ensure t
   :custom
   (org-roam-directory (file-truename "~/owncloud/org/roam"))
+  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:20}" 'face 'org-tag)))
   (org-roam-capture-templates '(
 				("d" "default" plain "%?" :target (file+head "${slug}-%<%Y%m%d%H%M%S>.org" "#+title: ${title}\n#+author: Corentin Herbert")
 				 :unnarrowed t)
@@ -688,9 +689,10 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :bind
   (("C-c n l" . org-roam-buffer-toggle)
    ("C-c n f" . org-roam-node-find)
-   ("C-c n i" . org-roam-node-insert))
+   ("C-c n i" . org-roam-node-insert)
+   ("C-c n a" . org-roam-alias-add))
   :config
-  (org-roam-setup)
+  (org-roam-db-autosync-mode)
   )
 
 (require 'appt)
