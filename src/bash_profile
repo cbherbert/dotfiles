@@ -1,5 +1,7 @@
 # -*- mode: shell-script-*-
 
+[ ${TERM} == "dumb" ] && return
+
 ##
 #  First load the generic profile
 ##
