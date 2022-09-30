@@ -701,6 +701,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :custom
   (org-roam-directory (file-truename "~/owncloud/org/roam"))
   (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:20}" 'face 'org-tag)))
+  (org-roam-completion-everywhere t)
   (org-roam-capture-templates '(
 				("d" "default" plain "%?" :target (file+head "${slug}-%<%Y%m%d%H%M%S>.org" "#+title: ${title}\n#+author: Corentin Herbert")
 				 :unnarrowed t)
