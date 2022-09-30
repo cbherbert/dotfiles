@@ -170,6 +170,8 @@ Version 2020-12-02 2021-04-14 2021-08-01"
       (tool-bar-mode -1)
       (display-time-mode 1)
       (size-indication-mode)
+      (use-package all-the-icons
+	:ensure t)
       (use-package doom-themes
 	:ensure t
 	:config
