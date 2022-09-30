@@ -501,10 +501,11 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :after (treemacs projectile)
   :ensure t)
 
-(use-package treemacs-all-the-icons
-  :ensure t
-  :config
-  (treemacs-load-theme "all-the-icons"))
+(when (display-graphic-p)
+  (use-package treemacs-all-the-icons
+    :ensure t
+    :config
+    (treemacs-load-theme "all-the-icons")))
 
 ;;;
 ;;   AUCTeX
