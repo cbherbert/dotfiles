@@ -716,6 +716,24 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (org-roam-db-autosync-mode)
   )
 
+(use-package consult-org-roam
+   :ensure t
+   :init
+   (require 'consult-org-roam)
+   ;; Activate the minor-mode
+   (consult-org-roam-mode 1)
+   :custom
+   (consult-org-roam-grep-func #'consult-ripgrep)
+   ;; :config
+   ;; ;; Eventually suppress previewing for certain functions
+   ;; (consult-customize
+   ;;  consult-org-roam-forward-links
+   ;;  :preview-key (kbd "M-."))
+   :bind
+   ("C-c n e" . consult-org-roam-file-find)
+   ("C-c n b" . consult-org-roam-backlinks)
+   ("C-c n r" . consult-org-roam-search))
+
 (require 'appt)
 (appt-activate t)
 ;; Add org-mode TODOs to appointments: at startup, every day at midnight, and when saving todo file
