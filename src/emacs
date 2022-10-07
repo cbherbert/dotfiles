@@ -631,7 +631,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;;;
 (use-package org
   :custom
-  (org-agenda-files '("~/org/todo.org" "~/org/projects.org"))
+  (org-agenda-files '("~/org/todo.org" "~/org/projects.org" "~/owncloud/org/meetings.org" "~/owncloud/org/seminars.org" "~/owncloud/org/holidays.org"))
   (org-agenda-skip-deadline-prewarning-if-scheduled t)
   (org-agenda-todo-ignore-deadlines 'near)
   (org-agenda-todo-ignore-scheduled 'all)
@@ -655,6 +655,15 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 	    (alltodo ""
 		     ((org-agenda-files '("~/org/todo.org"))
 		      (org-agenda-overriding-header "Tasks:")))))))
+  (setq org-capture-templates
+	'(("m" "meetings" entry (file "~/owncloud/org/meetings.org") "* %?")
+	  ("h" "holidays" entry (file "~/owncloud/org/holidays.org") "* %?\n%^{Beginning}t--%^{End}t")
+	  ("s" "Templates for Seminars")
+	  ("sm" "MathInFluids" entry (file+olp "~/owncloud/org/seminars.org" "MathInFluids")
+	   "* %?\n%^t")
+	  ("sg" "GFDiscussions" entry (file+olp "~/owncloud/org/seminars.org" "GFDiscussions")
+	   "* %?\n%^t")
+	  ))
   :bind
   (("C-c a" . org-agenda)
    ("C-c c" . org-capture)
