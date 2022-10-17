@@ -664,6 +664,12 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 	  ("sg" "GFDiscussions" entry (file+olp "~/owncloud/org/seminars.org" "GFDiscussions")
 	   "* %?\n%^t")
 	  ))
+  (add-hook 'org-mode-hook (lambda ()
+			     (setq-local time-stamp-active t
+					 time-stamp-start "last_modified:[ \t]*"
+					 time-stamp-end "$"
+					 time-stamp-format "\[%Y-%02m-%02d %a %02H:%02M\]")
+			     (add-hook 'before-save-hook 'time-stamp nil 'local)))
   :bind
   (("C-c a" . org-agenda)
    ("C-c c" . org-capture)
