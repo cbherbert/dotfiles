@@ -695,6 +695,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
      (suffix . "     ${=type=:12}    ${tags keywords:*}")
      (preview . "${author editor} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
      (note . "Notes on '${title}', ${author editor}")))
+  (citar-notes-paths '("~/owncloud/org/notes"))
   :config
   ;; note: the symbols defined below are only visible when using vertico as the completion framework
   (when (display-graphic-p)
@@ -703,6 +704,36 @@ Version 2020-12-02 2021-04-14 2021-08-01"
             (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
             (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " "))))
   (add-to-list 'savehist-additional-variables 'citar-history)
+  (defun ch/citar-org-format-note (key entry)
+    (let* ((title-template (citar--get-template 'note))
+           (note-meta (when title-template
+			(citar-format--entry title-template entry)))
+	   (author (citar-format--entry "${author editor}" key))
+	   (year (citar-format--entry "${year issued date}" key))
+	   (filepath (expand-file-name
+                      (concat key ".org")
+                      (car citar-notes-paths)))
+	   (buffer (find-file filepath))
+	   (template (with-temp-buffer
+		       (insert-file-contents (string-join (list (file-name-as-directory (car citar-notes-paths)) "template.org")))
+		       (buffer-string)))
+	   (now (format-time-string "\[%Y-%02m-%02d %a %02H:%02M\]"))
+	   )
+      (with-current-buffer buffer
+	(erase-buffer)
+	(citar-org-roam-make-preamble key)
+	(insert (format template
+			note-meta
+			user-full-name
+			now
+			now
+			author
+			year))
+	(search-backward "|")
+	(delete-char 1)
+	(when (fboundp 'evil-insert)
+          (evil-insert 1)))))
+  (setq citar-note-format-function 'ch/citar-org-format-note)
   ;; optional: org-cite-insert is also bound to C-c C-x C-@
   :bind
   (:map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
