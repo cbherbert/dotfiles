@@ -720,7 +720,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:20}" 'face 'org-tag)))
   (org-roam-completion-everywhere t)
   (org-roam-capture-templates '(
-				("d" "default" plain "%?" :target (file+head "${slug}-%<%Y%m%d%H%M%S>.org" "#+title: ${title}\n#+author: Corentin Herbert")
+				("d" "default" plain "%?" :target (file+head "${slug}-%<%Y%m%d%H%M%S>.org" "#+title: ${title}\n#+author: Corentin Herbert\n#+date_added: %u\n#+last_modified: %U")
 				 :unnarrowed t)
 				("b" "book" entry "" :target (file "reads.org") :unnarrowed t)
 				))
