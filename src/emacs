@@ -642,6 +642,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (org-n-level-faces 5)
   (org-todo-keywords
    '((sequence "TODO" "INPROGRESS" "WAIT" "|" "DONE" "CANCELLED")))
+  (org-hide-emphasis-markers t)
   :config
   (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (latex . t)))
   (add-to-list 'org-src-lang-modes '("latex" . latex))
