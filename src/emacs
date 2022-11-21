@@ -739,7 +739,9 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (setq citar-note-format-function 'ch/citar-org-format-note)
   ;; optional: org-cite-insert is also bound to C-c C-x C-@
   :bind
-  (:map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
+  (("C-c n n" . citar-open-notes)
+   ("C-c n o" . citar-open-files)
+   :map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
 
 (use-package citar-embark
   :ensure t
