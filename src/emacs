@@ -732,8 +732,11 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 			now
 			author
 			year))
-	(search-backward "|")
+	(search-backward "@")
 	(delete-char 1)
+	(citar-insert-citation (list key))
+	(search-forward "|")
+	(delete-char -1)
 	(when (fboundp 'evil-insert)
           (evil-insert 1)))))
   (setq citar-note-format-function 'ch/citar-org-format-note)
