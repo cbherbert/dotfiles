@@ -663,6 +663,8 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 	   "* %?\n%^t")
 	  ("sg" "GFDiscussions" entry (file+olp "~/owncloud/org/seminars.org" "GFDiscussions")
 	   "* %?\n%^t")
+	  ("t" "TODO list" entry (file+olp "~/owncloud/org/todo.org" "Tasks") "* TODO %?\n")
+	  ("r" "reviews" entry (file+olp "~/owncloud/org/todo.org" "Reviews & Editorial Work") "* TODO %?\n")
 	  ))
   (add-hook 'org-mode-hook (lambda ()
 			     (setq-local time-stamp-active t
