@@ -646,6 +646,9 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (org-todo-keywords
    '((sequence "TODO" "INPROGRESS" "WAIT" "|" "DONE" "CANCELLED")))
   (org-hide-emphasis-markers t)
+  (org-refile-targets '((org-agenda-files :maxlevel . 5)))
+  (org-refile-use-outline-path 'file)
+  (org-outline-path-complete-in-steps nil)
   :config
   (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (latex . t)))
   (add-to-list 'org-src-lang-modes '("latex" . latex))
