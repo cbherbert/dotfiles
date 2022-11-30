@@ -661,7 +661,13 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 		      (org-agenda-overriding-header "Projects:")))
 	    (alltodo ""
 		     ((org-agenda-files '("~/org/todo.org"))
-		      (org-agenda-overriding-header "Tasks:")))))))
+		      (org-agenda-overriding-header "Tasks:")))))
+	  ("w" "Agenda and WAIT items"
+	   ((agenda "")
+	    (todo "WAIT")))
+	  ("r" "Reading list" alltodo ""
+	   ((org-agenda-files '("~/owncloud/org/roam/reads.org"))))
+	  ))
   (setq org-capture-templates
 	'(("m" "meetings" entry (file "~/owncloud/org/meetings.org") "* %?")
 	  ("h" "holidays" entry (file "~/owncloud/org/holidays.org") "* %?\n%^{Beginning}t--%^{End}t")
@@ -672,6 +678,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 	   "* %?\n%^t")
 	  ("t" "TODO list" entry (file+olp "~/owncloud/org/todo.org" "Tasks") "* TODO %?\n")
 	  ("r" "reviews" entry (file+olp "~/owncloud/org/todo.org" "Reviews & Editorial Work") "* TODO %?\n")
+	  ("l" "reading list" entry (file+olp "~/owncloud/org/roam/reads.org" "Topics to read about") "* TODO %?\n")
 	  ))
   (add-hook 'org-mode-hook (lambda ()
 			     (setq-local time-stamp-active t
