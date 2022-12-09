@@ -634,7 +634,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;;;
 (use-package org
   :custom
-  (org-agenda-files '("~/org/todo.org" "~/org/projects.org" "~/owncloud/org/meetings.org" "~/owncloud/org/seminars.org" "~/owncloud/org/holidays.org"))
+  (org-agenda-files '("~/org/todo.org" "~/org/projects.org" "~/owncloud/org/meetings.org" "~/owncloud/org/seminars.org" "~/owncloud/org/holidays.org" "~/owncloud/org/discussions"))
   (org-agenda-skip-deadline-prewarning-if-scheduled t)
   (org-agenda-todo-ignore-deadlines 'near)
   (org-agenda-todo-ignore-scheduled 'all)
@@ -671,6 +671,10 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (setq org-capture-templates
 	'(("m" "meetings" entry (file "~/owncloud/org/meetings.org") "* %?")
 	  ("h" "holidays" entry (file "~/owncloud/org/holidays.org") "* %?\n%^{Beginning}t--%^{End}t")
+	  ("d" "Templates for Discussions")
+	  ("da" "Discussions Alessandro" plain (file "~/owncloud/org/discussions/discussions-alessandro.org") "%^t%?")
+	  ("db" "Discussions Bastien" plain (file "~/owncloud/org/discussions/discussions-bastien.org") "%^t%?")
+	  ("dt" "Discussions Tim" plain (file "~/owncloud/org/discussions/discussions-tim.org") "%^t%?")
 	  ("s" "Templates for Seminars")
 	  ("sm" "MathInFluids" entry (file+olp "~/owncloud/org/seminars.org" "MathInFluids")
 	   "* %?\n%^t")
