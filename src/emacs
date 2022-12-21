@@ -653,6 +653,13 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (latex . t) (python . t)))
   (add-to-list 'org-src-lang-modes '("latex" . latex))
   (setq org-startup-indented t)
+  (defun ch/org-narrow-to-subtree-up (arg &optional invisible-ok)
+    "Narrow buffer to parent subtree of current heading"
+    (interactive "p")
+    (save-excursion
+      (widen)
+      (outline-up-heading arg invisible-ok)
+      (org-narrow-to-subtree)))
   (setq org-agenda-custom-commands
 	'(("c" "Agenda and TODO by priority"
            ((agenda "")
@@ -693,7 +700,8 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :bind
   (("C-c a" . org-agenda)
    ("C-c c" . org-capture)
-   ("C-c l" . org-store-link))
+   ("C-c l" . org-store-link)
+   ("C-x n u" . ch/org-narrow-to-subtree-up))
   )
 
 (use-package org-bullets
