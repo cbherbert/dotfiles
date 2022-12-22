@@ -225,6 +225,7 @@ Can be an integer to determine the exact padding."
    ;;;; magit
    (magit-header-line :foreground "#d75f00" :background "#eee8d5" :weight 'bold
 		      :box `(:line-width 3 :color "#93a1a1"))
+   (magit-diff-file-heading :foreground yellow :weight 'bold)
    ;;;; solaire-mode
    (solaire-mode-line-face
     :inherit 'mode-line
