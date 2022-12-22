@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# contributor: Corentin Herbert <corentin.herbert@ens-lyon.fr>
+# name: columns3
+# key: columns3
+# --
+\begin{columns}
+\begin{column}{.33\linewidth}
+\centering
+$1
+\end{column}
+\begin{column}{.33\linewidth}
+\centering
+$2
+\end{column}
+\begin{column}{.33\linewidth}
+\centering
+$3
+\end{column}
+\end{columns}
+$0

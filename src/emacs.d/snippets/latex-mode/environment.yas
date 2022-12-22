@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: Corentin Herbert <corentin.herbert@ens-lyon.fr>
+# name: environment
+# key: begin
+# --
+\begin{$1}
+$0
+\end{$1}

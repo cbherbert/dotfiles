@@ -548,13 +548,13 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;;;
 (use-package yasnippet
   :ensure t
-  :config
-  (progn
-    (yas-global-mode 1)
-    (setq yas-wrap-around-region t)
-    (setq yas-snippet-dirs (append '("~/dotfiles/src/yas-snippets") yas-snippet-dirs))
-    (yas-reload-all)
-    )
+  :custom
+  (yas-snippet-dirs '("~/.emacs.d/snippets"))
+  (yas-wrap-around-region t)
+  :hook ((text-mode
+          prog-mode
+          conf-mode
+          snippet-mode) . yas-minor-mode-on)
   )
 
 ;;;
