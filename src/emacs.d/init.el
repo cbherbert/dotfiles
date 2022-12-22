@@ -180,7 +180,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 	:config
 	(setq custom-theme-directory "~/.emacs.d/themes/")
 	(load-theme 'doom-solarized-dark-custom t)
-	(setq custom-file "~/.emacs-custom-gui")
+	(setq custom-file "~/.emacs.d/custom-gui.el")
 	(load custom-file)
 	)
       (use-package doom-modeline
@@ -204,7 +204,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 	(load-theme 'solarized t)
 	;; Show current function name in mode-line
 	(which-function-mode 1)
-	(setq custom-file "~/.emacs-custom-terminal")
+	(setq custom-file "~/.emacs.d/custom-terminal.el")
 	(load custom-file)
 	))
 
