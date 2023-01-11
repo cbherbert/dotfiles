@@ -707,6 +707,13 @@ Version 2020-12-02 2021-04-14 2021-08-01"
    ("C-x n u" . ch/org-narrow-to-subtree-up))
   )
 
+(use-package org-agenda-property
+  :ensure t
+  :custom
+  (org-agenda-property-list '("LOCATION"))
+  (org-agenda-property-position 'next-line)
+  )
+
 (use-package org-bullets
   :ensure t
   :config
