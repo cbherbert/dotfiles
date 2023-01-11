@@ -192,6 +192,10 @@ Can be an integer to determine the exact padding."
                    :background selection
                    :distant-foreground bg
                    :extend t)
+   ;;;; latex
+   (font-latex-sectioning-2-face :inherit 'font-latex-sectioning-3-face :foreground orange :height 1.1)
+   (font-latex-sectioning-3-face :inherit 'font-latex-sectioning-4-face :foreground yellow :height 1.1)
+   (font-latex-sectioning-4-face :inherit 'font-latex-sectioning-5-face :foreground blue :height 1.1)
    ;;;; markdown-mode
    (markdown-markup-face :foreground base5)
    (markdown-header-face :inherit 'bold :foreground red)
@@ -226,6 +230,11 @@ Can be an integer to determine the exact padding."
    (magit-header-line :foreground "#d75f00" :background "#eee8d5" :weight 'bold
 		      :box `(:line-width 3 :color "#93a1a1"))
    (magit-diff-file-heading :foreground yellow :weight 'bold)
+   (magit-branch-local :foreground blue)
+   (magit-branch-remote :foreground magenta)
+   ;;;; treemacs
+   (treemacs-git-modified-face :inherit 'magit-diff-file-heading)
+   (treemacs-git-untracked-face :inherit 'magit-filename)
    ;;;; solaire-mode
    (solaire-mode-line-face
     :inherit 'mode-line
