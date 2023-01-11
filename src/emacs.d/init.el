@@ -185,6 +185,8 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 	)
       (use-package doom-modeline
 	:ensure t
+	:custom
+	(doom-modeline-enable-word-count 1)
 	:hook (after-init . doom-modeline-mode))
       (when (eq system-type 'darwin)
 	(set-face-attribute 'default nil :family "Hack")
