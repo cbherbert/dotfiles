@@ -653,6 +653,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (org-refile-use-outline-path 'file)
   (org-outline-path-complete-in-steps nil)
   (org-agenda-prefix-format '((agenda . " %i %-15:c%?-12t% s") (todo . " %i %-15:c") (tags . " %i %-15:c") (search . " %i %-15:c")))
+  (org-habit-graph-column 60)
   :config
   (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (latex . t) (python . t)))
   (add-to-list 'org-src-lang-modes '("latex" . latex))
