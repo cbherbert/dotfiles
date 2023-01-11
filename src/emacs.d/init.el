@@ -676,7 +676,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 	   ((agenda "")
 	    (todo "WAIT")))
 	  ("r" "Reading list" alltodo ""
-	   ((org-agenda-files '("~/owncloud/org/roam/reads.org"))))
+	   ((org-agenda-files '("~/owncloud/org/roam/reads.org" "~/owncloud/org/notes/"))))
 	  ))
   (setq org-capture-templates
 	'(("m" "meetings" entry (file "~/owncloud/org/meetings.org") "* %?")
