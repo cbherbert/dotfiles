@@ -217,6 +217,8 @@ Can be an integer to determine the exact padding."
    ((org-block-begin-line &override) :foreground comments :background base0)
    (org-mode-line-clock :foreground green)
    (org-mode-line-clock-overrun :foreground "#d75f00" :weight 'bold)
+   (org-scheduled-previously :foreground red :weight 'normal)
+   (org-scheduled-today :foreground yellow :weight 'normal)
    ;;;; org-roam
    (org-roam-header-line :foreground violet :weight 'bold)
    (org-roam-title :foreground magenta :weight 'bold)
