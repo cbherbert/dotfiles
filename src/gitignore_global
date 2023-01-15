@@ -37,3 +37,6 @@
 *.synctex.gz
 *.synctex.gz(busy)
 *.pdfsync
+
+.ipynb_checkpoints
+.vscode
