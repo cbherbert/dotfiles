@@ -29,6 +29,7 @@ export GLOBIGNORE=.:..
 
 # Building the path
 if [ "$(uname -s)" == "Darwin" ]; then
+    [ -d "/usr/local/sbin" ] && PATH="/usr/local/sbin:$PATH"
     # Macports path for OS X
     macportsprefix="/opt/local"
     macportspath=( "sbin" "bin" "libexec/gnubin" )
