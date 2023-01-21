@@ -634,7 +634,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;;;
 (use-package org
   :custom
-  (org-agenda-files '("~/org/todo.org" "~/org/projects.org" "~/owncloud/org/meetings.org" "~/owncloud/org/seminars.org" "~/owncloud/org/holidays.org" "~/owncloud/org/discussions"))
+  (org-agenda-files '("~/org/todo.org" "~/org/projects.org" "~/owncloud/org/meetings.org" "~/owncloud/org/teaching.org" "~/owncloud/org/conferences.org" "~/owncloud/org/seminars.org" "~/owncloud/org/holidays.org" "~/owncloud/org/discussions"))
   (org-agenda-skip-deadline-prewarning-if-scheduled t)
   (org-agenda-todo-ignore-deadlines 'near)
   (org-agenda-todo-ignore-scheduled 'all)
@@ -652,7 +652,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (org-agenda-prefix-format '((agenda . " %i %-15:c%?-12t% s") (todo . " %i %-15:c") (tags . " %i %-15:c") (search . " %i %-15:c")))
   (org-habit-graph-column 60)
   (org-agenda-custom-commands
-   '(("c" "Agenda and TODO by priority"
+   '(("f" "Agenda and TODO by priority"
       ((agenda "")
        (alltodo ""
 		((org-agenda-files '("~/org/projects.org"))
@@ -665,6 +665,12 @@ Version 2020-12-02 2021-04-14 2021-08-01"
        (todo "WAIT")))
      ("r" "Reading list" alltodo ""
       ((org-agenda-files '("~/owncloud/org/roam/reads.org" "~/owncloud/org/notes/"))))
+     ("c" "Conferences Overview" agenda ""
+      ((org-agenda-files '("~/owncloud/org/conferences.org"))
+       (org-agenda-show-all-dates 'nil)
+       (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
+       (org-agenda-span 'year)
+       ))
      ))
   (org-capture-templates
    '(("m" "meetings" entry (file "~/owncloud/org/meetings.org") "* %?")
