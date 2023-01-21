@@ -846,9 +846,10 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;; Add org-mode TODOs to appointments: at startup, every day at midnight, and when saving todo file
 (org-agenda-to-appt)
 (run-at-time "12:05am" (* 24 3600) 'org-agenda-to-appt)
+;; the following code does not capture agenda files if they are in a directory which is in org-agenda-files.
 (add-hook 'after-save-hook
           '(lambda ()
-             (if (string= (buffer-file-name) (concat (getenv "HOME") "/org/todo.org"))
+             (if (member buffer-file-name (mapcar #'expand-file-name org-agenda-files))
                  (org-agenda-to-appt))))
 ;; Display warning in a notification window
 (use-package alert
