@@ -651,6 +651,37 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (org-outline-path-complete-in-steps nil)
   (org-agenda-prefix-format '((agenda . " %i %-15:c%?-12t% s") (todo . " %i %-15:c") (tags . " %i %-15:c") (search . " %i %-15:c")))
   (org-habit-graph-column 60)
+  (org-agenda-custom-commands
+   '(("c" "Agenda and TODO by priority"
+      ((agenda "")
+       (alltodo ""
+		((org-agenda-files '("~/org/projects.org"))
+		 (org-agenda-overriding-header "Projects:")))
+       (alltodo ""
+		((org-agenda-files '("~/org/todo.org"))
+		 (org-agenda-overriding-header "Tasks:")))))
+     ("w" "Agenda and WAIT items"
+      ((agenda "")
+       (todo "WAIT")))
+     ("r" "Reading list" alltodo ""
+      ((org-agenda-files '("~/owncloud/org/roam/reads.org" "~/owncloud/org/notes/"))))
+     ))
+  (org-capture-templates
+   '(("m" "meetings" entry (file "~/owncloud/org/meetings.org") "* %?")
+     ("h" "holidays" entry (file "~/owncloud/org/holidays.org") "* %?\n%^{Beginning}t--%^{End}t")
+     ("d" "Templates for Discussions")
+     ("da" "Discussions Alessandro" plain (file "~/owncloud/org/discussions/discussions-alessandro.org") "%^t%?")
+     ("db" "Discussions Bastien" plain (file "~/owncloud/org/discussions/discussions-bastien.org") "%^t%?")
+     ("dt" "Discussions Tim" plain (file "~/owncloud/org/discussions/discussions-tim.org") "%^t%?")
+     ("s" "Templates for Seminars")
+     ("sm" "MathInFluids" entry (file+olp "~/owncloud/org/seminars.org" "MathInFluids")
+      "* %?\n%^t")
+     ("sg" "GFDiscussions" entry (file+olp "~/owncloud/org/seminars.org" "GFDiscussions")
+      "* %?\n%^t")
+     ("t" "TODO list" entry (file+olp "~/owncloud/org/todo.org" "Tasks") "* TODO %?\n")
+     ("r" "reviews" entry (file+olp "~/owncloud/org/todo.org" "Reviews & Editorial Work") "* TODO %?\n")
+     ("l" "reading list" entry (file+olp "~/owncloud/org/roam/reads.org" "Topics to read about") "* TODO %?\n")
+     ))
   :config
   (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (latex . t) (python . t)))
   (add-to-list 'org-src-lang-modes '("latex" . latex))
@@ -662,37 +693,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
       (widen)
       (outline-up-heading arg invisible-ok)
       (org-narrow-to-subtree)))
-  (setq org-agenda-custom-commands
-	'(("c" "Agenda and TODO by priority"
-           ((agenda "")
-	    (alltodo ""
-		     ((org-agenda-files '("~/org/projects.org"))
-		      (org-agenda-overriding-header "Projects:")))
-	    (alltodo ""
-		     ((org-agenda-files '("~/org/todo.org"))
-		      (org-agenda-overriding-header "Tasks:")))))
-	  ("w" "Agenda and WAIT items"
-	   ((agenda "")
-	    (todo "WAIT")))
-	  ("r" "Reading list" alltodo ""
-	   ((org-agenda-files '("~/owncloud/org/roam/reads.org" "~/owncloud/org/notes/"))))
-	  ))
-  (setq org-capture-templates
-	'(("m" "meetings" entry (file "~/owncloud/org/meetings.org") "* %?")
-	  ("h" "holidays" entry (file "~/owncloud/org/holidays.org") "* %?\n%^{Beginning}t--%^{End}t")
-	  ("d" "Templates for Discussions")
-	  ("da" "Discussions Alessandro" plain (file "~/owncloud/org/discussions/discussions-alessandro.org") "%^t%?")
-	  ("db" "Discussions Bastien" plain (file "~/owncloud/org/discussions/discussions-bastien.org") "%^t%?")
-	  ("dt" "Discussions Tim" plain (file "~/owncloud/org/discussions/discussions-tim.org") "%^t%?")
-	  ("s" "Templates for Seminars")
-	  ("sm" "MathInFluids" entry (file+olp "~/owncloud/org/seminars.org" "MathInFluids")
-	   "* %?\n%^t")
-	  ("sg" "GFDiscussions" entry (file+olp "~/owncloud/org/seminars.org" "GFDiscussions")
-	   "* %?\n%^t")
-	  ("t" "TODO list" entry (file+olp "~/owncloud/org/todo.org" "Tasks") "* TODO %?\n")
-	  ("r" "reviews" entry (file+olp "~/owncloud/org/todo.org" "Reviews & Editorial Work") "* TODO %?\n")
-	  ("l" "reading list" entry (file+olp "~/owncloud/org/roam/reads.org" "Topics to read about") "* TODO %?\n")
-	  ))
   (add-hook 'org-mode-hook (lambda ()
 			     (setq-local time-stamp-active t
 					 time-stamp-start "last_modified:[ \t]*"
