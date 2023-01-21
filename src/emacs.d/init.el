@@ -562,10 +562,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 ;;;
 ;;    Git
 ;;;
-(use-package gitconfig-mode
-  :ensure t)
-
-(use-package gitignore-mode
+(use-package git-modes
   :ensure t)
 
 (use-package magit
