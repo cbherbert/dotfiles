@@ -649,6 +649,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (org-refile-targets '((org-agenda-files :maxlevel . 5)))
   (org-refile-use-outline-path 'file)
   (org-outline-path-complete-in-steps nil)
+  (org-attach-store-link-p 'attach)
   (org-agenda-prefix-format '((agenda . " %i %-15:c%?-12t% s") (todo . " %i %-15:c") (tags . " %i %-15:c") (search . " %i %-15:c")))
   (org-habit-graph-column 60)
   (org-agenda-custom-commands
@@ -740,6 +741,19 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
+(use-package org-download
+  :ensure t
+  :custom
+  (org-download-method 'directory)
+  (org-download-image-dir "data")
+  (org-download-heading-lvl 0)
+  (org-download-timestamp "%Y-%m-%d_%H-%M-%S_")
+  (org-download-screenshot-method "screencapture -i %s")
+  :bind
+  (:map org-mode-map :package org ("C-c d c" . #'org-download-clipboard))
+  (:map org-mode-map :package org ("C-c d s" . #'org-download-screenshot))
+  )
+
 (use-package citar
   :ensure t
   :custom
@@ -827,6 +841,9 @@ Version 2020-12-02 2021-04-14 2021-08-01"
    ("C-c n a" . org-roam-alias-add))
   :config
   (org-roam-db-autosync-mode)
+  (setq org-roam-db-node-include-function
+      (lambda ()
+        (not (member "ATTACH" (org-get-tags)))))
   )
 
 (use-package consult-org-roam
