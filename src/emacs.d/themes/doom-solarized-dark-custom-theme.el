@@ -73,6 +73,7 @@ Can be an integer to determine the exact padding."
    (base6      '("#96A7A9" "#96A7A9" "brightblack" ))
    (base7      '("#788484" "#788484" "brightblack" ))
    (base8      '("#626C6C" "#626C6C" "white"       ))
+   (brightwhite '("#fff6e3" "#fff6e3" "brightwhite"))
 
    (grey       base4)
    (red        '("#dc322f" "#ff6655" "red"          ))
@@ -166,7 +167,12 @@ Can be an integer to determine the exact padding."
    (mode-line-emphasis :foreground (if -modeline-bright base8 highlight))
 
    (completions-common-part :foreground magenta :background base0)
+   (dired-directory :foreground violet :weight 'bold)
+   (dired-symlink :foreground magenta)
+   (dired-special :foreground cyan)
    (dired-marked :foreground red)
+   (dired-broken-symlink :background orange :foreground brightwhite)
+   (all-the-icons-dired-dir-face :foreground cyan)
 
    ;;;; centaur-tabs
    (centaur-tabs-active-bar-face :background blue)
