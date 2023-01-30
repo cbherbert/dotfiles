@@ -37,4 +37,7 @@
 ;; org-mode configuration:
 (require 'init-org)
 
+;; personal stuff:
+(require 'init-perso)
+
 ;;; init.el ends here
