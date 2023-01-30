@@ -474,6 +474,16 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   ;; auto-updating embark collect buffer
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
+
+(use-package company
+  :ensure t
+  :custom
+  (company-idle-delay 0)
+  (company-minimum-prefix-length 3)
+  (company-tooltip-align-annotations t)
+  (company-icon-margin 3)
+  :hook (after-init . global-company-mode))
+
 (use-package which-key
   :ensure t
   :config
