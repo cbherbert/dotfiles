@@ -78,17 +78,16 @@
 	 (LaTeX-mode . reftex-mode))
   :custom
   (reftex-default-bibliography bibtexfile)
+  (TeX-auto-save t)
+  (TeX-parse-self t)
+  (TeX-PDF-mode t)
+  (reftex-plug-into-AUCTeX t)
   :config
-  (progn
-    (setq TeX-auto-save t)
-    (setq TeX-parse-self t)
-    (setq-default TeX-master nil)
-    (setq reftex-plug-into-AUCTeX t)
-    (setq TeX-PDF-mode t)
-    )
+  (setq-default TeX-master nil)
   )
 
-(defun tex-green ()
+(defun tex-green-region ()
+  "Change region color to green for comments/deletion."
   (interactive)
   (save-excursion
     (goto-char (region-beginning))
