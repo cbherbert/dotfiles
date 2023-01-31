@@ -29,6 +29,7 @@
 	(load-theme 'doom-solarized-dark-custom t)
 	(setq custom-file "~/.emacs.d/custom-gui.el")
 	(load custom-file)
+	(doom-themes-visual-bell-config)
 	)
       (use-package doom-modeline
 	:ensure t
