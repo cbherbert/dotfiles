@@ -31,6 +31,8 @@
 
 (use-package flycheck
   :ensure t
+  :custom
+  (flycheck-emacs-lisp-load-path 'inherit) ;; avoid errors with emacs init files for instance
   :config
   (setq flycheck-global-modes '(not dir-locals-mode
                                     text-mode
