@@ -29,9 +29,9 @@
 (use-package matlab
   :ensure matlab-mode
   :mode ("\\.m\\'" . matlab-mode)
-  :config
-  (setq matlab-indent-function t)
-  (setq matlab-shell-command "matlab")
+  :custom
+  (matlab-indent-function t)
+  (matlab-shell-command "matlab")
   )
 
 ;;;
