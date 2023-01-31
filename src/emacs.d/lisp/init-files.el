@@ -31,7 +31,7 @@
 (use-package treemacs
   :ensure t
   :defer t
-  :config
+  :custom
   (treemacs-follow-mode t)
   (treemacs-project-follow-mode t)
   :bind
