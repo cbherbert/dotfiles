@@ -11,6 +11,7 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
+;; package management tools
 (require 'init-packages)
 
 ;; core configuration (vanilla emacs settings)
