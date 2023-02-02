@@ -10,8 +10,8 @@
 (add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
 (add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
 ;; Fortran namelist mode:
-(when (file-exists-p "~/.emacs.d/f90-namelist-mode/f90-namelist-mode.el")
-  (add-to-list 'load-path "~/.emacs.d/f90-namelist-mode/")
+(when (file-exists-p (expand-file-name "f90-namelist-mode/f90-namelist-mode.el" user-emacs-directory))
+  (add-to-list 'load-path (expand-file-name "f90-namelist-mode/f90-namelist-mode.el" user-emacs-directory))
   (require 'f90-namelist-mode))
 
 

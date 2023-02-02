@@ -60,7 +60,7 @@
 (use-package yasnippet
   :ensure t
   :custom
-  (yas-snippet-dirs '("~/.emacs.d/snippets"))
+  (yas-snippet-dirs '((expand-file-name "snippets" user-emacs-directory)))
   (yas-wrap-around-region t)
   :hook ((text-mode
           prog-mode
