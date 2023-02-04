@@ -57,6 +57,10 @@
   (company-icon-margin 3)
   :hook (after-init . global-company-mode))
 
+(use-package company-box
+  :ensure t
+  :hook (company-mode . company-box-mode))
+
 (use-package yasnippet
   :ensure t
   :custom
