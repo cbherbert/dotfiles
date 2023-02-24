@@ -84,16 +84,15 @@
   (reftex-plug-into-AUCTeX t)
   :config
   (setq-default TeX-master nil)
+  (defun tex-green-region ()
+    "Change region color to green for comments/deletion."
+    (interactive)
+    (save-excursion
+      (goto-char (region-beginning))
+      (insert "\\textcolor{green}{"))
+    (goto-char (region-end))
+    (insert "}\n"))
   )
-
-(defun tex-green-region ()
-  "Change region color to green for comments/deletion."
-  (interactive)
-  (save-excursion
-    (goto-char (region-beginning))
-    (insert "\\textcolor{green}{"))
-  (goto-char (region-end))
-  (insert "}\n"))
 
 (provide 'init-edit)
 
