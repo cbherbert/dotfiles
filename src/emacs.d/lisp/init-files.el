@@ -16,10 +16,10 @@
   (diredful-mode 1)
   )
 
-(when (display-graphic-p)
-  (use-package all-the-icons-dired
-    :ensure t
-    :hook (dired-mode . all-the-icons-dired-mode)))
+(use-package all-the-icons-dired
+  :ensure t
+  :if (display-graphic-p)
+  :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package projectile
   :ensure t
@@ -48,11 +48,11 @@
   :after (treemacs projectile)
   :ensure t)
 
-(when (display-graphic-p)
-  (use-package treemacs-all-the-icons
-    :ensure t
-    :config
-    (treemacs-load-theme "all-the-icons")))
+(use-package treemacs-all-the-icons
+  :ensure t
+  :if (display-graphic-p)
+  :config
+  (treemacs-load-theme "all-the-icons"))
 
 (provide 'init-files)
 

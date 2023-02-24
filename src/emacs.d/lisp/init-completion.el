@@ -40,13 +40,13 @@
   :init
   (marginalia-mode))
 
-(when (display-graphic-p)
-  (use-package all-the-icons-completion
-    :after (marginalia all-the-icons)
-    :ensure t
-    :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
-    :init
-    (all-the-icons-completion-mode)))
+(use-package all-the-icons-completion
+  :after (marginalia all-the-icons)
+  :ensure t
+  :if (display-graphic-p)
+  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+  :init
+  (all-the-icons-completion-mode))
 
 (use-package company
   :ensure t
