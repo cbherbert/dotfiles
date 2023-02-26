@@ -45,6 +45,8 @@
   :ensure nil
   :custom
   (python-shell-interpreter "python3"))
+(use-package snakemake-mode
+  :ensure t)
 
 (provide 'init-code)
 
