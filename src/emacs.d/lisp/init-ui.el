@@ -36,6 +36,10 @@
 	:custom
 	(doom-modeline-enable-word-count 1)
 	:hook (after-init . doom-modeline-mode))
+      (use-package solaire-mode
+	:ensure t
+	:config
+	(solaire-global-mode +1))
       (when (eq system-type 'darwin)
 	(set-face-attribute 'default nil :family "Hack")
 	;; default font size (point * 10)
