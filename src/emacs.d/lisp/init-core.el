@@ -142,6 +142,8 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   ; Move through past window configuration:
   (winner-mode 1)
 
+  (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
+
   :bind
   ("C-c r" . 'replace-string)
   ("C-c q" . 'query-replace)
