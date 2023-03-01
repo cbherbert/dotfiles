@@ -61,6 +61,43 @@
 	(setq custom-file "~/.emacs.d/custom-terminal.el")
 	(load custom-file)
 	))
+(use-package dashboard
+  :ensure t
+  :after all-the-icons
+  :if (display-graphic-p)
+  :custom
+  (dashboard-banner-logo-title (concat "GNU Emacs " emacs-version))
+  (dashboard-projects-backend 'projectile)
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-center-content t)
+  (dashboard-set-init-info t)
+  (dashboard-items '((recents  . 10) (bookmarks . 10) (projects . 10) (agenda . 10)))
+  (dashboard-week-agenda nil)
+  (dashboard-set-navigator t)
+  (dashboard-navigator-buttons `((
+				  (,(when (display-graphic-p)
+				      (all-the-icons-material "restore" :height 1.35 :v-adjust -0.24))
+				   "Restore" "Restore previous session"
+				   (lambda (&rest _) (recover-session)))
+				  (,(when (display-graphic-p)
+				      (all-the-icons-octicon "tools" :height 1.0 :v-adjust 0.0))
+				   "Settings" "Open custom file"
+				   (lambda (&rest _) (find-file custom-file)))
+				  (,(when (display-graphic-p)
+				      (all-the-icons-fileicon "lisp" :height 1.0 :v-adjust -0.1))
+				   "Scratch" "Open scratch buffer (lisp interpreter)"
+				   (lambda (&rest _) (switch-to-buffer "*scratch*")))
+				  (,(when (display-graphic-p)
+				      (all-the-icons-faicon "question" :height 1.2 :v-adjust -0.1)
+				      "?")
+				   "Info" "Browse Manuals"
+				   (lambda (&rest _) (info)))
+				  )))
+  :custom-face
+  (dashboard-banner-logo-title :inherit 'default)
+  :config
+  (dashboard-setup-startup-hook))
 
 (provide 'init-ui)
 
