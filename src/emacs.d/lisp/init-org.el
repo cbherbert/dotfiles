@@ -204,6 +204,8 @@
      (preview . "${author editor} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
      (note . "Notes on '${title}', ${author editor}")))
   (citar-notes-paths '("~/owncloud/org/notes"))
+  :hook
+  (org-mode . citar-capf-setup)
   :config
   ;; note: the symbols defined below are only visible when using vertico as the completion framework
   (when (display-graphic-p)
