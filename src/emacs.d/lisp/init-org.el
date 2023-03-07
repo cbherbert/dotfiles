@@ -126,6 +126,7 @@
 					   ("GFDiscussions" ,(list (all-the-icons-wicon "day-cloudy-gusts" :height 0.8)) nil nil :ascent center)
 					   ("MathInFluids" ,(list (all-the-icons-material "functions" :height 1.1)) nil nil :ascent center)
 					   ("Holidays" ,(list (all-the-icons-faicon "home" :height 1.1)) nil nil :ascent center)
+					   ("WorkFromHome" ,(list (all-the-icons-faicon "home" :height 1.1)) nil nil :ascent center)
 					   )))
   :bind
   (("C-c a" . org-agenda)
