@@ -64,6 +64,16 @@
      ("r" "reviews" entry (file+olp "~/owncloud/org/todo.org" "Reviews & Editorial Work") "* TODO %?\n")
      ("l" "reading list" entry (file+olp "~/owncloud/org/roam/reads.org" "Topics to read about") "* TODO %?\n")
      ))
+  (org-agenda-day-face-function
+      (defun ch/org-agenda-day-face-holidays-function (date)
+	"Use weekend face if DATE is a holiday."
+	(let ((holiday nil))
+	  (dolist (entry (org-agenda-get-day-entries "~/owncloud/org/holidays.org" date))
+	    (let ((category (with-temp-buffer (insert entry)
+					      (org-get-category (point-min)))))
+              (when (string= "Holidays" category)
+		(setq holiday t))))
+	  (when holiday 'org-agenda-date-weekend))))
   :config
   (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (latex . t) (python . t)))
   (add-to-list 'org-src-lang-modes '("latex" . latex))
