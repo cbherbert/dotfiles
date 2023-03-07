@@ -74,6 +74,26 @@
               (when (string= "Holidays" category)
 		(setq holiday t))))
 	  (when holiday 'org-agenda-date-weekend))))
+  (org-agenda-cmp-user-defined
+   (defun ch/org-agenda-heading-entries (entrya entryb)
+     "Define a comparison to put some entries first in agenda view"
+     (let ((catlist '("WorkFromHome" "Holidays"))
+	   (categorya (with-temp-buffer (insert entrya)
+					(org-get-category (point-min))))
+	   (categoryb (with-temp-buffer (insert entryb)
+					(org-get-category (point-min)))))
+       (cond ((member categorya catlist)
+	      (cond ((not (member categoryb catlist)) 1)
+		    (t 'nil)))
+	     ((member categoryb catlist)
+	      (cond ((not (member categorya catlist)) -1)
+		    (t 'nil)))
+	     (t 'nil)))))
+  (org-agenda-sorting-strategy
+   '((agenda user-defined-down habit-down time-up priority-down category-keep)
+     (todo priority-down category-keep)
+     (tags priority-down category-keep)
+     (search category-keep)))
   :config
   (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (latex . t) (python . t)))
   (add-to-list 'org-src-lang-modes '("latex" . latex))
