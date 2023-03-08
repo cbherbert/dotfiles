@@ -288,6 +288,11 @@
         (not (member "ATTACH" (org-get-tags)))))
   )
 
+(use-package org-roam-ui
+  :ensure t
+  :bind ("C-c n u" . org-roam-ui-mode)
+  :if (>= emacs-major-version 27))
+
 (use-package consult-org-roam
    :ensure t
    :init
