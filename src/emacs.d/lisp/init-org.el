@@ -9,10 +9,16 @@
 
 (use-package org
   :custom
+  (org-list-allow-alphabetical t)
+  (org-pretty-entities-include-sub-superscripts t)
+  (org-pretty-entities t)
+  (org-hide-emphasis-markers t)
+  (org-startup-indented t)
   (org-agenda-files '("~/org/todo.org" "~/org/projects.org" "~/owncloud/org/meetings.org" "~/owncloud/org/teaching.org" "~/owncloud/org/conferences.org" "~/owncloud/org/seminars.org" "~/owncloud/org/holidays.org" "~/owncloud/org/wfh.org" "~/owncloud/org/discussions"))
   (org-agenda-skip-deadline-prewarning-if-scheduled t)
   (org-agenda-todo-ignore-deadlines 'near)
   (org-agenda-todo-ignore-scheduled 'all)
+  (org-log-done 'time)
   ;;(org-cite-global-bibliography '("~/Library/texmf/bibtex/bib/bibtexlib.bib"))
   (org-cite-global-bibliography bibtexfile)
   (org-export-backends '(ascii beamer html icalendar latex man md odt texinfo))
@@ -20,7 +26,6 @@
   (org-n-level-faces 5)
   (org-todo-keywords
    '((sequence "TODO" "INPROGRESS" "WAIT" "|" "DONE" "CANCELLED")))
-  (org-hide-emphasis-markers t)
   (org-refile-targets '((org-agenda-files :maxlevel . 5)))
   (org-refile-use-outline-path 'file)
   (org-outline-path-complete-in-steps nil)
@@ -97,7 +102,6 @@
   :config
   (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (latex . t) (python . t)))
   (add-to-list 'org-src-lang-modes '("latex" . latex))
-  (setq org-startup-indented t)
   (defun ch/org-narrow-to-subtree-up (arg &optional invisible-ok)
     "Narrow buffer to parent subtree of current heading"
     (interactive "p")
