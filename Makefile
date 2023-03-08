@@ -11,6 +11,7 @@ MPLHOME_Linux     = $(HOME)/.config/matplotlib
 MPLHOME_Darwin    = $(HOME)/.matplotlib
 MPLHOME           = $(MPLHOME_$(OS))
 DOT_PRIVATE       = git@framagit.org:cherbert/dotfiles_private.git
+ORG               = $(HOME)/owncloud/org
 
 help:
 	@echo "This repository contains the following configuration files: $(LINK_FILES)"
@@ -44,6 +45,11 @@ bat:
 	cd "$(shell bat --config-dir)/themes" && git clone "https://github.com/paulcpederson/solarized-sublime"
 	bat cache --build
 
+$(ORG)/external:
+	mkdir -p $@
+	mkdir -p $(HOME)/bin
+	cp -t $(HOME)/bin/ bin/ical2org.awk bin/sync_lab_calendars.sh
+	(crontab -l; echo "*/30 * * * * $$HOME/bin/sync_lab_calendars.sh &> /dev/null") | sort -u | crontab -
 
 python:
 # This installs a list of python packages in the user repository using pip.
