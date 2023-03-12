@@ -7,7 +7,30 @@
 
 ;;; Code:
 
+(use-package appt
+  :custom
+  (appt-delete-window-function (lambda () t))
+  (appt-display-mode-line nil)
+  ;; Send one persistent warning 5 minutes before the event
+  (appt-message-warning-time 5)
+  (appt-display-interval appt-message-warning-time)
+  (appt-display-duration (* appt-message-warning-time 60))
+  :config
+  (appt-activate t)
+  )
+
+;; Display warning in a notification window
+(use-package alert
+  :after appt
+  :ensure t
+  :custom
+  (alert-default-style 'notifier)
+  (appt-disp-window-function 'appt-alert)
+  (alert-fade-time (* appt-message-warning-time 60))
+  :config
+  (defun appt-alert (min-to-app new-time msg) (alert msg :title "Reminder")))
 (use-package org
+  :after appt
   :custom
   (org-list-allow-alphabetical t)
   (org-pretty-entities-include-sub-superscripts t)
@@ -115,6 +138,13 @@
 					 time-stamp-end "$"
 					 time-stamp-format "\[%Y-%02m-%02d %a %02H:%02M\]")
 			     (add-hook 'before-save-hook 'time-stamp nil 'local)))
+  ;; Add org-mode TODOs to appointments: at startup, every day at midnight, and when saving todo file
+  (add-hook 'org-agenda-mode-hook #'org-agenda-to-appt)
+  (run-at-time "12:05am" (* 24 3600) 'org-agenda-to-appt)
+  ;; the following code does not capture agenda files if they are in a directory which is in org-agenda-files.
+  (add-hook 'after-save-hook '(lambda ()
+			       (if (member buffer-file-name (mapcar #'expand-file-name org-agenda-files))
+				   (org-agenda-to-appt))))
   (when (display-graphic-p)
     (setq org-agenda-category-icon-alist `(("todo" ,(list (all-the-icons-material "check_box" :height 1.1)) nil nil :ascent center)
 					   ("tools" ,(list (all-the-icons-material "settings" :height 1.1)) nil nil :ascent center)
@@ -163,36 +193,6 @@
   (:map org-mode-map :package org ("C-c d c" . #'org-download-clipboard))
   (:map org-mode-map :package org ("C-c d s" . #'org-download-screenshot))
   )
-
-(use-package appt
-  ;; Add org-mode TODOs to appointments: at startup, every day at midnight, and when saving todo file
-  :custom
-  (appt-delete-window-function (lambda () t))
-  (appt-display-mode-line nil)
-  ;; Send one persistent warning 5 minutes before the event
-  (appt-message-warning-time 5)
-  (appt-display-interval appt-message-warning-time)
-  (appt-display-duration (* appt-message-warning-time 60))
-  :config
-  (appt-activate t)
-  (org-agenda-to-appt)
-  (run-at-time "12:05am" (* 24 3600) 'org-agenda-to-appt)
-  ;; the following code does not capture agenda files if they are in a directory which is in org-agenda-files.
-  (add-hook 'after-save-hook '(lambda ()
-			       (if (member buffer-file-name (mapcar #'expand-file-name org-agenda-files))
-				   (org-agenda-to-appt))))
-  )
-
-;; Display warning in a notification window
-(use-package alert
-  :after appt
-  :ensure t
-  :custom
-  (alert-default-style 'notifier)
-  (appt-disp-window-function 'appt-alert)
-  (alert-fade-time (* appt-message-warning-time 60))
-  :config
-  (defun appt-alert (min-to-app new-time msg) (alert msg :title "Reminder")))
 
 (use-package citar
   :ensure t
