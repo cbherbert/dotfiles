@@ -72,7 +72,7 @@
   (dashboard-set-file-icons t)
   (dashboard-center-content t)
   (dashboard-set-init-info t)
-  (dashboard-items '((recents  . 10) (bookmarks . 10) (projects . 10) (agenda . 10)))
+  (dashboard-items '((recents  . 10) (bookmarks . 10) (projects . 10)))
   (dashboard-week-agenda nil)
   (dashboard-set-navigator t)
   (dashboard-navigator-buttons `((
