@@ -256,7 +256,9 @@
   :bind
   (("C-c n n" . citar-open-notes)
    ("C-c n o" . citar-open-files)
-   :map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
+   :map org-mode-map :package org ("C-c i" . #'org-cite-insert)
+   :map LaTeX-mode-map ("C-c i" . citar-insert-citation)
+   ))
 
 (use-package citar-embark
   :ensure t
