@@ -71,7 +71,7 @@
 ;;;
 (use-package auctex
   :ensure t
-  :mode (("\\.lbx" . latex-mode) ("\\.bbx" . latex-mode) ("\\.cbx" . latex-mode))
+  :mode (("\\.tex\\'" . latex-mode) ("\\.lbx" . latex-mode) ("\\.bbx" . latex-mode) ("\\.cbx" . latex-mode))
   :hook ((LaTeX-mode . visual-line-mode)
 	 (LaTeX-mode . latex-math-mode)
 	 (LaTeX-mode . reftex-mode))
