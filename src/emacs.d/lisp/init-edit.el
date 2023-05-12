@@ -69,8 +69,9 @@
 ;;;
 ;;   AUCTeX
 ;;;
-(use-package auctex
-  :ensure t
+(use-package latex
+  :ensure auctex
+  :after citar
   :mode (("\\.tex\\'" . latex-mode) ("\\.lbx" . latex-mode) ("\\.bbx" . latex-mode) ("\\.cbx" . latex-mode))
   :hook ((LaTeX-mode . visual-line-mode)
 	 (LaTeX-mode . latex-math-mode)
@@ -91,6 +92,8 @@
       (insert "\\textcolor{green}{"))
     (goto-char (region-end))
     (insert "}\n"))
+  :bind
+  (:map LaTeX-mode-map ("C-c i" . citar-insert-citation))
   )
 
 (provide 'init-edit)
