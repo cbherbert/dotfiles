@@ -37,7 +37,7 @@
   (org-pretty-entities t)
   (org-hide-emphasis-markers t)
   (org-startup-indented t)
-  (org-agenda-files '("~/org/todo.org" "~/org/projects.org" "~/owncloud/org/meetings.org" "~/owncloud/org/teaching.org" "~/owncloud/org/conferences.org" "~/owncloud/org/seminars.org" "~/owncloud/org/holidays.org" "~/owncloud/org/wfh.org" "~/owncloud/org/discussions" "~/owncloud/org/external"))
+  (org-agenda-files '("~/owncloud/org/core" "~/owncloud/org/discussions" "~/owncloud/org/external"))
   (org-agenda-skip-deadline-prewarning-if-scheduled t)
   (org-agenda-todo-ignore-deadlines 'near)
   (org-agenda-todo-ignore-scheduled 'all)
@@ -59,10 +59,10 @@
    '(("f" "Agenda and TODO by priority"
       ((agenda "")
        (alltodo ""
-		((org-agenda-files '("~/org/projects.org"))
+		((org-agenda-files '("~/owncloud/org/core/projects.org"))
 		 (org-agenda-overriding-header "Projects:")))
        (alltodo ""
-		((org-agenda-files '("~/org/todo.org"))
+		((org-agenda-files '("~/owncloud/org/core/todo.org"))
 		 (org-agenda-overriding-header "Tasks:")))))
      ("w" "Agenda and WAIT items"
       ((agenda "")
@@ -70,26 +70,26 @@
      ("r" "Reading list" alltodo ""
       ((org-agenda-files '("~/owncloud/org/roam/reads.org" "~/owncloud/org/notes/"))))
      ("c" "Conferences Overview" agenda ""
-      ((org-agenda-files '("~/owncloud/org/conferences.org"))
+      ((org-agenda-files '("~/owncloud/org/core/conferences.org"))
        (org-agenda-show-all-dates 'nil)
        (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
        (org-agenda-span 'year)
        ))
      ))
   (org-capture-templates
-   '(("m" "meetings" entry (file "~/owncloud/org/meetings.org") "* %?")
-     ("h" "holidays" entry (file "~/owncloud/org/holidays.org") "* %?\n%^{Beginning}t--%^{End}t")
+   '(("m" "meetings" entry (file "~/owncloud/org/core/meetings.org") "* %?")
+     ("h" "holidays" entry (file "~/owncloud/org/core/holidays.org") "* %?\n%^{Beginning}t--%^{End}t")
      ("d" "Templates for Discussions")
      ("da" "Discussions Alessandro" plain (file "~/owncloud/org/discussions/discussions-alessandro.org") "%^t%?")
      ("db" "Discussions Bastien" plain (file "~/owncloud/org/discussions/discussions-bastien.org") "%^t%?")
      ("dt" "Discussions Tim" plain (file "~/owncloud/org/discussions/discussions-tim.org") "%^t%?")
      ("s" "Templates for Seminars")
-     ("sm" "MathInFluids" entry (file+olp "~/owncloud/org/seminars.org" "MathInFluids")
+     ("sm" "MathInFluids" entry (file+olp "~/owncloud/org/core/seminars.org" "MathInFluids")
       "* %?\n%^t")
-     ("sg" "GFDiscussions" entry (file+olp "~/owncloud/org/seminars.org" "GFDiscussions")
+     ("sg" "GFDiscussions" entry (file+olp "~/owncloud/org/core/seminars.org" "GFDiscussions")
       "* %?\n%^t")
-     ("t" "TODO list" entry (file+olp "~/owncloud/org/todo.org" "Tasks") "* TODO %?\n")
-     ("r" "reviews" entry (file+olp "~/owncloud/org/todo.org" "Reviews & Editorial Work") "* TODO %?\n")
+     ("t" "TODO list" entry (file+olp "~/owncloud/org/core/todo.org" "Tasks") "* TODO %?\n")
+     ("r" "reviews" entry (file "~/owncloud/org/core/reviews.org") "* TODO %?\n DEADLINE: %^t")
      ("l" "reading list" entry (file+olp "~/owncloud/org/roam/reads.org" "Topics to read about") "* TODO %?\n")
      ))
   (org-agenda-day-face-function
