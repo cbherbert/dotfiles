@@ -14,17 +14,6 @@ else
     LIB_PATH="LD_LIBRARY_PATH"
 fi
 
-if [[ ${HOSTNAME#access?.} ==  "wexac.weizmann.ac.il" ]]; then
-    module load emacs
-    module load git
-    module load gnuplot
-    module load python
-    module load icompiler/2015
-    module load gcc
-    module load openmpi/1.6.5
-    eval "$(ssh-agent -s)" > /dev/null
-fi
-
 # Load custom stuff
 [ -f "${HOME}/scripts/ghost-scripts/ghostrc.sh" ] && source "${HOME}/scripts/ghost-scripts/ghostrc.sh" # GHOST shell tools
 [ -f "${HOME}/.shortcuts" ] && source "${HOME}/.shortcuts"        # Strongly machine dependent aliases like shortcuts to favorite directories
