@@ -34,7 +34,6 @@ if [ "$(uname -s)" == "Darwin" ]; then
     macportsprefix="/opt/local"
     macportspath=( "sbin" "bin" "libexec/gnubin" )
     for dir in "${macportspath[@]}"; do dir="${macportsprefix}/$dir"; [ -d "$dir" ] && PATH="$dir:$PATH"; done
-    PATH="/Library/TeX/texbin:$PATH"
     PATH="${HOME}/Library/Python/3.10/bin:$PATH"
     [ -d "${macportsprefix}/share/man" ] && export MANPATH="${macportsprefix}/share/man:$MANPATH"
     export HOMEBREW_PREFIX="/opt/homebrew";
@@ -44,8 +43,6 @@ if [ "$(uname -s)" == "Darwin" ]; then
     export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
     export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 fi
-[ -d "/Developer" ] && PATH="/Developer/usr/bin:/Developer/usr/sbin:${PATH}"
-[ -d "/usr/local/cuda/bin" ] && PATH="/usr/local/cuda/bin:${PATH}"
 [ -d "${HOME}/bin" ] && PATH="$HOME/bin:${PATH}"
 [ -d "${HOME}/scripts" ] && PATH="${HOME}/scripts:${PATH}" # Custom scripts
 [ -d "${HOME}/scripts/crypto" ] && PATH="${HOME}/scripts/crypto:${PATH}" # Custom scripts
@@ -59,8 +56,6 @@ if [ "$(uname -s)" == "Darwin" ]; then
 else
     LIB_PATH="LD_LIBRARY_PATH"
 fi
-[ -d "/usr/local/cuda/lib" ] && export "${LIB_PATH}=/usr/local/cuda/lib:${!LIB_PATH}"
-[ -d "/usr/local/cuda/lib64" ] && export "${LIB_PATH}=/usr/local/cuda/lib64:${!LIB_PATH}"
 
 # Default programs
 export EDITOR="emacs -nw"
