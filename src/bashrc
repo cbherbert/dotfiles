@@ -7,13 +7,6 @@
 
 # Some machine-dependent code
 
-# I think I need to duplicate this code from bash_profile because it is needed for python_distrib_* stuff, and it would not be defined in non-login shells
-if [ "$(uname -s)" == "Darwin" ]; then
-    LIB_PATH="DYLD_LIBRARY_PATH"
-else
-    LIB_PATH="LD_LIBRARY_PATH"
-fi
-
 # Load custom stuff
 [ -f "${HOME}/scripts/ghost-scripts/ghostrc.sh" ] && source "${HOME}/scripts/ghost-scripts/ghostrc.sh" # GHOST shell tools
 [ -f "${HOME}/.shortcuts" ] && source "${HOME}/.shortcuts"        # Strongly machine dependent aliases like shortcuts to favorite directories
@@ -27,9 +20,6 @@ function pathappend { varappend PATH "$1"; }
 function pathprepend { varprepend PATH "$1"; }
 
 alias printpath='echo -e ${PATH//:/\\n}'
-
-function python_distrib_std { export PATH="${PATH/\/usr\/local\/anaconda2\/bin:}"; export "${LIB_PATH}=${!LIB_PATH/\/usr\/local\/anaconda2\/lib:}"; }
-function python_distrib_anaconda  { pathprepend "/usr/local/anaconda2/bin"; varprepend "${LIB_PATH}" "/usr/local/anaconda2/lib"; }
 
 # rename file by replacing all white spaces with underscores:
 function trspaces { mv "$1" "${1// /_}"; }
