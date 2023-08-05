@@ -73,10 +73,10 @@ echo -e "${Cyan}BASH ${BASH_VERSION%.*} - $(date)${NC}"
 
 
 ##
-#  Sourcing other files
+#  Sourcing bashrc if the shell is interactive
 ##
 
-if [ -f "$HOME/.bashrc" ]; then
+if [[ $- == *i* ]] && [ -f "$HOME/.bashrc" ]; then
     source "$HOME/.bashrc"
 fi
 
