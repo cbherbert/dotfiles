@@ -80,14 +80,6 @@ if [ -f "$HOME/.bashrc" ]; then
     source "$HOME/.bashrc"
 fi
 
-if [ -f "/opt/local/etc/profile.d/bash_completion.sh" ]; then
-    source "/opt/local/etc/profile.d/bash_completion.sh"
-fi
-
-if [ -f "/etc/bash_completion" ]; then
-    source /etc/bash_completion
-fi
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 CONDA="$HOME/miniconda3/bin/conda"

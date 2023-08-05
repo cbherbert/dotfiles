@@ -43,6 +43,17 @@ function getip { ifconfig $1 | grep 'inet ' | awk '{print $2}'; }
 ##
 [ -r ~/.dircolors ] && (command -v dircolors > /dev/null 2>&1) && eval "$(dircolors ~/.dircolors)"
 
+##
+#  Activate bash completion
+##
+
+if [ -f "/opt/local/etc/profile.d/bash_completion.sh" ]; then
+    source "/opt/local/etc/profile.d/bash_completion.sh"
+fi
+
+if [ -f "/etc/bash_completion" ]; then
+    source /etc/bash_completion
+fi
 
 ##
 #  Now build the prompt:
