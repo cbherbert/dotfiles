@@ -1,4 +1,9 @@
 # -*- mode: shell-script-*-
+#
+# This file is loaded by login shells.
+# On my machines the terminal emulators run login shells by default.
+# However, subshells for instance are not login shells.
+# Here I mostly define environment variables, which in any case are passed on to subshells.
 
 [ ${TERM} == "dumb" ] && return
 
