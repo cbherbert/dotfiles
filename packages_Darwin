@@ -80,6 +80,7 @@ python311
 python_select
 qpdf
 renameutils
+ripgrep
 rsync
 ruby32
 ruby_select
