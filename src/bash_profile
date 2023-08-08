@@ -12,7 +12,7 @@
 ##
 
 if [ -f "$HOME/.profile" ]; then
-    source "$HOME/.profile"
+    . "$HOME/.profile"
 fi
 
 ##
@@ -33,20 +33,22 @@ export HISTIGNORE="ls:[bf]g:cd:exit:pwd"
 export GLOBIGNORE=.:..
 
 # Building the path
-if [ "$(uname -s)" == "Darwin" ]; then
+if [ "$(uname -s)" = "Darwin" ]; then
     [ -d "/usr/local/sbin" ] && PATH="/usr/local/sbin:$PATH"
     # Macports path for OS X
-    macportsprefix="/opt/local"
-    macportspath=( "sbin" "bin" "libexec/gnubin" )
-    for dir in "${macportspath[@]}"; do dir="${macportsprefix}/$dir"; [ -d "$dir" ] && PATH="$dir:$PATH"; done
-    PATH="${HOME}/Library/Python/3.10/bin:$PATH"
+    [ -d "/opt/local/sbin" ] && PATH="/opt/local/sbin:$PATH"
+    [ -d "/opt/local/bin" ] && PATH="/opt/local/bin:$PATH"
+    [ -d "/opt/local/libexec/gnubin" ] && PATH="/opt/local/libexec/gnubin:$PATH"
     [ -d "${macportsprefix}/share/man" ] && export MANPATH="${macportsprefix}/share/man:$MANPATH"
-    export HOMEBREW_PREFIX="/opt/homebrew";
-    export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
-    export HOMEBREW_REPOSITORY="/opt/homebrew";
-    PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
-    export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
-    export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+    # Homebrew
+    if [ -d "/opt/homebrew" ]; then
+	export HOMEBREW_PREFIX="/opt/homebrew"
+	export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+	export HOMEBREW_REPOSITORY="/opt/homebrew"
+	PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
+	export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
+	export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+    fi
 fi
 [ -d "${HOME}/bin" ] && PATH="$HOME/bin:${PATH}"
 [ -d "${HOME}/scripts" ] && PATH="${HOME}/scripts:${PATH}" # Custom scripts
@@ -56,7 +58,7 @@ fi
 export PATH
 
 # Library path
-if [ "$(uname -s)" == "Darwin" ]; then
+if [ "$(uname -s)" = "Darwin" ]; then
     LIB_PATH="DYLD_LIBRARY_PATH"
 else
     LIB_PATH="LD_LIBRARY_PATH"
@@ -69,21 +71,22 @@ export MANPAGER="$PAGER"
 export BAT_PAGER="less"
 export BAT_THEME="Solarized (dark)"
 
-##
-#  Greetings
-##
-Cyan='\x1B[0;36m'         # Cyan
-NC="\x1B[m"               # Color Reset
-echo -e "${Cyan}BASH ${BASH_VERSION%.*} - $(date)${NC}"
-
 
 ##
-#  Sourcing bashrc if the shell is interactive
+#  Things to do only if the shell is interactive
 ##
 
-if [[ $- == *i* ]] && [ -f "$HOME/.bashrc" ]; then
-    source "$HOME/.bashrc"
-fi
+case $- in
+    *i*)
+	# Greetings
+	# Cyan='\x1B[0;36m'         # Cyan
+	# NC="\x1B[m"               # Color Reset
+	# echo -e "${Cyan}BASH ${BASH_VERSION%.*} - $(date)${NC}"
+	neofetch
+
+	# Source bashrc
+	[ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc";;
+esac
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -106,5 +109,5 @@ unset __conda_setup CONDA
 ##
 
 if [ -e "${HOME}/.iterm2_shell_integration.bash" ]; then
-    source "${HOME}/.iterm2_shell_integration.bash"
+    . "${HOME}/.iterm2_shell_integration.bash"
 fi
