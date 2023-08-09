@@ -23,10 +23,6 @@ fi
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# Terminal and colors
-export TERM=xterm-256color
-export CLICOLOR=1
-
 # Bash settings: history, globs
 export HISTCONTROL=ignorespace:erasedups
 export HISTIGNORE="ls:[bf]g:cd:exit:pwd"

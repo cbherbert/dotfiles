@@ -41,6 +41,7 @@ function getip { ifconfig $1 | grep 'inet ' | awk '{print $2}'; }
 ##
 #  Customize ls colors:
 ##
+export CLICOLOR=1
 [ -r ~/.dircolors ] && (command -v dircolors > /dev/null 2>&1) && eval "$(dircolors ~/.dircolors)"
 
 ##
