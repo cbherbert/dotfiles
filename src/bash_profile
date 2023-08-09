@@ -2,10 +2,19 @@
 #
 # This file is loaded by login shells.
 # On my machines the terminal emulators run login shells by default.
+# This is also the case when logging into a remote machine with ssh.
 # However, subshells for instance are not login shells.
 # Here I mostly define environment variables, which in any case are passed on to subshells.
-
-[ ${TERM} == "dumb" ] && return
+# However, these environment variables (including PATH, which is probably the most important),
+# are not always accessible from programs which are not started form the terminal (e.g. GUI Emacs
+# started from the desktop environment, both in macOS and Linux).
+#
+# About Emacs:
+# Inferior shells in emacs (M-x shell) or terminal emulators (M-x term) do not read this file.
+# To solve this problem I have to use a specific package in emacs (exec-path-from-shell) which
+# retrieves the environment from a login shell.
+# For some reason TRAMP (which is supposed to use /bin/sh) does read this file,
+# but it does not seem to understand non-POSIX syntax, or at least not all bash commands.
 
 ##
 #  First load the generic profile
@@ -67,6 +76,10 @@ export MANPAGER="$PAGER"
 export BAT_PAGER="less"
 export BAT_THEME="Solarized (dark)"
 
+# The following line is necessary for TRAMP.
+# note that M-x shell also has TERM=dumb but not the other terminal emulators
+# in any case they do not read this file as they do not run login shells
+[ ${TERM} = "dumb" ] && return
 
 ##
 #  Things to do only if the shell is interactive
