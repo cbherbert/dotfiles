@@ -20,6 +20,23 @@
   (vertico-cycle t)
   :custom-face
   (vertico-current ((t (:foreground ,(face-foreground 'success) :background ,(face-background 'region) :extend: t))))
+  :config
+  ;; Add arrow prefix to current candidate:
+  (defvar +vertico-current-arrow t)
+  (cl-defmethod vertico--format-candidate :around
+    (cand prefix suffix index start &context ((and +vertico-current-arrow
+                                                   (not (bound-and-true-p vertico-flat-mode)))
+                                              (eql t)))
+    (setq cand (cl-call-next-method cand prefix suffix index start))
+    (if (bound-and-true-p vertico-grid-mode)
+	(if (= vertico--index index)
+            (concat #("▶" 0 1 (face vertico-current)) cand)
+          (concat #("_" 0 1 (display " ")) cand))
+      (if (= vertico--index index)
+          (concat
+           #(" " 0 1 (display (left-fringe right-triangle vertico-current)))
+           cand)
+	cand)))
   :init
   (vertico-mode))
 
