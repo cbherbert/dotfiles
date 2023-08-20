@@ -18,6 +18,8 @@
   ;; (vertico-resize t)
   ;; enable cycling for `vertico-next' and `vertico-previous'.
   (vertico-cycle t)
+  :custom-face
+  (vertico-current ((t (:foreground ,(face-foreground 'success) :background ,(face-background 'region) :extend: t))))
   :init
   (vertico-mode))
 
