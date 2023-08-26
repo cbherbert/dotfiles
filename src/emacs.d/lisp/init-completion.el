@@ -33,9 +33,7 @@
             (concat #("▶" 0 1 (face vertico-current)) cand)
           (concat #("_" 0 1 (display " ")) cand))
       (if (= vertico--index index)
-          (concat
-           #(" " 0 1 (display (left-fringe right-triangle vertico-current)))
-           cand)
+          (concat #(" " 0 1 (display (left-fringe right-triangle vertico-current))) cand)
 	cand)))
   :init
   (vertico-mode))
