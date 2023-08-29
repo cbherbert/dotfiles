@@ -9,7 +9,7 @@
 
 # Load custom stuff
 [ -f "${HOME}/scripts/ghost-scripts/ghostrc.sh" ] && source "${HOME}/scripts/ghost-scripts/ghostrc.sh" # GHOST shell tools
-[ -f "${HOME}/.shortcuts" ] && source "${HOME}/.shortcuts"        # Strongly machine dependent aliases like shortcuts to favorite directories
+[ -f "${XDG_CONFIG_HOME:-.config}/shortcuts" ] && source "${XDG_CONFIG_HOME:-.config}/shortcuts"       # Strongly machine dependent aliases like shortcuts to favorite directories
 
 # Machine-independent definitions:
 
