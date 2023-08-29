@@ -72,6 +72,7 @@ fi
 # Default programs
 export EDITOR="emacs -nw"
 if command -v most > /dev/null 2>&1; then export PAGER="most"; else export PAGER="less"; fi
+export MOST_INITFILE="${XDG_CONFIG_HOME:-.config}"/mostrc
 export MANPAGER="$PAGER"
 export BAT_PAGER="less"
 export BAT_THEME="Solarized (dark)"
