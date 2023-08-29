@@ -2,7 +2,11 @@ DOTHOME		  = $(PWD)
 OS                = $(shell uname -s)
 LINK_FILES_Linux  = conkyrc
 LINK_FILES_Darwin =
-LINK_FILES	  = bash_profile bashrc dircolors gitignore_global emacs.d id-lang.map condarc $(LINK_FILES_$(OS))
+LINK_FILES	  = bash_profile bashrc dircolors emacs.d id-lang.map condarc $(LINK_FILES_$(OS))
+XDG_FILES	  = git/ignore git/config
+ifeq ($(XDG_CONFIG_HOME),)
+XDG_CONFIG_HOME := $(HOME)/.config
+endif
 PKGFILE           = packages_$(OS)
 PKGMGR_Darwin     = port
 PKGMGR_Linux      = apt-get -y
@@ -34,6 +38,10 @@ restore:
 $(LINK_FILES):
 	test -f ~/.$@ && (test -L ~/.$@ || tar -Prf ~/.dotfiles_bak.tar ~/.$@ ) || true
 	ln -sf $(DOTHOME)/src/$@ ~/.$@
+
+$(XDG_FILES):
+	mkdir -p $(XDG_CONFIG_HOME)/$(@D)
+	ln -sf $(DOTHOME)/src/$@ $(XDG_CONFIG_HOME)/$@
 
 packages:
 	@while IFS='' read -r pkg; do \

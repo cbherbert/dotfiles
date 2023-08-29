@@ -1,0 +1,52 @@
+# -*- mode: gitconfig -*-
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = Corentin Herbert
+	email = corentin.herbert@ens-lyon.fr
+	signingkey = 82DE0787
+
+[core]
+	pager = less -r
+
+[color]
+	ui = auto
+
+[color "diff"]
+        meta = red bold
+        commit = yellow
+        frag = cyan
+        func = blue
+        old = red
+        new = green
+
+[color "status"]
+        untracked = yellow
+        added = green
+        changed = red
+        branch = blue
+	remoteBranch = magenta
+	nobranch = red bold
+
+[color "branch"]
+	current = green
+	remote = magenta
+
+[color "decorate"]
+	tag = cyan
+	branch = blue
+	remoteBranch = magenta
+	HEAD = red bold
+	stash = magenta bold
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[push]
+	default = simple
+[credential "https://git.overleaf.com"]
+	username = corentin.herbert@ens-lyon.fr
+	helper = cache
+[pull]
+	rebase = false
