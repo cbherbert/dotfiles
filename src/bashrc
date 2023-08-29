@@ -35,7 +35,7 @@ else
 fi
 alias emacs='emacs -nw'
 command -v colormake > /dev/null 2>&1 && alias make='colormake'
-[ -f "${HOME}/.id-lang.map" ] && alias mkid='mkid -m ~/.id-lang.map'
+[ -f "${XDG_CONFIG_HOME:-.config}/id-lang.map" ] && alias mkid="mkid -m ${XDG_CONFIG_HOME:-.config}/id-lang.map"
 function getip { ifconfig $1 | grep 'inet ' | awk '{print $2}'; }
 
 ##
