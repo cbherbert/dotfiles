@@ -2,8 +2,8 @@ DOTHOME		  = $(PWD)
 OS                = $(shell uname -s)
 LINK_FILES_Linux  = conkyrc
 LINK_FILES_Darwin =
-LINK_FILES	  = bash_profile bashrc emacs.d condarc $(LINK_FILES_$(OS))
-XDG_FILES	  = git/ignore git/config dircolors id-lang.map mostrc
+LINK_FILES	  = bash_profile bashrc emacs.d $(LINK_FILES_$(OS))
+XDG_FILES	  = git/ignore git/config dircolors id-lang.map mostrc conda/condarc
 ifeq ($(XDG_CONFIG_HOME),)
 XDG_CONFIG_HOME := $(HOME)/.config
 endif
