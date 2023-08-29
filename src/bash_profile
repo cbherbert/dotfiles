@@ -71,12 +71,13 @@ fi
 
 # Default programs
 export EDITOR="emacs -nw"
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-.config}"
 if command -v most > /dev/null 2>&1; then export PAGER="most"; else export PAGER="less"; fi
-export MOST_INITFILE="${XDG_CONFIG_HOME:-.config}"/mostrc
+export MOST_INITFILE="$XDG_CONFIG_HOME"/mostrc
 export MANPAGER="$PAGER"
 export BAT_PAGER="less"
 export BAT_THEME="Solarized (dark)"
-export PASSWORD_STORE_DIR="${XDG_CONFIG_HOME:-.config}/pass"
+export PASSWORD_STORE_DIR="$XDG_CONFIG_HOME/pass"
 
 # The following line is necessary for TRAMP.
 # note that M-x shell also has TERM=dumb but not the other terminal emulators
