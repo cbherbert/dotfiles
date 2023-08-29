@@ -1,3 +1,6 @@
+aspell
+aspell-dict-en
+aspell-dict-fr
 bash
 bash-completion
 bat
@@ -23,7 +26,6 @@ hdf5
 htop
 idutils
 ImageMagick
-ispell
 ipython_select
 julia
 jupyter_select
