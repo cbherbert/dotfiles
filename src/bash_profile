@@ -76,6 +76,7 @@ export MOST_INITFILE="${XDG_CONFIG_HOME:-.config}"/mostrc
 export MANPAGER="$PAGER"
 export BAT_PAGER="less"
 export BAT_THEME="Solarized (dark)"
+export PASSWORD_STORE_DIR="${XDG_CONFIG_HOME:-.config}/pass"
 
 # The following line is necessary for TRAMP.
 # note that M-x shell also has TERM=dumb but not the other terminal emulators
