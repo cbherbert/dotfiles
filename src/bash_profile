@@ -71,16 +71,16 @@ fi
 
 # Default programs
 export EDITOR="emacs -nw"
-XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-.config}"
-XDG_DATA_HOME="${XDG_DATA_HOME:-.local/share}"
-XDG_STATE_HOME="${XDG_STATE_HOME:-.local/state}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 if command -v most > /dev/null 2>&1; then export PAGER="most"; else export PAGER="less"; fi
 export MOST_INITFILE="$XDG_CONFIG_HOME"/mostrc
 export MANPAGER="$PAGER"
 export BAT_PAGER="less"
 export BAT_THEME="Solarized (dark)"
-export GNUPGHOME="${XDG_DATA_HOME:-.local/share}/gnupg"
-export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-.local/share}/pass"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
 export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_CONFIG_HOME/aspell/en.pws; repl $XDG_CONFIG_HOME/aspell/en.prepl"
 export W3M_DIR="$XDG_STATE_HOME/w3m"
 

@@ -9,7 +9,7 @@
 
 # Load custom stuff
 [ -f "${HOME}/scripts/ghost-scripts/ghostrc.sh" ] && source "${HOME}/scripts/ghost-scripts/ghostrc.sh" # GHOST shell tools
-[ -f "${XDG_CONFIG_HOME:-.config}/shortcuts" ] && source "${XDG_CONFIG_HOME:-.config}/shortcuts"       # Strongly machine dependent aliases like shortcuts to favorite directories
+[ -f "$XDG_CONFIG_HOME/shortcuts" ] && source "$XDG_CONFIG_HOME/shortcuts"       # Strongly machine dependent aliases like shortcuts to favorite directories
 
 # Machine-independent definitions:
 
@@ -35,14 +35,14 @@ else
 fi
 alias emacs='emacs -nw'
 command -v colormake > /dev/null 2>&1 && alias make='colormake'
-[ -f "${XDG_CONFIG_HOME:-.config}/id-lang.map" ] && alias mkid="mkid -m ${XDG_CONFIG_HOME:-.config}/id-lang.map"
+[ -f "$XDG_CONFIG_HOME/id-lang.map" ] && alias mkid="mkid -m $XDG_CONFIG_HOME/id-lang.map"
 function getip { ifconfig $1 | grep 'inet ' | awk '{print $2}'; }
 
 ##
 #  Customize ls colors:
 ##
 export CLICOLOR=1
-[ -r "${XDG_CONFIG_HOME:-.config}/dircolors" ] && (command -v dircolors > /dev/null 2>&1) && eval $(dircolors "${XDG_CONFIG_HOME:-.config}/dircolors")
+[ -r "$XDG_CONFIG_HOME/dircolors" ] && (command -v dircolors > /dev/null 2>&1) && eval $(dircolors "$XDG_CONFIG_HOME/dircolors")
 
 ##
 #  Activate bash completion
