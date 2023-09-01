@@ -93,15 +93,15 @@
      ("l" "reading list" entry (file+olp "~/owncloud/org/roam/reads.org" "Topics to read about") "* TODO %?\n")
      ))
   (org-agenda-day-face-function
-      (defun ch/org-agenda-day-face-holidays-function (date)
-	"Use weekend face if DATE is a holiday."
-	(let ((holiday nil))
-	  (dolist (entry (org-agenda-get-day-entries "~/owncloud/org/holidays.org" date))
-	    (let ((category (with-temp-buffer (insert entry)
-					      (org-get-category (point-min)))))
-              (when (string= "Holidays" category)
-		(setq holiday t))))
-	  (when holiday 'org-agenda-date-weekend))))
+   (defun ch/org-agenda-day-face-holidays-function (date)
+     "Use weekend face if DATE is a holiday."
+     (let ((holiday nil))
+       (dolist (entry (org-agenda-get-day-entries "~/owncloud/org/core/holidays.org" date))
+	 (let ((category (with-temp-buffer (insert entry)
+					   (org-get-category (point-min)))))
+           (when (string= "Holidays" category)
+	     (setq holiday t))))
+       (when holiday 'org-agenda-date-weekend))))
   (org-agenda-cmp-user-defined
    (defun ch/org-agenda-heading-entries (entrya entryb)
      "Define a comparison to put some entries first in agenda view"
