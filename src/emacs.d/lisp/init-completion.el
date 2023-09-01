@@ -38,6 +38,21 @@
   :init
   (vertico-mode))
 
+(use-package vertico-directory
+  :after vertico
+  :ensure nil
+  :bind (:map vertico-map
+	      ;; vertico-directory-delete-word is a small improvement for paths over backward-kill-word, still available as M-DEL
+	      ;; vertico-directory-enter completes directory instead of opening dired when pressing RET
+	      ("<backspace>" . vertico-directory-delete-char)
+	      ("C-<backspace>" . vertico-directory-delete-word)
+	      ("RET" . vertico-directory-enter)
+	      )
+  :hook
+  ;; Cleanup the path when searching in HOME or /:
+  (rfn-eshadow-update-overlay . vertico-directory-tidy)
+  )
+
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
   :ensure t
