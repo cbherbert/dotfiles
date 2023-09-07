@@ -210,6 +210,13 @@ FACE defaults to inheriting from default and show-paren-match."
   :config
   (which-key-mode))
 
+(use-package exec-path-from-shell
+  :ensure t
+  :custom
+  (exec-path-from-shell-arguments (list "-l"))
+  :config
+  (exec-path-from-shell-initialize))
+
 (provide 'init-core)
 
 ;;; init-core.el ends here
