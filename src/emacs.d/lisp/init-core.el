@@ -17,7 +17,6 @@
   ;;(Buffer-menu-name-width 30)
   (eol-mnemonic-dos "\\")
   (eol-mnemonic-mac "/")
-  (epg-pinentry-mode 'loopback)
   ;; Compilation mode:
   (compilation-scroll-output 'first-error)
   (recentf-max-menu-items 25)
@@ -215,7 +214,18 @@ FACE defaults to inheriting from default and show-paren-match."
   :custom
   (exec-path-from-shell-arguments (list "-l"))
   :config
+  (add-to-list 'exec-path-from-shell-variables "GNUPGHOME")
   (exec-path-from-shell-initialize))
+
+(use-package epg
+  :custom
+  (epg-pinentry-mode 'loopback)
+  (epg-gpg-home-directory (getenv "GNUPGHOME"))
+  :custom-face
+  (epa-validity-high ((t (:foreground ,(face-foreground 'success)))))
+  (epa-validity-medium ((t (:foreground ,(face-foreground 'warning) :slant normal))))
+  (epa-validity-disabled ((t (:foreground ,(face-foreground 'error) :inverse-video nil))))
+  )
 
 (provide 'init-core)
 

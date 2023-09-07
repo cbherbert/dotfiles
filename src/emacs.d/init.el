@@ -14,11 +14,12 @@
 ;; package management tools
 (require 'init-packages)
 
+;; configuration for user interface (theme, mode-line, etc)
+;; we load this first because it define faces which can be used for customization in other packages
+(require 'init-ui)
+
 ;; core configuration (vanilla emacs settings)
 (require 'init-core)
-
-;; configuration for user interface (theme, mode-line, etc)
-(require 'init-ui)
 
 ;; configuration for general text editing tools
 (require 'init-edit)
