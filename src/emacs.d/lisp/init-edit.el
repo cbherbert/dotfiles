@@ -23,6 +23,23 @@
   :bind ("C-x g" . 'magit-status)
   )
 
+(use-package git-gutter
+  :ensure t
+  :hook (prog-mode . git-gutter-mode)
+  :bind
+  ("C-x v n" . git-gutter:next-hunk)
+  ("C-x v p" . git-gutter:previous-hunk)
+  ("C-x v t" . vs-create-tag)
+  ("C-x v s" . git-gutter:stage-hunk)
+  :config
+  (setq git-gutter:update-interval 0.02))
+
+(use-package git-gutter-fringe
+  :ensure t
+  :config
+  (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
 (use-package comint
   :config
   (define-key comint-mode-map [down] 'comint-next-matching-input-from-input)
