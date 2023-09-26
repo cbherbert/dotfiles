@@ -128,6 +128,12 @@
   ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
 )
 
+(use-package consult-dir
+  :ensure t
+  :bind
+  ("C-x C-d" . consult-dir)
+  )
+
 (use-package embark
   :ensure t
 
