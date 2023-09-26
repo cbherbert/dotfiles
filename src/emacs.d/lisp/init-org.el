@@ -8,27 +8,28 @@
 ;;; Code:
 
 (use-package appt
+  :after alert
   :custom
   (appt-delete-window-function (lambda () t))
+  (appt-disp-window-function 'appt-alert)
   (appt-display-mode-line nil)
   ;; Send one persistent warning 5 minutes before the event
   (appt-message-warning-time 5)
   (appt-display-interval appt-message-warning-time)
   (appt-display-duration (* appt-message-warning-time 60))
   :config
+  (defun appt-alert (min-to-app new-time msg) (alert msg :title "Reminder"))
   (appt-activate t)
   )
 
 ;; Display warning in a notification window
 (use-package alert
-  :after appt
   :ensure t
   :custom
-  (alert-default-style 'notifier)
-  (appt-disp-window-function 'appt-alert)
-  (alert-fade-time (* appt-message-warning-time 60))
-  :config
-  (defun appt-alert (min-to-app new-time msg) (alert msg :title "Reminder")))
+  (alert-default-style (if (eq system-type 'darwin) 'osx-notifier 'libnotify))
+  ;;(alert-fade-time (* appt-message-warning-time 60))
+  )
+
 (use-package org
   :after appt
   :custom
