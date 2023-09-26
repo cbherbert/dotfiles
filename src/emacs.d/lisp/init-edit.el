@@ -13,6 +13,16 @@
   (global-undo-tree-mode))
 
 ;;;
+;;    Spell checking
+;;;
+(use-package ispell
+  :custom
+  (ispell-program-name "aspell") ;; check that it exists, otherwise fallback to ispell
+  (ispell-silently-savep t)
+  :bind ("C-$" . 'ispell-word) ;; defautl is M-$, which is also screenshot on macOS when using Command key for Meta
+  )
+
+;;;
 ;;    Git
 ;;;
 (use-package git-modes
@@ -48,8 +58,11 @@
 
 (use-package flycheck
   :ensure t
+  :custom-face
+  (flycheck-error-list-highlight ((t (:weight bold :background ,(face-background 'region)))))
   :custom
   (flycheck-emacs-lisp-load-path 'inherit) ;; avoid errors with emacs init files for instance
+  (flycheck-error-list-format [("File" 10) ("Line" 5 flycheck-error-list-entry-< :right-align t) ("Col" 3 nil :right-align t) ("Level" 8 flycheck-error-list-entry-level-<) ("ID" 6 t) (#("Message (Checker)" 0 7 (face flycheck-error-list-error-message) 9 16 (face flycheck-error-list-checker-name)) 0 t)])
   :config
   (setq flycheck-global-modes '(not dir-locals-mode
                                     text-mode
@@ -59,6 +72,7 @@
 
 (use-package flycheck-aspell
   :ensure t
+  :after flycheck
   :config
   (add-to-list 'flycheck-checkers 'c-aspell-dynamic)
   (add-to-list 'flycheck-checkers 'html-aspell-dynamic)
@@ -68,6 +82,10 @@
   (add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
   (add-to-list 'flycheck-checkers 'texinfo-aspell-dynamic)
   (add-to-list 'flycheck-checkers 'xml-aspell-dynamic)
+  (defun flycheck-maybe-recheck (_)
+    (when (bound-and-true-p flycheck-mode)
+      (flycheck-buffer)))
+  (advice-add #'ispell-pdict-save :after #'flycheck-maybe-recheck)
   )
 
 (use-package markdown-mode
