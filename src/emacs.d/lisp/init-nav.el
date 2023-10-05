@@ -130,6 +130,8 @@
 
 (use-package consult-dir
   :ensure t
+  :custom
+  (consult-dir-project-list-function #'consult-dir-projectile-dirs)
   :bind
   ("C-x C-d" . consult-dir)
   )
