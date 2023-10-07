@@ -28,13 +28,16 @@
 	:ensure t
 	:custom
 	(doom-modeline-enable-word-count 1)
+	(doom-modeline-minor-modes t)
 	(display-time-default-load-average nil)
 	:hook (after-init . doom-modeline-mode)
 	:config
 	(display-time-mode 1)
 	(size-indication-mode)
 	)
+      (use-package minions
 	:ensure t
+	:config (minions-mode 1))
       (when (eq system-type 'darwin)
 	(set-face-attribute 'default nil :family "Hack")
 	;; default font size (point * 10)
