@@ -15,11 +15,6 @@
     ;; therefore, we only use it if running with a GUI
     (progn
       (tool-bar-mode -1)
-      (use-package all-the-icons
-	:ensure t)
-      (use-package all-the-icons-ibuffer
-	:ensure t
-	:hook (ibuffer-mode . all-the-icons-ibuffer-mode))
       (use-package doom-themes
 	:ensure t
 	:config
@@ -39,10 +34,7 @@
 	(display-time-mode 1)
 	(size-indication-mode)
 	)
-      (use-package solaire-mode
 	:ensure t
-	:config
-	(solaire-global-mode +1))
       (when (eq system-type 'darwin)
 	(set-face-attribute 'default nil :family "Hack")
 	;; default font size (point * 10)
@@ -64,6 +56,21 @@
 	(setq custom-file "~/.emacs.d/custom-terminal.el")
 	(load custom-file)
 	))
+(use-package all-the-icons
+  :ensure t
+  :if (display-graphic-p))
+
+(use-package all-the-icons-ibuffer
+  :ensure t
+  :if (display-graphic-p)
+  :hook (ibuffer-mode . all-the-icons-ibuffer-mode))
+
+(use-package solaire-mode
+  :ensure t
+  :if (display-graphic-p)
+  :config
+  (solaire-global-mode +1))
+
 (use-package dashboard
   :ensure t
   :after all-the-icons
