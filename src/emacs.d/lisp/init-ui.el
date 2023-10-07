@@ -15,8 +15,6 @@
     ;; therefore, we only use it if running with a GUI
     (progn
       (tool-bar-mode -1)
-      (display-time-mode 1)
-      (size-indication-mode)
       (use-package all-the-icons
 	:ensure t)
       (use-package all-the-icons-ibuffer
@@ -35,7 +33,12 @@
 	:ensure t
 	:custom
 	(doom-modeline-enable-word-count 1)
-	:hook (after-init . doom-modeline-mode))
+	(display-time-default-load-average nil)
+	:hook (after-init . doom-modeline-mode)
+	:config
+	(display-time-mode 1)
+	(size-indication-mode)
+	)
       (use-package solaire-mode
 	:ensure t
 	:config
