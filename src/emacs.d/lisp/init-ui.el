@@ -33,7 +33,8 @@
 	:hook (after-init . doom-modeline-mode)
 	:config
 	(display-time-mode 1)
-	(size-indication-mode)
+	(line-number-mode -1)
+	(column-number-mode -1)
 	)
       (use-package minions
 	:ensure t
