@@ -24,21 +24,6 @@
 	(load custom-file)
 	(doom-themes-visual-bell-config)
 	)
-      (use-package doom-modeline
-	:ensure t
-	:custom
-	(doom-modeline-enable-word-count 1)
-	(doom-modeline-minor-modes t)
-	(display-time-default-load-average nil)
-	:hook (after-init . doom-modeline-mode)
-	:config
-	(display-time-mode 1)
-	(line-number-mode -1)
-	(column-number-mode -1)
-	)
-      (use-package minions
-	:ensure t
-	:config (minions-mode 1))
       (when (eq system-type 'darwin)
 	(set-face-attribute 'default nil :family "Hack")
 	;; default font size (point * 10)
@@ -60,6 +45,26 @@
 	(setq custom-file "~/.emacs.d/custom-terminal.el")
 	(load custom-file)
 	))
+(use-package doom-modeline
+  :ensure t
+  :custom
+  (doom-modeline-enable-word-count 1)
+  (doom-modeline-minor-modes t)
+  (doom-modeline-major-mode-icon (display-graphic-p))
+  (doom-modeline-time-icon (display-graphic-p))
+  (display-time-default-load-average nil)
+  :hook (after-init . doom-modeline-mode)
+  :config
+  (display-time-mode 1)
+  (line-number-mode -1)
+  (column-number-mode -1)
+  )
+
+(use-package minions
+  :ensure t
+  :if (display-graphic-p)
+  :config (minions-mode 1))
+
 (use-package all-the-icons
   :ensure t
   :if (display-graphic-p))
