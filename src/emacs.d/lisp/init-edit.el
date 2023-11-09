@@ -35,14 +35,51 @@
 
 (use-package git-gutter
   :ensure t
-  :hook (prog-mode . git-gutter-mode)
+  :custom
+  (git-gutter:disabled-modes '(fundamental-mode image-mode pdf-view-mode))
   :bind
   ("C-x v n" . git-gutter:next-hunk)
   ("C-x v p" . git-gutter:previous-hunk)
   ("C-x v t" . vs-create-tag)
   ("C-x v s" . git-gutter:stage-hunk)
   :config
-  (setq git-gutter:update-interval 0.02))
+  (setq git-gutter:update-interval 0.02)
+  ;; The following code is taken from doom-emacs, it allows git-gutter-mode to switch on
+  ;; automatically when opening files under version control
+  (defvar +vc-gutter-in-remote-files nil
+    "If non-nil, enable the vc gutter in remote files (e.g. open through TRAMP).")
+  (add-hook 'find-file-hook
+    (defun +vc-gutter-init-maybe-h ()
+      "Enable `git-gutter-mode' in the current buffer.
+If the buffer doesn't represent an existing file, `git-gutter-mode's activation
+is deferred until the file is saved. Respects `git-gutter:disabled-modes'."
+      (let ((file-name (buffer-file-name (buffer-base-buffer))))
+        (cond
+         ((and (file-remote-p (or file-name default-directory))
+               (not +vc-gutter-in-remote-files)))
+         ;; UX: If not a valid file, wait until it is written/saved to activate
+         ;;   git-gutter.
+         ((not (and file-name (vc-backend file-name)))
+          (add-hook 'after-save-hook #'+vc-gutter-init-maybe-h nil 'local))
+         ;; UX: Allow git-gutter or git-gutter-fringe to activate based on the
+         ;;   type of frame we're in. This allows git-gutter to work for silly
+         ;;   geese who open both tty and gui frames from the daemon.
+         ((if (and (display-graphic-p)
+                   (require 'git-gutter-fringe nil t))
+              (setq-local git-gutter:init-function      #'git-gutter-fr:init
+                          git-gutter:view-diff-function #'git-gutter-fr:view-diff-infos
+                          git-gutter:clear-function     #'git-gutter-fr:clear
+                          git-gutter:window-width -1)
+            (setq-local git-gutter:init-function      'nil
+                        git-gutter:view-diff-function #'git-gutter:view-diff-infos
+                        git-gutter:clear-function     #'git-gutter:clear-diff-infos
+                        git-gutter:window-width 1))
+          (unless (memq major-mode git-gutter:disabled-modes)
+            (git-gutter-mode +1)
+            (remove-hook 'after-save-hook #'+vc-gutter-init-maybe-h 'local)))))))
+  ;; UX: update git-gutter on focus (in case I was using git externally)
+  (add-hook 'focus-in-hook #'git-gutter:update-all-windows)
+  )
 
 (use-package git-gutter-fringe
   :ensure t
