@@ -69,7 +69,7 @@
       ((agenda "")
        (todo "WAIT")))
      ("r" "Reading list" alltodo ""
-      ((org-agenda-files '("~/owncloud/org/roam/reads.org" "~/owncloud/org/notes/"))))
+      ((org-agenda-files '("~/owncloud/org/core/reads.org" "~/owncloud/org/notes/"))))
      ("c" "Conferences Overview" agenda ""
       ((org-agenda-files '("~/owncloud/org/core/conferences.org"))
        (org-agenda-show-all-dates 'nil)
@@ -92,7 +92,7 @@
       "* %?\n%^t")
      ("t" "TODO list" entry (file+olp "~/owncloud/org/core/todo.org" "Tasks") "* TODO %?\n")
      ("r" "reviews" entry (file "~/owncloud/org/core/reviews.org") "* TODO %?\n DEADLINE: %^t")
-     ("l" "reading list" entry (file+olp "~/owncloud/org/roam/reads.org" "Topics to read about") "* TODO %?\n")
+     ("l" "reading list" entry (file+olp "~/owncloud/org/core/reads.org" "Topics to read about") "* TODO %?\n")
      ))
   (org-agenda-day-face-function
    (defun ch/org-agenda-day-face-holidays-function (date)
@@ -302,7 +302,6 @@
   (org-roam-capture-templates '(
 				("d" "default" plain "%?" :target (file+head "${slug}-%<%Y%m%d%H%M%S>.org" "#+title: ${title}\n#+author: Corentin Herbert\n#+date_added: %u\n#+last_modified: %U")
 				 :unnarrowed t)
-				("b" "book" entry "" :target (file "reads.org") :unnarrowed t)
 				))
   :bind
   (("C-c n l" . org-roam-buffer-toggle)
