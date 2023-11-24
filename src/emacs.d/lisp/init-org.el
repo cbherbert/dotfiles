@@ -36,6 +36,7 @@
   (org-list-allow-alphabetical t)
   (org-pretty-entities-include-sub-superscripts t)
   (org-pretty-entities t)
+  (org-catch-invisible-edits 'smart)
   (org-hide-emphasis-markers t)
   (org-startup-indented t)
   (org-agenda-files '("~/owncloud/org/core" "~/owncloud/org/discussions" "~/owncloud/org/external"))
