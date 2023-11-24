@@ -67,13 +67,29 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 		       '("~/Library/texmf/bibtex/bib/bibtexlib2.bib")
 		     '("~/texmf/bibtex/bib/bibtexlib2.bib")))
 
-  ;;;
-  ;;   Buffers and Windows
-  ;;;
-
   ;; Buffer list
   (defalias 'list-buffers 'ibuffer-other-window)
 
+  (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
+
+  :bind
+  ("C-c r" . 'replace-string)
+  ("C-c q" . 'query-replace)
+  ("C-c TAB" . 'indent-region)
+  :hook
+  (after-init . (lambda ()
+		  (message (concat "emacs (" (number-to-string (emacs-pid)) ") started in " (emacs-init-time)))))
+  )
+
+;;
+;;   Buffers and Windows
+;;
+
+(use-package window
+  :custom
+  (split-window-preferred-function 'split-window-hfirst)
+  (split-width-threshold 190)
+  :init
   ;; Custom automatic window splitting: try to split horizontally first
   (defun split-window-hfirst (&optional window)
     (let ((window (or window (selected-window))))
@@ -94,10 +110,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 		 (when (window-splittable-p window t)
                    (with-selected-window window
                      (split-window-right))))))))
-
-  (setq split-window-preferred-function 'split-window-hfirst)
-  (setq split-width-threshold 190)
-
   ;; Custom command to rotate windows
   ;; see https://www.emacswiki.org/emacs/TransposeWindows
   (defun rotate-windows (arg)
@@ -120,19 +132,15 @@ Version 2020-12-02 2021-04-14 2021-08-01"
                    (p2 (window-point w2)))
               (set-window-buffer-start-and-point w1 b2 s2 p2)
               (set-window-buffer-start-and-point w2 b1 s1 p1)))))))
-
-  ; Move through past window configuration:
+  ;; Move through past window configuration:
   (winner-mode 1)
-
-  (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
-
   :bind
-  ("C-c r" . 'replace-string)
-  ("C-c q" . 'query-replace)
-  ("C-c TAB" . 'indent-region)
   ("C-x +" . 'enlarge-window)
   ("C-x -" . 'balance-windows)
   ("C-x ^" . 'shrink-window-if-larger-than-buffer)
+  ("<f10>" . toggle-frame-fullscreen)
+  )
+
 (use-package recentf
   :custom
   (recentf-max-menu-items 25)
