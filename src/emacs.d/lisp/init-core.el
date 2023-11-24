@@ -143,6 +143,14 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   ("C-x +" . 'enlarge-window)
   ("C-x -" . 'balance-windows)
   ("C-x ^" . 'shrink-window-if-larger-than-buffer)
+(use-package files
+  :custom
+  (backup-directory-alist       ; File name patterns and backup directory names.
+      `(("." . ,(expand-file-name "backups" user-emacs-directory))))
+  (auto-save-list-file-prefix ; Prefix for generating auto-save-list-file-name
+   (expand-file-name "auto-save-list/.saves-" user-emacs-directory))
+  :init
+  (add-to-list 'auto-save-file-name-transforms `(".*" ,(expand-file-name "auto-save/" user-emacs-directory) t) t)
   )
 
 ;; Highlight matching parens
