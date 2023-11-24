@@ -10,6 +10,9 @@
 (use-package display-line-numbers
   :hook (prog-mode . display-line-numbers-mode))
 
+(use-package hl-line
+  :hook (prog-mode . hl-line-mode))
+
 (add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
 (add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
 ;; Fortran namelist mode:
