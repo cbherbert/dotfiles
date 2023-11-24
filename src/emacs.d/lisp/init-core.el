@@ -67,12 +67,16 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 		       '("~/Library/texmf/bibtex/bib/bibtexlib2.bib")
 		     '("~/texmf/bibtex/bib/bibtexlib2.bib")))
 
-  (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
 
   :bind
   ("C-c r" . 'replace-string)
   ("C-c q" . 'query-replace)
   ("C-c TAB" . 'indent-region)
+  )
+
+(use-package startup
+  :init
+  (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
   :hook
   (after-init . (lambda ()
 		  (message (concat "emacs (" (number-to-string (emacs-pid)) ") started in " (emacs-init-time)))))
