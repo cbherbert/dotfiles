@@ -150,6 +150,10 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (defalias 'list-buffers 'ibuffer-other-window)
   )
 
+;;
+;; Files
+;;
+
 (use-package recentf
   :custom
   (recentf-max-menu-items 25)
