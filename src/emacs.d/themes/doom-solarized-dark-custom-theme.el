@@ -225,15 +225,17 @@ Can be an integer to determine the exact padding."
    (org-mode-line-clock-overrun :foreground "#d75f00" :weight 'bold)
    (org-scheduled-previously :foreground red :weight 'normal)
    (org-scheduled-today :foreground yellow :weight 'normal)
+   (org-date-selected :background yellow :foreground brightwhite)
+   (calendar-today :foreground violet)
    ;;;; org-roam
    (org-roam-header-line :foreground violet :weight 'bold)
    (org-roam-title :foreground magenta :weight 'bold)
    (org-roam-olp :foreground base1)
    ;;;; orderless
-   (orderless-match-face-0 :foreground magenta :background base0)
-   (orderless-match-face-1 :foreground cyan :background base0)
-   (orderless-match-face-2 :foreground yellow :background base0)
-   (orderless-match-face-3 :foreground green :background base0)
+   (orderless-match-face-0 :foreground magenta :background region)
+   (orderless-match-face-1 :foreground cyan :background region)
+   (orderless-match-face-2 :foreground yellow :background region)
+   (orderless-match-face-3 :foreground green :background region)
    ;;;; magit
    (magit-header-line :foreground "#d75f00" :background "#eee8d5" :weight 'bold
 		      :box `(:line-width 3 :color "#93a1a1"))
@@ -251,7 +253,17 @@ Can be an integer to determine the exact padding."
    (solaire-mode-line-inactive-face
     :inherit 'mode-line-inactive
     :background modeline-bg-inactive-alt
-    :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-inactive-alt))))
+    :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-inactive-alt)))
+
+   (flycheck-error-list-line-number :foreground violet)
+   (flycheck-error-list-column-number :foreground violet)
+   (flycheck-error-list-filename :foreground cyan)
+
+   (help-key-binding :inherit 'fixed-pitch :background bg-alt :foreground violet
+		     :box `(:line-width 1 :color base5))
+   (bookmark-menu-bookmark :weight 'bold :foreground magenta)
+
+   )
 
   ;;;; Base theme variable overrides-
   ;; ()
