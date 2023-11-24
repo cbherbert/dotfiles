@@ -91,9 +91,12 @@
       "* %?\n%^t")
      ("sg" "GFDiscussions" entry (file+olp "~/owncloud/org/core/seminars.org" "GFDiscussions")
       "* %?\n%^t")
-     ("t" "TODO list" entry (file+olp "~/owncloud/org/core/todo.org" "Tasks") "* TODO %?\n")
-     ("r" "reviews" entry (file "~/owncloud/org/core/reviews.org") "* TODO %?\n DEADLINE: %^t")
+     ("t" "TODO list" entry (file+olp "~/owncloud/org/core/todo.org" "Tasks") "* TODO %?\n%(i-nonempty)%a")
+     ("a" "answer mail" entry (file+headline "~/owncloud/org/core/todo.org" "Tasks")
+      "* TODO Answer %:fromname: %a\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))" :immediate-finish t)
+     ("r" "reviews" entry (file "~/owncloud/org/core/reviews.org") "* TODO Review %?\nDEADLINE: %^t\n%a")
      ("l" "reading list" entry (file+olp "~/owncloud/org/core/reads.org" "Topics to read about") "* TODO %?\n")
+     ("?" "random questions" entry (file "~/owncloud/org/core/questions.org") "* TODO %?\n")
      ))
   (org-agenda-day-face-function
    (defun ch/org-agenda-day-face-holidays-function (date)
@@ -126,6 +129,11 @@
      (tags priority-down category-keep)
      (search category-keep)))
   :config
+  (defun i-nonempty ()
+    (let ((initial (plist-get org-store-link-plist :initial)))
+    (if (equal initial "")
+        ""
+      (concat initial "\n"))))
   (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (latex . t) (python . t)))
   (add-to-list 'org-src-lang-modes '("latex" . latex))
   (defun ch/org-narrow-to-subtree-up (arg &optional invisible-ok)
