@@ -10,7 +10,6 @@
 (use-package emacs
   :custom
   (fill-column 80)
-  (require-final-newline t)
   (vc-follow-symlinks t)
   (calendar-today-visible-hook '(calendar-mark-today))
   (calendar-week-start-day 1)
@@ -25,11 +24,6 @@
   (put 'narrow-to-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
-  ;; Remove trailing whitespace upon saving, except for markdown where two spaces at the end of the line indicate line break:
-  (add-hook 'before-save-hook
-	    (lambda ()
-	      (unless (derived-mode-p 'markdown-mode)
-		(delete-trailing-whitespace))))
   ;; Automatically wrap lines for text modes:
   (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
@@ -145,12 +139,18 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   ("C-x ^" . 'shrink-window-if-larger-than-buffer)
 (use-package files
   :custom
+  (require-final-newline t)
   (backup-directory-alist       ; File name patterns and backup directory names.
       `(("." . ,(expand-file-name "backups" user-emacs-directory))))
   (auto-save-list-file-prefix ; Prefix for generating auto-save-list-file-name
    (expand-file-name "auto-save-list/.saves-" user-emacs-directory))
   :init
   (add-to-list 'auto-save-file-name-transforms `(".*" ,(expand-file-name "auto-save/" user-emacs-directory) t) t)
+  ;; Remove trailing whitespace upon saving, except for markdown where two spaces at the end of the line indicate line break:
+  (add-hook 'before-save-hook
+	    (lambda ()
+	      (unless (derived-mode-p 'markdown-mode)
+		(delete-trailing-whitespace))))
   )
 
 ;; Highlight matching parens
