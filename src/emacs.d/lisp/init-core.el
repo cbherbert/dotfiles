@@ -82,6 +82,24 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 		  (message (concat "emacs (" (number-to-string (emacs-pid)) ") started in " (emacs-init-time)))))
   )
 
+(use-package savehist
+  :init
+  (savehist-mode))
+
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+
+(use-package exec-path-from-shell
+  :ensure t
+  :custom
+  (exec-path-from-shell-arguments (list "-l"))
+  :config
+  (add-to-list 'exec-path-from-shell-variables "GNUPGHOME")
+  (exec-path-from-shell-initialize))
+
+
 ;;
 ;;   Buffers and Windows
 ;;
@@ -178,6 +196,15 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 		(delete-trailing-whitespace))))
   )
 
+(use-package epg
+  :custom
+  (epg-pinentry-mode 'loopback)
+  (epg-gpg-home-directory (getenv "GNUPGHOME"))
+  :custom-face
+  (epa-validity-high ((t (:foreground ,(face-foreground 'success)))))
+  (epa-validity-medium ((t (:foreground ,(face-foreground 'warning) :slant normal))))
+  (epa-validity-disabled ((t (:foreground ,(face-foreground 'error) :inverse-video nil))))
+  )
 ;; Highlight matching parens
 ;; code for off-screen parens from centaur emacs
 (use-package paren
@@ -232,33 +259,6 @@ FACE defaults to inheriting from default and show-paren-match."
                               (window-start) msg ))))))
           (blink-matching-open))))
     (advice-add #'show-paren-function :after #'show-paren-off-screen '((name . "show-paren-off-screen")))))
-
-(use-package savehist
-  :init
-  (savehist-mode))
-
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode))
-
-(use-package exec-path-from-shell
-  :ensure t
-  :custom
-  (exec-path-from-shell-arguments (list "-l"))
-  :config
-  (add-to-list 'exec-path-from-shell-variables "GNUPGHOME")
-  (exec-path-from-shell-initialize))
-
-(use-package epg
-  :custom
-  (epg-pinentry-mode 'loopback)
-  (epg-gpg-home-directory (getenv "GNUPGHOME"))
-  :custom-face
-  (epa-validity-high ((t (:foreground ,(face-foreground 'success)))))
-  (epa-validity-medium ((t (:foreground ,(face-foreground 'warning) :slant normal))))
-  (epa-validity-disabled ((t (:foreground ,(face-foreground 'error) :inverse-video nil))))
-  )
 
 (provide 'init-core)
 
