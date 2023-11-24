@@ -67,9 +67,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
 		       '("~/Library/texmf/bibtex/bib/bibtexlib2.bib")
 		     '("~/texmf/bibtex/bib/bibtexlib2.bib")))
 
-  ;; Buffer list
-  (defalias 'list-buffers 'ibuffer-other-window)
-
   (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
 
   :bind
@@ -139,6 +136,14 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   ("C-x -" . 'balance-windows)
   ("C-x ^" . 'shrink-window-if-larger-than-buffer)
   ("<f10>" . toggle-frame-fullscreen)
+  )
+
+(use-package ibuffer
+  :custom
+  (ibuffer-default-sorting-mode 'filename/process)
+  :init
+  ;; Buffer list
+  (defalias 'list-buffers 'ibuffer-other-window)
   )
 
 (use-package recentf
