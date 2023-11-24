@@ -18,8 +18,6 @@
   (eol-mnemonic-mac "/")
   ;; Compilation mode:
   (compilation-scroll-output 'first-error)
-  (recentf-max-menu-items 25)
-  (recentf-max-saved-items 25)
   :init
   (put 'narrow-to-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
@@ -68,8 +66,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (setq bibtexfile (if (eq system-type 'darwin)
 		       '("~/Library/texmf/bibtex/bib/bibtexlib2.bib")
 		     '("~/texmf/bibtex/bib/bibtexlib2.bib")))
-
-  (recentf-mode 1)
 
   ;;;
   ;;   Buffers and Windows
@@ -137,6 +133,14 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   ("C-x +" . 'enlarge-window)
   ("C-x -" . 'balance-windows)
   ("C-x ^" . 'shrink-window-if-larger-than-buffer)
+(use-package recentf
+  :custom
+  (recentf-max-menu-items 25)
+  (recentf-max-saved-items 25)
+  :init
+  (recentf-mode 1)
+  )
+
 (use-package files
   :custom
   (require-final-newline t)
