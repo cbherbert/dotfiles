@@ -38,6 +38,8 @@ command -v colormake > /dev/null 2>&1 && alias make='colormake'
 [ -f "$XDG_CONFIG_HOME/id-lang.map" ] && alias mkid="mkid -m $XDG_CONFIG_HOME/id-lang.map"
 function getip { ifconfig $1 | grep 'inet ' | awk '{print $2}'; }
 
+if ! command -v bat > /dev/null 2>&1; then if command -v batcat > /dev/null 2>&1; then alias bat="batcat"; fi; fi
+
 ##
 #  Customize ls colors:
 ##
