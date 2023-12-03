@@ -94,6 +94,7 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (exec-path-from-shell-arguments (list "-l"))
   :config
   (add-to-list 'exec-path-from-shell-variables "GNUPGHOME")
+  (add-to-list 'exec-path-from-shell-variables "ASPELL_CONF")
   (exec-path-from-shell-initialize))
 
 
