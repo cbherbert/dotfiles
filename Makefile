@@ -11,9 +11,6 @@ PKGFILE           = packages_$(OS)
 PKGMGR_Darwin     = port
 PKGMGR_Linux      = apt-get -y
 PKGMGR            = $(PKGMGR_$(OS))
-MPLHOME_Linux     = $(HOME)/.config/matplotlib
-MPLHOME_Darwin    = $(HOME)/.matplotlib
-MPLHOME           = $(MPLHOME_$(OS))
 DOT_PRIVATE       = git@framagit.org:cherbert/dotfiles_private.git
 ORG               = $(HOME)/owncloud/org
 
@@ -30,7 +27,7 @@ help:
 #       Those programs often have dependencies which may not be installed on some machines.
 #       Even stow for instance is typically not available on supercomputers.
 
-install: $(LINK_FILES) matplotlibrc
+install: $(LINK_FILES)
 
 restore:
 	tar -Pxf ~/.dotfiles_bak.tar
@@ -68,10 +65,6 @@ python:
 	@while IFS='' read -r pkg; do \
 		if [ -z "$${pkg}" ]; then pip install "$${pkg}" --user; fi; \
 	done < packages_python
-
-matplotlibrc:
-	test -f $(MPLHOME)/$@ && (test -L $(MPLHOME)/$@ || tar -Prf ~/.dotfiles_bak.tar $(MPLHOME)/$@ ) || true
-	ln -sf $(DOTHOME)/src/$@_$(OS) $(MPLHOME)/$@
 
 texshop:
 	./bin/texshop-colorscheme.sh -c my_solarized_light
