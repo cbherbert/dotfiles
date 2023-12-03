@@ -39,6 +39,9 @@
 ;; org-mode configuration:
 (require 'init-org)
 
+;; email configuration:
+(require 'init-mail)
+
 ;; personal stuff:
 (require 'init-perso)
 
