@@ -160,6 +160,7 @@
   (when (display-graphic-p)
     (setq org-agenda-category-icon-alist `(("todo" ,(list (all-the-icons-material "check_box" :height 1.1)) nil nil :ascent center)
 					   ("mail" ,(list (all-the-icons-material "mail" :height 1.1)) nil nil :ascent center)
+					   ("ecology" ,(list (all-the-icons-faicon "leaf" :height 1.1)) nil nil :ascent center)
 					   ("tools" ,(list (all-the-icons-material "settings" :height 1.1)) nil nil :ascent center)
 					   ("teaching" ,(list (all-the-icons-material "school" :height 1.1)) nil nil :ascent center)
 					   ("conferences" ,(list (all-the-icons-material "explore" :height 1.1)) nil nil :ascent center)
