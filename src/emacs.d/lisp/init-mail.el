@@ -7,6 +7,8 @@
 
 ;;; Code:
 
+(when (eq system-type 'gnu/linux)
+  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
 (require 'mu4e)
 
 (use-package mu4e
