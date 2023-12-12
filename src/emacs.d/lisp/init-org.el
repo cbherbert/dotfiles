@@ -96,7 +96,7 @@
       "* TODO Answer %:fromname: %a\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))" :immediate-finish t)
      ("c" "conference" entry (file "~/owncloud/org/core/conferences.org") "* %:subject%?\n%^{LOCATION}p%^{Beginning}t--%^{End}t\n%(i-nonempty)%a")
      ("r" "reviews" entry (file "~/owncloud/org/core/reviews.org") "* TODO Review %?\nDEADLINE: %^t\n%a")
-     ("l" "reading list" entry (file+olp "~/owncloud/org/core/reads.org" "Topics to read about") "* TODO %?\n")
+     ("l" "reading list" entry (file "~/owncloud/org/core/reads.org") "* TODO %?\n")
      ("?" "random questions" entry (file "~/owncloud/org/core/questions.org") "* TODO %?\n")
      ))
   (org-agenda-day-face-function
