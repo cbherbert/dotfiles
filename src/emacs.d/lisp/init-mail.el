@@ -42,8 +42,8 @@
   (mu4e-bookmarks
    '((:name "INBOX" :query "maildir:/enslyon/INBOX OR maildir:/cnrs/INBOX" :key ?i)
      (:name "Unread messages" :query "flag:unread AND NOT flag:trashed AND NOT maildir:/enslyon/Junk" :key ?u)
-     (:name "Today's messages" :query "date:today..now AND NOT maildir:/enslyon/Junk" :key ?t)
-     (:name "Last 7 days" :query "date:7d..now AND NOT maildir:/enslyon/Junk" :hide-unread t :key ?w)
+     (:name "Today's messages" :query "date:today..now AND NOT maildir:/enslyon/Trash AND NOT maildir:/enslyon/Junk" :key ?t)
+     (:name "Last 7 days" :query "date:7d..now AND NOT maildir:/enslyon/Trash AND NOT maildir:/enslyon/Junk" :hide-unread t :key ?w)
      (:name "Messages with images" :query "mime:image/*" :key ?p)
      ))
   (mu4e-contexts `(,(make-mu4e-context
