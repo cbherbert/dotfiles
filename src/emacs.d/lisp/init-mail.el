@@ -15,7 +15,7 @@
   :custom
   (mail-user-agent 'mu4e-user-agent)
   (read-mail-command 'mu4e)
-  (mu4e-notification-support t)
+  (mu4e-notification-support (if (eq system-type 'gnu/linux) t nil))
   (mu4e-user-mail-address-list '("corentin.herbert@ens-lyon.fr"
 				 "corentin.herbert@cnrs.fr"))
   (mu4e-root-maildir "~/.maildir")
