@@ -81,7 +81,7 @@ export BAT_PAGER="less"
 export BAT_THEME="Solarized (dark)"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
-export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_DATA_HOME/aspell/en.pws; repl $XDG_DATA_HOME/aspell/en.prepl"
+export ASPELL_CONF="home-dir $XDG_CONFIG_HOME/aspell/"
 export W3M_DIR="$XDG_STATE_HOME/w3m"
 
 # The following line is necessary for TRAMP.
