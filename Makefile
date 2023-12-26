@@ -27,7 +27,7 @@ help:
 #       Those programs often have dependencies which may not be installed on some machines.
 #       Even stow for instance is typically not available on supercomputers.
 
-install: $(LINK_FILES)
+install: $(LINK_FILES) $(XDG_FILES)
 
 restore:
 	tar -Pxf ~/.dotfiles_bak.tar
