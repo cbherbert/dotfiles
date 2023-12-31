@@ -39,7 +39,7 @@
   (org-catch-invisible-edits 'smart)
   (org-hide-emphasis-markers t)
   (org-startup-indented t)
-  (org-agenda-files '("~/owncloud/org/core" "~/owncloud/org/discussions" "~/owncloud/org/external"))
+  (org-agenda-files '("~/owncloud/org/core" "~/owncloud/org/manuscripts" "~/owncloud/org/projects" "~/owncloud/org/discussions" "~/owncloud/org/external"))
   (org-agenda-skip-deadline-prewarning-if-scheduled t)
   (org-agenda-todo-ignore-deadlines 'near)
   (org-agenda-todo-ignore-scheduled 'all)
@@ -61,7 +61,7 @@
    '(("f" "Agenda and TODO by priority"
       ((agenda "")
        (alltodo ""
-		((org-agenda-files '("~/owncloud/org/core/projects.org"))
+		((org-agenda-files '("~/owncloud/org/projects"))
 		 (org-agenda-overriding-header "Projects:")))
        (alltodo ""
 		((org-agenda-files '("~/owncloud/org/core/todo.org"))
@@ -308,23 +308,47 @@
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory (file-truename "~/owncloud/org/roam"))
-  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:20}" 'face 'org-tag)))
+  (org-roam-directory (file-truename "~/owncloud/org"))
+  (org-roam-node-display-template (concat "${title:60} " (propertize "${tags:*}" 'face 'org-tag)))
   (org-roam-completion-everywhere t)
-  (org-roam-capture-templates '(
-				("d" "default" plain "%?" :target (file+head "${slug}-%<%Y%m%d%H%M%S>.org" "#+title: ${title}\n#+author: Corentin Herbert\n#+date_added: %u\n#+last_modified: %U")
-				 :unnarrowed t)
-				))
+  (org-roam-capture-templates
+   '(
+     ("d" "default" plain "%?" :target (file+head "roam/${slug}-%<%Y%m%d%H%M%S>.org" "#+title: ${title}\n#+author: Corentin Herbert\n#+date_added: %u\n#+last_modified: %U")
+      :unnarrowed t)
+     ("p" "project" plain "%?" :target (file+head "projects/${slug}.org" "#+title: ${title}\n#+author: Corentin Herbert\n#+category: projects\n#+date_added: %u\n#+last_modified: %U\n#+filetags: project")
+      :unnarrowed t)
+     ("m" "manuscript" plain "%?" :target (file+head "manuscripts/${slug}.org" "#+title: ${title}\n#+author: Corentin Herbert\n#+category: manuscripts\n#+date_added: %u\n#+last_modified: %U\n#+filetags: manuscript")
+      :unnarrowed t)
+     ))
+  (org-roam-file-exclude-regexp '("data/" "external/" "core/" "discussions/"))
   :bind
   (("C-c n l" . org-roam-buffer-toggle)
    ("C-c n f" . org-roam-node-find)
    ("C-c n i" . org-roam-node-insert)
+   ("C-c n F p" . ch/org-roam-node-find-project)
+   ("C-c n F m" . ch/org-roam-node-find-manuscript)
+   ("C-c n F r" . ch/org-roam-node-find-roam)
    ("C-c n a" . org-roam-alias-add))
   :config
   (org-roam-db-autosync-mode)
   (setq org-roam-db-node-include-function
       (lambda ()
         (not (member "ATTACH" (org-get-tags)))))
+  (defun ch/org-roam-node-find-project ()
+    (interactive)
+    (org-roam-node-find nil nil (lambda (node) (member "project" (org-roam-node-tags node)))))
+  (defun ch/org-roam-node-find-manuscript ()
+    (interactive)
+    (org-roam-node-find nil nil (lambda (node) (member "manuscript" (org-roam-node-tags node)))))
+  (defun ch/org-roam-get-parent-dir-name (node-file-path)
+    (let* ((org-roam-subdir-alist (seq-map (lambda (path) (cons path (f-filename path))) (f-directories org-roam-directory))))
+      (cl-loop for (path . name) in org-roam-subdir-alist
+               when (s-prefix? path node-file-path)
+               return name)))
+  (defun ch/org-roam-node-find-roam ()
+    (interactive)
+    (org-roam-node-find nil nil (lambda (node) (string-equal "roam" (ch/org-roam-get-parent-dir-name (org-roam-node-file node)))))
+    )
   )
 
 (use-package org-roam-ui
