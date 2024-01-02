@@ -338,9 +338,11 @@
       (lambda ()
         (not (member "ATTACH" (org-get-tags)))))
   (defun ch/org-roam-node-find-project ()
+    "Find and open an Org-roam project node by its title or alias."
     (interactive)
     (org-roam-node-find nil nil (lambda (node) (member "project" (org-roam-node-tags node)))))
   (defun ch/org-roam-node-find-manuscript ()
+    "Find and open an Org-roam manuscript node by its title or alias."
     (interactive)
     (org-roam-node-find nil nil (lambda (node) (member "manuscript" (org-roam-node-tags node)))))
   (defun ch/org-roam-get-parent-dir-name (node-file-path)
@@ -349,16 +351,20 @@
                when (s-prefix? path node-file-path)
                return name)))
   (defun ch/org-roam-node-find-roam ()
+    "Find and open an Org-roam general node by its title or alias."
     (interactive)
     (org-roam-node-find nil nil (lambda (node) (string-equal "roam" (ch/org-roam-get-parent-dir-name (org-roam-node-file node)))))
     )
   (defun ch/org-roam-node-insert-project ()
+    "Find an Org-roam project node and insert (where the point is) an \"id:\" link to it."
     (interactive)
     (org-roam-node-insert (lambda (node) (member "project" (org-roam-node-tags node)))))
   (defun ch/org-roam-node-insert-manuscript ()
+    "Find an Org-roam manuscript node and insert (where the point is) an \"id:\" link to it."
     (interactive)
     (org-roam-node-insert (lambda (node) (member "manuscript" (org-roam-node-tags node)))))
   (defun ch/org-roam-node-insert-roam ()
+    "Find an Org-roam general node and insert (where the point is) an \"id:\" link to it."
     (interactive)
     (org-roam-node-insert (lambda (node) (string-equal "roam" (ch/org-roam-get-parent-dir-name (org-roam-node-file node))))))
   )
