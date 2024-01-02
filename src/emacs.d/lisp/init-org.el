@@ -328,6 +328,9 @@
    ("C-c n F p" . ch/org-roam-node-find-project)
    ("C-c n F m" . ch/org-roam-node-find-manuscript)
    ("C-c n F r" . ch/org-roam-node-find-roam)
+   ("C-c n I p" . ch/org-roam-node-insert-project)
+   ("C-c n I m" . ch/org-roam-node-insert-manuscript)
+   ("C-c n I r" . ch/org-roam-node-insert-roam)
    ("C-c n a" . org-roam-alias-add))
   :config
   (org-roam-db-autosync-mode)
@@ -349,6 +352,15 @@
     (interactive)
     (org-roam-node-find nil nil (lambda (node) (string-equal "roam" (ch/org-roam-get-parent-dir-name (org-roam-node-file node)))))
     )
+  (defun ch/org-roam-node-insert-project ()
+    (interactive)
+    (org-roam-node-insert (lambda (node) (member "project" (org-roam-node-tags node)))))
+  (defun ch/org-roam-node-insert-manuscript ()
+    (interactive)
+    (org-roam-node-insert (lambda (node) (member "manuscript" (org-roam-node-tags node)))))
+  (defun ch/org-roam-node-insert-roam ()
+    (interactive)
+    (org-roam-node-insert (lambda (node) (string-equal "roam" (ch/org-roam-get-parent-dir-name (org-roam-node-file node))))))
   )
 
 (use-package org-roam-ui
