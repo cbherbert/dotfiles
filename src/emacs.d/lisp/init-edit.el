@@ -87,6 +87,7 @@ is deferred until the file is saved. Respects `git-gutter:disabled-modes'."
   (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
   (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
   (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
+
 (use-package comint
   :config
   (define-key comint-mode-map [down] 'comint-next-matching-input-from-input)
@@ -125,6 +126,11 @@ is deferred until the file is saved. Respects `git-gutter:disabled-modes'."
   (advice-add #'ispell-pdict-save :after #'flycheck-maybe-recheck)
   )
 
+(use-package consult-flycheck
+  :after flycheck consult
+  :ensure t
+  )
+
 (use-package markdown-mode
   :ensure t)
 
@@ -136,6 +142,10 @@ is deferred until the file is saved. Respects `git-gutter:disabled-modes'."
   :mode ("\\.tsv$" . csv-mode)
   :hook ((csv-mode . hl-line-mode)
 	 (csv-mode . csv-align-mode))
+  )
+
+(use-package xml-mode
+  :mode ("\\.plist$" . xml-mode)
   )
 
 ;;;

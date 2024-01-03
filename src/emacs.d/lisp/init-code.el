@@ -51,6 +51,12 @@
   :ensure nil
   :custom
   (python-shell-interpreter "python3"))
+(use-package conda
+  :ensure t
+  :custom
+  (conda-env-autoactivate-mode t)
+  )
+
 (use-package snakemake-mode
   :ensure t)
 
