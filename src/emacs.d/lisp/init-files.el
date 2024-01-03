@@ -23,8 +23,7 @@
 
 (use-package projectile
   :ensure t
-  :init
-  (projectile-mode +1)
+  :hook (after-init . projectile-mode)
   :bind (:map projectile-mode-map
               ("C-c p" . projectile-command-map)))
 
@@ -51,6 +50,7 @@
 (use-package treemacs-all-the-icons
   :ensure t
   :if (display-graphic-p)
+  :after treemacs
   :config
   (treemacs-load-theme "all-the-icons"))
 
