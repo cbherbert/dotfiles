@@ -94,7 +94,15 @@
   (mu4e-replied-face ((t (:inherit mu4e-header-face :slant normal :weight normal))))
   (mu4e-unread-face ((t (:inherit default :weight bold))))
   (mu4e-header-highlight-face ((t (:inherit hl-line :weight bold :extend t :underline t :foreground ,(face-foreground 'success)))))
+  :hook
+  (mu4e-view-mode . visual-line-mode)
+  (mu4e-compose-mode . ch/mu4e-compose-hook)
   :config
+  (defun ch/mu4e-compose-hook ()
+    "Setup flyspell for message writing"
+    (setq flyspell-generic-check-word-predicate 'mail-mode-flyspell-verify)
+    (flyspell-mode)
+    )
   (defun ch/capture-mail-answer-later (msg)
     (interactive)
     (call-interactively 'org-store-link)
