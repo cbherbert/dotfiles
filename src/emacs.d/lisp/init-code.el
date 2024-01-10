@@ -53,8 +53,12 @@
   (python-shell-interpreter "python3"))
 (use-package conda
   :ensure t
-  :custom
-  (conda-env-autoactivate-mode t)
+  :hook
+  (find-file . ch/conda-activate-on-opening)
+  :config
+  (defun ch/conda-activate-on-opening ()
+    (when (bound-and-true-p conda-project-env-path)
+      (conda-env-activate-for-buffer)))
   )
 
 (use-package snakemake-mode
