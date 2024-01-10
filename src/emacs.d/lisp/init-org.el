@@ -32,10 +32,13 @@
 
 (use-package org
   :after appt
+  :custom-face
+  (org-latex-and-related :inherit 'font-latex-math-face)
   :custom
   (org-list-allow-alphabetical t)
   (org-pretty-entities-include-sub-superscripts t)
   (org-pretty-entities t)
+  (org-highlight-latex-and-related '(native script entities))
   (org-catch-invisible-edits 'smart)
   (org-hide-emphasis-markers t)
   (org-startup-indented t)
