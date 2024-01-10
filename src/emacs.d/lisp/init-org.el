@@ -181,6 +181,7 @@
 					   )))
   :bind
   (("C-c a" . org-agenda)
+   ("C-c b" . org-switchb)
    ("C-c c" . org-capture)
    ("C-c l" . org-store-link)
    ("C-x n u" . ch/org-narrow-to-subtree-up))
