@@ -123,6 +123,17 @@
 	       '("todo entry from mail" . ch/capture-mail-todo) t)
   )
 
+(use-package mu4e-alert
+  :if (eq system-type 'darwin)
+  :ensure t
+  :after mu4e alert
+  :hook
+  (after-init . mu4e-alert-enable-notifications)
+  :config
+  (mu4e-alert-enable-mode-line-display)
+  (mu4e-alert-set-default-style alert-default-style)
+  )
+
 (provide 'init-mail)
 
 ;;; init-mail.el ends here
