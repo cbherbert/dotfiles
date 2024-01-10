@@ -22,6 +22,32 @@
   :bind ("C-$" . 'ispell-word) ;; defautl is M-$, which is also screenshot on macOS when using Command key for Meta
   )
 
+(use-package flyspell
+  :hook
+  (text-mode . flyspell-mode)
+  :config
+  (keymap-unset flyspell-mode-map "C-.") ;; avoid clash with `embark-act`
+  ;; Default bindings:
+  ;; C-; is bound to flyspell-auto-correct-previous-word
+  ;; C-, is bound to flyspell-goto-next-error
+  ;; C-c $ is bound to flyspell-correct-word-before-point
+  ;; C-M-i is bound to flyspell-auto-correct-word
+  )
+
+(use-package flyspell-correct
+  :ensure t
+  :after flyspell
+  :bind (:map flyspell-mode-map ("C-:" . flyspell-correct-wrapper))
+  )
+
+(use-package guess-language
+  :hook
+  (text-mode . guess-language-mode)
+  :custom
+  (guess-language-min-paragraph-length 35)
+  (guess-language-languages '(en fr))
+  )
+
 ;;;
 ;;    Git
 ;;;
