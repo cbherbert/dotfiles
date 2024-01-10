@@ -22,8 +22,6 @@
   (put 'narrow-to-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
-  ;; Automatically wrap lines for text modes:
-  (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
   (defun format-sentence-lines ()
     "Break a long line or text block into multiple lines by ending period.
@@ -75,6 +73,8 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   ("C-c TAB" . 'indent-region)
 
   :hook
+  ;; Automatically wrap lines for text modes:
+  (text-mode . turn-on-visual-line-mode)
   (after-init . (lambda ()
 		  (message (concat "emacs (" (number-to-string (emacs-pid)) ") started in " (emacs-init-time)))))
   )

@@ -157,12 +157,13 @@
   (add-hook 'org-agenda-mode-hook #'org-agenda-to-appt)
   (run-at-time "12:05am" (* 24 3600) 'org-agenda-to-appt)
   ;; the following code does not capture agenda files if they are in a directory which is in org-agenda-files.
-  (add-hook 'after-save-hook '(lambda ()
+  (add-hook 'after-save-hook (lambda ()
 			       (if (member buffer-file-name (mapcar #'expand-file-name org-agenda-files))
 				   (org-agenda-to-appt))))
   (when (display-graphic-p)
     (setq org-agenda-category-icon-alist `(("todo" ,(list (all-the-icons-material "check_box" :height 1.1)) nil nil :ascent center)
 					   ("mail" ,(list (all-the-icons-material "mail" :height 1.1)) nil nil :ascent center)
+					   ("manuscripts" ,(list (all-the-icons-faicon "pencil" :height 1.1)) nil nil :ascent center)
 					   ("ecology" ,(list (all-the-icons-faicon "leaf" :height 1.1)) nil nil :ascent center)
 					   ("tools" ,(list (all-the-icons-material "settings" :height 1.1)) nil nil :ascent center)
 					   ("teaching" ,(list (all-the-icons-material "school" :height 1.1)) nil nil :ascent center)
@@ -181,6 +182,7 @@
 					   )))
   :bind
   (("C-c a" . org-agenda)
+   ("C-c b" . org-switchb)
    ("C-c c" . org-capture)
    ("C-c l" . org-store-link)
    ("C-x n u" . ch/org-narrow-to-subtree-up))
@@ -195,8 +197,8 @@
 
 (use-package org-bullets
   :ensure t
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+  :hook
+  (org-mode . (lambda () (org-bullets-mode 1))))
 
 (use-package org-download
   :ensure t

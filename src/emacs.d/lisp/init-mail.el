@@ -15,6 +15,7 @@
   :custom
   (mail-user-agent 'mu4e-user-agent)
   (read-mail-command 'mu4e)
+  (mu4e-completing-read-function 'completing-read)
   (mu4e-notification-support (if (eq system-type 'gnu/linux) t nil))
   (mu4e-user-mail-address-list '("corentin.herbert@ens-lyon.fr"
 				 "corentin.herbert@cnrs.fr"))
@@ -28,6 +29,8 @@
   (send-mail-function 'sendmail-send-it)
   (message-send-mail-function 'sendmail-send-it)
   (message-citation-line-function 'message-insert-formatted-citation-line)
+  (message-citation-line-format "On %a, %b %d %Y %R, %N wrote:\n")
+  (message-kill-buffer-on-exit t)
   (mu4e-headers-fields '((:flags . 6) (:subject . 100) (:from . 22) (:human-date . 12) (:mailing-list . 10)))
   (mu4e-maildir-shortcuts '((:name "Drafts" :maildir "/enslyon/Drafts" :key ?d)
 			    (:name "Sent" :maildir "/enslyon/Sent" :key ?s)
@@ -81,6 +84,7 @@
 		   ))
   (mu4e-context-policy 'pick-first)
   (mu4e-compose-context-policy 'pick-first)
+  ;;mu4e does not use `message-signature` but defines its own variable:
   (mu4e-compose-signature "Corentin Herbert\nCNRS Researcher\nLaboratoire de Physique, ENS de Lyon\n46, allée d'Italie\n69364 Lyon cedex 07\n+33 4 26 23 39 60\nhttp://perso.ens-lyon.fr/corentin.herbert/")
   (mu4e-compose-signature-auto-include nil)
   :custom-face
@@ -92,7 +96,15 @@
   (mu4e-replied-face ((t (:inherit mu4e-header-face :slant normal :weight normal))))
   (mu4e-unread-face ((t (:inherit default :weight bold))))
   (mu4e-header-highlight-face ((t (:inherit hl-line :weight bold :extend t :underline t :foreground ,(face-foreground 'success)))))
+  :hook
+  (mu4e-view-mode . visual-line-mode)
+  (mu4e-compose-mode . ch/mu4e-compose-hook)
   :config
+  (defun ch/mu4e-compose-hook ()
+    "Setup flyspell for message writing"
+    (setq flyspell-generic-check-word-predicate 'mail-mode-flyspell-verify)
+    (flyspell-mode)
+    )
   (defun ch/capture-mail-answer-later (msg)
     (interactive)
     (call-interactively 'org-store-link)
