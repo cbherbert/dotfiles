@@ -157,7 +157,7 @@
   (add-hook 'org-agenda-mode-hook #'org-agenda-to-appt)
   (run-at-time "12:05am" (* 24 3600) 'org-agenda-to-appt)
   ;; the following code does not capture agenda files if they are in a directory which is in org-agenda-files.
-  (add-hook 'after-save-hook '(lambda ()
+  (add-hook 'after-save-hook (lambda ()
 			       (if (member buffer-file-name (mapcar #'expand-file-name org-agenda-files))
 				   (org-agenda-to-appt))))
   (when (display-graphic-p)
