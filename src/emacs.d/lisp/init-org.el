@@ -195,8 +195,8 @@
 
 (use-package org-bullets
   :ensure t
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+  :hook
+  (org-mode . (lambda () (org-bullets-mode 1))))
 
 (use-package org-download
   :ensure t
