@@ -30,6 +30,7 @@
   (message-send-mail-function 'sendmail-send-it)
   (message-citation-line-function 'message-insert-formatted-citation-line)
   (message-citation-line-format "On %a, %b %d %Y %R, %N wrote:\n")
+  (message-kill-buffer-on-exit t)
   (mu4e-headers-fields '((:flags . 6) (:subject . 100) (:from . 22) (:human-date . 12) (:mailing-list . 10)))
   (mu4e-maildir-shortcuts '((:name "Drafts" :maildir "/enslyon/Drafts" :key ?d)
 			    (:name "Sent" :maildir "/enslyon/Sent" :key ?s)
