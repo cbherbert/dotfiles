@@ -53,12 +53,12 @@
   (doom-modeline-major-mode-icon (display-graphic-p))
   (doom-modeline-time-icon (display-graphic-p))
   (display-time-default-load-average nil)
-  (when (eq system-type 'darwin) (doom-modeline-mu4e t))
   :hook (after-init . doom-modeline-mode)
   :config
   (display-time-mode 1)
   (line-number-mode -1)
   (column-number-mode -1)
+  (when (eq system-type 'darwin) (setq doom-modeline-mu4e t))
   )
 
 (use-package minions
