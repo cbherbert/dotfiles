@@ -8,6 +8,11 @@
 
 ;;; Code:
 
+(use-package consult-org
+  :after consult org
+  :bind (:map org-mode-map
+	      ("M-g o" . consult-org-heading)))
+
 (use-package consult
   :ensure t
   :custom-face
@@ -63,8 +68,6 @@
          ;; :map minibuffer-local-map
          ;; ("M-s" . consult-history)                 ;; orig. next-matching-history-element
          ;; ("M-r" . consult-history)                 ;; orig. previous-matching-history-element
-	 :map org-mode-map
-	 ("M-g o" . consult-org-heading)
 	 )
 
   ;; Enable automatic preview at point in the *Completions* buffer. This is
