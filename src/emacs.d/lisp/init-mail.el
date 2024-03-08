@@ -84,9 +84,9 @@
 		   ))
   (mu4e-context-policy 'pick-first)
   (mu4e-compose-context-policy 'pick-first)
-  ;;mu4e does not use `message-signature` but defines its own variable:
-  (mu4e-compose-signature "Corentin Herbert\nCNRS Researcher\nLaboratoire de Physique, ENS de Lyon\n46, allée d'Italie\n69364 Lyon cedex 07\n+33 4 26 23 39 60\nhttp://perso.ens-lyon.fr/corentin.herbert/")
+  (message-signature "Corentin Herbert\nCNRS Researcher\nLaboratoire de Physique, ENS de Lyon\n46, allée d'Italie\n69364 Lyon cedex 07\n+33 4 26 23 39 60\nhttp://perso.ens-lyon.fr/corentin.herbert/")
   (mu4e-compose-signature-auto-include nil)
+  (mu4e-thread-fold-unread t)
   :custom-face
   (mu4e-highlight-face ((t (:inherit default :weight bold :foreground ,(face-foreground 'success)))))
   (mu4e-header-face ((t (:inherit font-lock-comment-face))))
