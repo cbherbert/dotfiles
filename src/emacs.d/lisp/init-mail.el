@@ -84,7 +84,8 @@
 		   ))
   (mu4e-context-policy 'pick-first)
   (mu4e-compose-context-policy 'pick-first)
-  (message-signature "Corentin Herbert\nCNRS Researcher\nLaboratoire de Physique, ENS de Lyon\n46, allée d'Italie\n69364 Lyon cedex 07\n+33 4 26 23 39 60\nhttp://perso.ens-lyon.fr/corentin.herbert/")
+  (message-signature nil)
+  (message-signature-file "~/dotfiles/private/signature")
   (mu4e-compose-signature-auto-include nil)
   (mu4e-thread-fold-unread t)
   :custom-face
