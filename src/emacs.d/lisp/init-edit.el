@@ -158,9 +158,12 @@ is deferred until the file is saved. Respects `git-gutter:disabled-modes'."
   )
 
 (use-package markdown-mode
+  :defer t
+  :mode ("README\\.md\\'" . gfm-mode)
   :ensure t)
 
 (use-package yaml-mode
+  :defer t
   :ensure t)
 
 (use-package csv-mode
