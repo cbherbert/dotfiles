@@ -11,14 +11,6 @@
 [ -f "${HOME}/scripts/ghost-scripts/ghostrc.sh" ] && source "${HOME}/scripts/ghost-scripts/ghostrc.sh" # GHOST shell tools
 [ -f "$XDG_CONFIG_HOME/shortcuts" ] && source "$XDG_CONFIG_HOME/shortcuts"       # Strongly machine dependent aliases like shortcuts to favorite directories
 
-# Machine-independent definitions:
-
-# Higher-level utilities for path manipulation (bash-specific)
-function varappend { var="${!1}:"; export "$1=${var//$2:}$2"; }
-function varprepend { var=":${!1}"; export "$1=$2${var//:$2}"; }
-function pathappend { varappend PATH "$1"; }
-function pathprepend { varprepend PATH "$1"; }
-
 alias printpath='echo -e ${PATH//:/\\n}'
 
 # rename file by replacing all white spaces with underscores:

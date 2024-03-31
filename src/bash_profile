@@ -38,6 +38,12 @@ export HISTIGNORE="ls:[bf]g:cd:exit:pwd"
 export GLOBIGNORE=.:..
 
 # Building the path
+# utilities for path manipulation (bash-specific)
+function varappend { var="${!1}:"; export "$1=${var//$2:}$2"; }
+function varprepend { var=":${!1}"; export "$1=$2${var//:$2}"; }
+function pathappend { varappend PATH "$1"; }
+function pathprepend { varprepend PATH "$1"; }
+
 if [ "$(uname -s)" = "Darwin" ]; then
     [ -d "/usr/local/sbin" ] && PATH="/usr/local/sbin:$PATH"
     # Macports path for OS X
@@ -54,6 +60,9 @@ if [ "$(uname -s)" = "Darwin" ]; then
 	export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
 	export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
     fi
+    # MacTex
+    # In principle this is already added to the path by /etc/paths.d, but we would like to move it before the Macports directories
+    [ -d "/Library/TeX/texbin" ] && pathprepend "/Library/TeX/texbin"
 fi
 [ -d "${HOME}/bin" ] && PATH="$HOME/bin:${PATH}"
 [ -d "${HOME}/scripts" ] && PATH="${HOME}/scripts:${PATH}" # Custom scripts
