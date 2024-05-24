@@ -1,0 +1,15 @@
+;;-*-coding: utf-8;-*-
+(define-abbrev-table 'global-abbrev-table
+  '(
+    ("amke" "make" nil :count 0)
+    ("claimte" "climate" nil :count 0)
+    ("eslewhere" "elsewhere" nil :count 0)
+    ("feasability" "feasibility" nil :count 0)
+    ("fershwater" "freshwater" nil :count 0)
+    ("interessés" "intéressés" nil :count 0)
+    ("questoin" "question" nil :count 0)
+    ("simualtes" "simulates" nil :count 0)
+    ("sufficently" "sufficiently" nil :count 0)
+    ("taht" "that" nil :count 0)
+    ("teh" "the" nil :count 5)
+   ))

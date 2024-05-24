@@ -34,10 +34,29 @@
   ;; C-M-i is bound to flyspell-auto-correct-word
   )
 
+(use-package abbrev
+  :custom
+  (save-abbrevs 'silently)
+  (abbrev-file-name (concat user-emacs-directory "abbrev_defs"))
+  :hook
+  (text-mode . abbrev-mode))
+
 (use-package flyspell-correct
   :ensure t
-  :after flyspell
+  :after flyspell abbrev
   :bind (:map flyspell-mode-map ("C-:" . flyspell-correct-wrapper))
+  :config
+  (defun ch/add-abbrev-flyspell-correct (orig-fun &rest args)
+    (let ((word (nth 1 args))
+	  (repl (apply orig-fun args)))
+      (if (and word repl (not (equal word repl)))
+        (let ((word (downcase word))
+              (repl (downcase repl)))
+          (define-abbrev global-abbrev-table word repl)
+          (message "Abbrev: \"%s\" now expands to \"%s\"" word repl))
+	(user-error "No typo at or before point"))
+      repl))
+  (advice-add 'flyspell-correct-completing-read :around #'ch/add-abbrev-flyspell-correct)
   )
 
 (use-package guess-language
