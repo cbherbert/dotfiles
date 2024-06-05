@@ -95,7 +95,7 @@
      ("sg" "GFDiscussions" entry (file+olp "~/owncloud/org/core/seminars.org" "GFDiscussions")
       "* %?\n%^t")
      ("t" "TODO list" entry (file+olp "~/owncloud/org/core/todo.org" "Tasks") "* TODO %?\n%(i-nonempty)%a")
-     ("a" "answer mail" entry (file+headline "~/owncloud/org/core/todo.org" "Mail")
+     ("a" "answer mail" entry (file "~/owncloud/org/core/mail.org")
       "* TODO Answer %:fromname: %a\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))" :immediate-finish t)
      ("c" "conference" entry (file "~/owncloud/org/core/conferences.org") "* %:subject%?\n%^{LOCATION}p%^{Beginning}t--%^{End}t\n%(i-nonempty)%a")
      ("r" "reviews" entry (file "~/owncloud/org/core/reviews.org") "* TODO Review %?\nDEADLINE: %^t\n%a")
@@ -180,6 +180,14 @@
 					   ("Holidays" ,(list (all-the-icons-faicon "home" :height 1.1)) nil nil :ascent center)
 					   ("WorkFromHome" ,(list (all-the-icons-faicon "home" :height 1.1)) nil nil :ascent center)
 					   )))
+  (defun ch/org-archive-mail-reply-tasks (_)
+    "Archive all tasks marked as DONE in mail.org file" ;; in the future perhaps only do so for tasks which are more than a week old
+    (org-map-entries
+     (lambda ()
+       (org-archive-subtree)
+       (setq org-map-continue-from (org-element-property :begin (org-element-at-point))))
+     "/DONE|CANCELLED" '("~/owncloud/org/core/mail.org")))
+  (advice-add 'save-buffers-kill-emacs :before 'ch/org-archive-mail-reply-tasks)
   :bind
   (("C-c a" . org-agenda)
    ("C-c b" . org-switchb)
