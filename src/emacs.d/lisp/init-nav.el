@@ -2,11 +2,69 @@
 
 ;;; Commentary:
 ;;
-;; Configuration for tools used for navigation and general actions.
+;; Configuration for tools used for navigating buffers, files, commands...
 ;; For now this is mostly consult and embark.
 ;;
 
 ;;; Code:
+
+(use-package hydra
+  :ensure t
+  :bind
+  ("C-c C-h z" . hydra-font-size/body)
+  ("C-c C-h s" . hydra-move-splitter/body)
+  ("C-c C-h r" . hydra-region/body)
+  ("C-c C-h p" . hydra-point/body)
+  :config
+  (defhydra hydra-font-size nil
+    "Font size"
+    ("+" text-scale-increase "increase")
+    ("-" text-scale-decrease "decrease")
+    ("=" (text-scale-increase 0) "restore"))
+  (require 'hydra-examples)
+  (defhydra hydra-move-splitter nil
+    "Move splitter"
+    ("<up>" hydra-move-splitter-up "up")
+    ("<down>" hydra-move-splitter-down "down")
+    ("<left>" hydra-move-splitter-left "left")
+    ("<right>" hydra-move-splitter-right "right"))
+  (defhydra hydra-region nil
+    "Act on region"
+    ("x" exchange-point-and-mark "Reactivate mark")
+    ("w" kill-region "Kill")
+    ("W" kill-ring-save "Copy")
+    ("f" fill-region "Fill")
+    ("\\" indent-region "Indent")
+    ("<tab>" indent-rigidly "Indent rigidly")
+    ("l" downcase-region "Downcase")
+    ("u" upcase-region "Upcase")
+    ("%" query-replace "Query replace")
+    (";" comment-dwim "Comment")
+    ("$" ispell-region "Check Spelling")
+    ("!" eval-region "Evaluate as Lisp code")
+    )
+  (defhydra hydra-point nil
+    "Move point"
+    ;; line, screen, buffer:
+    ("<left>" left-char "Left")
+    ("<right>" right-char "Right")
+    ("a" move-beginning-of-line "Beginning of line")
+    ("e" move-end-of-line "End of line")
+    ("u" scroll-up-command "Scroll one screen up")
+    ("d" scroll-down-command "Scroll one screen down")
+    ("r" move-to-window-line-top-bottom "line-top-bottom")
+    ("<" beginning-of-buffer "Beginning of buffer")
+    (">" end-of-buffer "End of buffer")
+    ;; words, sentences and paragraphs:
+    ("B" backward-word "Backward word")
+    ("F" forward-word "Forward word")
+    ("A" backward-sentence "Beginning of sentence")
+    ("E" forward-sentence "End of sentence")
+    ("{" backward-paragraph "Backward paragraph")
+    ("}" forward-paragraph "Forward paragraph")
+    ("h" mark-paragraph "Mark paragraph")
+    )
+  )
 
 (use-package consult-org
   :after consult org
