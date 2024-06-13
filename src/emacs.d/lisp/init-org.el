@@ -107,8 +107,7 @@
      "Use weekend face if DATE is a holiday."
      (let ((holiday nil))
        (dolist (entry (org-agenda-get-day-entries "~/owncloud/org/core/holidays.org" date))
-	 (let ((category (with-temp-buffer (insert entry)
-					   (org-get-category (point-min)))))
+	 (let ((category (get-text-property 0 'org-category entry)))
            (when (string= "Holidays" category)
 	     (setq holiday t))))
        (when holiday 'org-agenda-date-weekend))))
@@ -116,10 +115,8 @@
    (defun ch/org-agenda-heading-entries (entrya entryb)
      "Define a comparison to put some entries first in agenda view"
      (let ((catlist '("WorkFromHome" "Holidays"))
-	   (categorya (with-temp-buffer (insert entrya)
-					(org-get-category (point-min))))
-	   (categoryb (with-temp-buffer (insert entryb)
-					(org-get-category (point-min)))))
+	   (categorya (get-text-property 0 'org-category entrya))
+	   (categoryb (get-text-property 0 'org-category entryb)))
        (cond ((member categorya catlist)
 	      (cond ((not (member categoryb catlist)) 1)
 		    (t 'nil)))
