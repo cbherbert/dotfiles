@@ -13,6 +13,7 @@
   :bind
   ("C-c C-h z" . hydra-font-size/body)
   ("C-c C-h s" . hydra-move-splitter/body)
+  ("C-c C-h w" . hydra-windows/body)
   ("C-c C-h r" . hydra-region/body)
   ("C-c C-h p" . hydra-point/body)
   :config
@@ -35,6 +36,10 @@
     ("2" split-window-below "Split below")
     ("3" split-window-right "Split right")
     ("o" other-window "Other window")
+    ("<left>" windmove-left "Move left")
+    ("<right>" windmove-right "Move right")
+    ("<up>" windmove-up "Move up")
+    ("<down>" windmove-down "Move down")
     ("f" find-file "Find file")
     ("k" kill-this-buffer "Kill buffer")
     ("b" (if (fboundp 'consult-buffer)
@@ -49,8 +54,8 @@
     ("p" (if (fboundp 'consult-project-buffer)
 	     (call-interactively #'consult-project-buffer)
 	   (call-interactively #'project-witchto-buffer)) "Switch buffer current project")
-    ("<left>" winner-undo "Previous configuration")
-    ("<right>" winner-redo "Next configuration")
+    ("<" winner-undo "Previous configuration")
+    (">" winner-redo "Next configuration")
     )
   (defhydra hydra-region nil
     "Act on region"
