@@ -9,9 +9,9 @@
 
 (when (eq system-type 'gnu/linux)
   (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
-(require 'mu4e)
 
 (use-package mu4e
+  :commands mu4e
   :custom
   (mail-user-agent 'mu4e-user-agent)
   (read-mail-command 'mu4e)
@@ -49,39 +49,6 @@
      (:name "Last 7 days" :query "date:7d..now AND NOT maildir:/enslyon/Trash AND NOT maildir:/enslyon/Junk" :hide-unread t :key ?w)
      (:name "Messages with images" :query "mime:image/*" :key ?p)
      ))
-  (mu4e-contexts `(,(make-mu4e-context
-		     :name "enslyon"
-		     :enter-func
-		     (lambda () (mu4e-message "Enter ENS Lyon context"))
-		     :leave-func
-		     (lambda () (mu4e-message "Leave ENS Lyon context"))
-		     :match-func
-		     (lambda (msg)
-		       (when msg
-			 (mu4e-message-contact-field-matches msg :to "corentin.herbert@ens-lyon.fr")))
-		     :vars '((user-mail-address . "corentin.herbert@ens-lyon.fr")
-			     (user-full-name . "Corentin Herbert")
-			     (mu4e-drafts-folder . "/enslyon/Drafts")
-			     (mu4e-refile-folder . "/enslyon/Archive")
-			     (mu4e-sent-folder . "/enslyon/Sent")
-			     (mu4e-trash-folder . "/enslyon/Trash")))
-		   ,(make-mu4e-context
-		     :name "cnrs"
-		     :enter-func
-		     (lambda () (mu4e-message "Enter CNRS context"))
-		     :leave-func
-		     (lambda () (mu4e-message "Leave CNRS context"))
-		     :match-func
-		     (lambda (msg)
-		       (when msg
-			 (mu4e-message-contact-field-matches msg :to "corentin.herbert@cnrs.fr")))
-		     :vars '((user-mail-address . "corentin.herbert@cnrs.fr")
-			     (user-full-name . "Corentin Herbert")
-			     (mu4e-drafts-folder . "/cnrs/Drafts")
-			     (mu4e-refile-folder . "/cnrs/Archive")
-			     (mu4e-sent-folder . "/cnrs/Sent")
-			     (mu4e-trash-folder . "/cnrs/Trash")))
-		   ))
   (mu4e-context-policy 'pick-first)
   (mu4e-compose-context-policy 'pick-first)
   (message-signature nil)
@@ -101,6 +68,39 @@
   (mu4e-view-mode . visual-line-mode)
   (mu4e-compose-mode . ch/mu4e-compose-hook)
   :config
+  (setq mu4e-contexts `(,(make-mu4e-context
+			  :name "enslyon"
+			  :enter-func
+			  (lambda () (mu4e-message "Enter ENS Lyon context"))
+			  :leave-func
+			  (lambda () (mu4e-message "Leave ENS Lyon context"))
+			  :match-func
+			  (lambda (msg)
+			    (when msg
+			      (mu4e-message-contact-field-matches msg :to "corentin.herbert@ens-lyon.fr")))
+			  :vars '((user-mail-address . "corentin.herbert@ens-lyon.fr")
+				  (user-full-name . "Corentin Herbert")
+				  (mu4e-drafts-folder . "/enslyon/Drafts")
+				  (mu4e-refile-folder . "/enslyon/Archive")
+				  (mu4e-sent-folder . "/enslyon/Sent")
+				  (mu4e-trash-folder . "/enslyon/Trash")))
+			,(make-mu4e-context
+			  :name "cnrs"
+			  :enter-func
+			  (lambda () (mu4e-message "Enter CNRS context"))
+			  :leave-func
+			  (lambda () (mu4e-message "Leave CNRS context"))
+			  :match-func
+			  (lambda (msg)
+			    (when msg
+			      (mu4e-message-contact-field-matches msg :to "corentin.herbert@cnrs.fr")))
+			  :vars '((user-mail-address . "corentin.herbert@cnrs.fr")
+				  (user-full-name . "Corentin Herbert")
+				  (mu4e-drafts-folder . "/cnrs/Drafts")
+				  (mu4e-refile-folder . "/cnrs/Archive")
+				  (mu4e-sent-folder . "/cnrs/Sent")
+				  (mu4e-trash-folder . "/cnrs/Trash")))
+			))
   (defun ch/mu4e-compose-hook ()
     "Setup flyspell for message writing"
     (setq flyspell-generic-check-word-predicate 'mail-mode-flyspell-verify)
