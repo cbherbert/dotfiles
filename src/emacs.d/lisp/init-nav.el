@@ -23,39 +23,61 @@
     ("-" text-scale-decrease "decrease")
     ("=" (text-scale-increase 0) "restore"))
   (require 'hydra-examples)
-  (defhydra hydra-move-splitter nil
+  (defhydra hydra-move-splitter (:foreign-keys warn)
     "Move splitter"
     ("<up>" hydra-move-splitter-up "up")
     ("<down>" hydra-move-splitter-down "down")
     ("<left>" hydra-move-splitter-left "left")
-    ("<right>" hydra-move-splitter-right "right"))
-  (defhydra hydra-windows nil
-    "Arrange windows and buffers within"
-    ("0" delete-window "Delete selected")
-    ("1" delete-other-windows "Delete others")
-    ("2" split-window-below "Split below")
-    ("3" split-window-right "Split right")
-    ("o" other-window "Other window")
-    ("<left>" windmove-left "Move left")
-    ("<right>" windmove-right "Move right")
-    ("<up>" windmove-up "Move up")
-    ("<down>" windmove-down "Move down")
-    ("f" find-file "Find file")
-    ("k" kill-this-buffer "Kill buffer")
+    ("<right>" hydra-move-splitter-right "right")
+    ("w" hydra-windows/body "Change window configuration" :exit t)
+    ("q" nil "exit" :exit t))
+  (defhydra hydra-windows (:hint nil :foreign-keys warn)
+    "
+Arrange windows and buffers within
+
+^Windows^                      ^Buffers^
+=============================================================
+_0_: delete                    _f_: find
+_1_: delete others             _k_: kill
+_2_: split below               _b_: switch
+_3_: split right               _B_: switch other window
+_o_: other window              _r_: jump bookmark
+_<left>_: move left            _p_: switch in current project
+_<right>_: move right
+_<up>_: move up
+_<down>_: move down
+_<_: previous configuration
+_>_: next configuration
+_s_: move splitter
+-------------------------------------------------------------
+"
+    ("0" delete-window)
+    ("1" delete-other-windows)
+    ("2" split-window-below)
+    ("3" split-window-right)
+    ("o" other-window)
+    ("<left>" windmove-left)
+    ("<right>" windmove-right)
+    ("<up>" windmove-up)
+    ("<down>" windmove-down)
+    ("<" winner-undo)
+    (">" winner-redo)
+    ("s" hydra-move-splitter/body :exit t)
+    ("f" find-file)
+    ("k" kill-this-buffer)
     ("b" (if (fboundp 'consult-buffer)
 	     (call-interactively #'consult-buffer)
-	   (call-interactively #'switch-to-buffer)) "Switch buffer")
+	   (call-interactively #'switch-to-buffer)))
     ("B" (if (fboundp 'consult-buffer-other-window)
 	     (call-interactively #'consult-buffer-other-window)
-	   (call-interactively #'switch-to-buffer-other-window)) "Switch buffer other window")
+	   (call-interactively #'switch-to-buffer-other-window)))
     ("r" (if (fboundp 'consult-bookmark)
 	     (call-interactively #'consult-bookmark)
-	   (call-interactively #'bookmark-jump)) "Jump to Bookmark")
+	   (call-interactively #'bookmark-jump)))
     ("p" (if (fboundp 'consult-project-buffer)
 	     (call-interactively #'consult-project-buffer)
-	   (call-interactively #'project-witchto-buffer)) "Switch buffer current project")
-    ("<" winner-undo "Previous configuration")
-    (">" winner-redo "Next configuration")
+	   (call-interactively #'project-witchto-buffer)))
+    ("q" nil "exit" :exit t)
     )
   (defhydra hydra-region nil
     "Act on region"
