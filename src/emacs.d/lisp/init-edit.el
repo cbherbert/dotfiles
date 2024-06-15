@@ -226,6 +226,13 @@ is deferred until the file is saved. Respects `git-gutter:disabled-modes'."
   (:map LaTeX-mode-map ("C-c i" . citar-insert-citation))
   )
 
+(use-package lsp-latex
+  :ensure t
+  :after latex
+  :hook ((TeX-mode . lsp-mode)
+	 (LaTeX-mode . lsp-mode))
+  )
+
 (provide 'init-edit)
 
 ;;; init-edit.el ends here

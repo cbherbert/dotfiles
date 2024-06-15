@@ -13,6 +13,13 @@
 (use-package hl-line
   :hook (prog-mode . hl-line-mode))
 
+(use-package lsp-mode
+  :ensure t
+  :commands (lsp lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-c s")  ;; Or 'C-l', 's-l'
+  :config
+  (lsp-enable-which-key-integration t))
 (add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
 (add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
 ;; Fortran namelist mode:
