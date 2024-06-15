@@ -38,10 +38,13 @@
   (org-list-allow-alphabetical t)
   (org-pretty-entities-include-sub-superscripts t)
   (org-pretty-entities t)
-  (org-highlight-latex-and-related '(native script entities))
+  (org-use-sub-superscripts "{}")
+  (org-highlight-latex-and-related '(native entities)) ;;including 'script' here creates problem with underscores used outside of latex math mode, for instance paths in links
   (org-catch-invisible-edits 'smart)
   (org-hide-emphasis-markers t)
+  (org-link-descriptive t)
   (org-startup-indented t)
+  (org-startup-with-inline-images t)
   (org-agenda-files '("~/owncloud/org/core" "~/owncloud/org/manuscripts" "~/owncloud/org/projects" "~/owncloud/org/discussions" "~/owncloud/org/external"))
   (org-agenda-skip-deadline-prewarning-if-scheduled t)
   (org-agenda-todo-ignore-deadlines 'near)
@@ -203,11 +206,32 @@
 
 (use-package org-bullets
   :ensure t
+  :after org
   :hook
   (org-mode . (lambda () (org-bullets-mode 1))))
 
+(use-package org-appear
+  :ensure t
+  :after org
+  :custom
+  (org-appear-autolinks t)
+  (org-appear-autosubmarkers t)
+  (org-appear-autoentities t)
+  :hook (org-mode . org-appear-mode))
+
+(use-package org-fragtog
+  :ensure t
+  :after org
+  :custom
+  (org-startup-with-latex-preview t)
+  :hook
+  (org-mode . org-fragtog-mode)
+  )
+
+
 (use-package org-download
   :ensure t
+  :after org
   :custom
   (org-download-method 'directory)
   (org-download-image-dir "data")
