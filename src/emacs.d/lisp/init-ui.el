@@ -81,6 +81,15 @@
   :config
   (solaire-global-mode +1))
 
+(use-package dimmer
+  :ensure t
+  :config
+  (dimmer-configure-which-key)
+  (dimmer-configure-hydra)
+  (dimmer-configure-magit)
+  (dimmer-configure-org)
+  (dimmer-mode t))
+
 (use-package dashboard
   :ensure t
   :after all-the-icons
