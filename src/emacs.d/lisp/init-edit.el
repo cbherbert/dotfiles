@@ -80,13 +80,16 @@
 
 (use-package git-gutter
   :ensure t
+  :after hydra
   :custom
   (git-gutter:disabled-modes '(fundamental-mode image-mode pdf-view-mode))
+  (git-gutter:ask-p nil)
   :bind
   ("C-x v n" . git-gutter:next-hunk)
   ("C-x v p" . git-gutter:previous-hunk)
   ("C-x v t" . vs-create-tag)
   ("C-x v s" . git-gutter:stage-hunk)
+  ("C-c C-h v" . hydra-git-gutter/body)
   :config
   (setq git-gutter:update-interval 0.02)
   ;; The following code is taken from doom-emacs, it allows git-gutter-mode to switch on
@@ -124,6 +127,22 @@ is deferred until the file is saved. Respects `git-gutter:disabled-modes'."
             (remove-hook 'after-save-hook #'+vc-gutter-init-maybe-h 'local)))))))
   ;; UX: update git-gutter on focus (in case I was using git externally)
   (add-hook 'focus-in-hook #'git-gutter:update-all-windows)
+
+  (defun ch/git-gutter:toggle-popup-hunk ()
+    "Toggle git-gutter diff buffer"
+    (interactive)
+    (if (window-live-p (git-gutter:popup-buffer-window))
+	(delete-window (git-gutter:popup-buffer-window))
+      (git-gutter:popup-hunk)))
+
+  (defhydra hydra-git-gutter nil
+    "Hunk:"
+    ("p" git-gutter:previous-hunk "previous")
+    ("n" git-gutter:next-hunk "next")
+    ("s" git-gutter:stage-hunk "stage")
+    ("r" git-gutter:revert-hunk "revert")
+    ("m" git-gutter:mark-hunk "mark")
+    ("d" ch/git-gutter:toggle-popup-hunk "toggle diff"))
   )
 
 (use-package git-gutter-fringe
