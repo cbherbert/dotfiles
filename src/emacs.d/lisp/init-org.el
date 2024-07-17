@@ -32,6 +32,8 @@
 
 (use-package org
   :after appt
+  :preface
+  (setq org-base-dir "~/owncloud/org/")
   :custom-face
   (org-latex-and-related :inherit 'font-latex-math-face)
   :custom
@@ -56,28 +58,28 @@
   (org-attach-store-link-p 'attach)
   (org-habit-graph-column 60)
   (org-capture-templates
-   '(("m" "meetings" entry (file "~/owncloud/org/core/meetings.org") "* %?\n%^t")
-     ("h" "holidays" entry (file "~/owncloud/org/core/holidays.org") "* %?\n%^{Beginning}t--%^{End}t")
+   `(("m" "meetings" entry (file ,(concat org-base-dir "core/meetings.org")) "* %?\n%^t")
+     ("h" "holidays" entry (file ,(concat org-base-dir "core/holidays.org")) "* %?\n%^{Beginning}t--%^{End}t")
      ("d" "Templates for Discussions")
-     ("da" "Discussions Alessandro" plain (file "~/owncloud/org/discussions/discussions-alessandro.org") "%^t%?")
-     ("db" "Discussions Bastien" plain (file "~/owncloud/org/discussions/discussions-bastien.org") "%^t%?")
-     ("dt" "Discussions Tim" plain (file "~/owncloud/org/discussions/discussions-tim.org") "%^t%?")
-     ("dl" "Discussions Louis" plain (file "~/owncloud/org/discussions/discussions-louis.org") "%^t%?")
+     ("da" "Discussions Alessandro" plain (file ,(concat org-base-dir "discussions/discussions-alessandro.org")) "%^t%?")
+     ("db" "Discussions Bastien" plain (file ,(concat org-base-dir "discussions/discussions-bastien.org")) "%^t%?")
+     ("dt" "Discussions Tim" plain (file ,(concat org-base-dir "discussions/discussions-tim.org")) "%^t%?")
+     ("dl" "Discussions Louis" plain (file ,(concat org-base-dir "discussions/discussions-louis.org")) "%^t%?")
      ("s" "Templates for Seminars")
-     ("sm" "MathInFluids" entry (file+olp "~/owncloud/org/core/seminars.org" "MathInFluids")
+     ("sm" "MathInFluids" entry (file+olp ,(concat org-base-dir "core/seminars.org") "MathInFluids")
       "* %(i-nonempty)%?\n%^t\n%a")
-     ("sg" "GFDiscussions" entry (file+olp "~/owncloud/org/core/seminars.org" "GFDiscussions")
+     ("sg" "GFDiscussions" entry (file+olp ,(concat org-base-dir "core/seminars.org") "GFDiscussions")
       "* %?\n%^t")
-     ("t" "TODO list" entry (file+olp "~/owncloud/org/core/todo.org" "Tasks") "* TODO %?\n%(i-nonempty)%a")
-     ("a" "answer mail" entry (file "~/owncloud/org/core/mail.org")
+     ("t" "TODO list" entry (file+olp ,(concat org-base-dir "core/todo.org") "Tasks") "* TODO %?\n%(i-nonempty)%a")
+     ("a" "answer mail" entry (file ,(concat org-base-dir "core/mail.org"))
       "* TODO Answer %:fromname: %a\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))" :immediate-finish t)
-     ("c" "conference" entry (file "~/owncloud/org/core/conferences.org") "* %:subject%?\n%^{LOCATION}p%^{Beginning}t--%^{End}t\n%(i-nonempty)%a")
-     ;;("c" "conference" entry (file+datetree+prompt "~/owncloud/org/core/conferences.org") "* %:subject%?\n%^{LOCATION}p%^{Beginning}t--%^{End}t\n%(i-nonempty)%a" :tree-type 'month)
-     ("r" "reviews" entry (file "~/owncloud/org/core/reviews.org") "* TODO Review %?\nDEADLINE: %^t\n%a")
-     ("l" "reading list" entry (file "~/owncloud/org/core/reads.org") "* TODO %?\n")
-     ("?" "random questions" entry (file "~/owncloud/org/core/questions.org") "* TODO %?\n")
-     ("~" "working from home" plain (file "~/owncloud/org/core/wfh.org") "%^t%?\n")
-     ;;("#" "used by gnus-icalendar-org" entry (file+olp "~/owncloud/org/core/meetings.org" "iCalendar Invites") "* %i\n" :immediate-finish t)
+     ("c" "conference" entry (file ,(concat org-base-dir "core/conferences.org")) "* %:subject%?\n%^{LOCATION}p%^{Beginning}t--%^{End}t\n%(i-nonempty)%a")
+     ;;("c" "conference" entry (file+datetree+prompt ,(concat org-base-dir "core/conferences.org")) "* %:subject%?\n%^{LOCATION}p%^{Beginning}t--%^{End}t\n%(i-nonempty)%a" :tree-type 'month)
+     ("r" "reviews" entry (file ,(concat org-base-dir "core/reviews.org")) "* TODO Review %?\nDEADLINE: %^t\n%a")
+     ("l" "reading list" entry (file ,(concat org-base-dir "core/reads.org")) "* TODO %?\n")
+     ("?" "random questions" entry (file ,(concat org-base-dir "core/questions.org")) "* TODO %?\n")
+     ("~" "working from home" plain (file ,(concat org-base-dir "core/wfh.org")) "%^t%?\n")
+     ;;("#" "used by gnus-icalendar-org" entry (file+olp ,(concat org-base-dir "core/meetings.org") "iCalendar Invites") "* %i\n" :immediate-finish t)
      ))
   :config
   (defun i-nonempty ()
@@ -106,7 +108,7 @@
      (lambda ()
        (org-archive-subtree)
        (setq org-map-continue-from (org-element-property :begin (org-element-at-point))))
-     "/DONE|CANCELLED" '("~/owncloud/org/core/mail.org")))
+     "/DONE|CANCELLED" (list (concat org-base-dir "core/mail.org"))))
   (advice-add 'save-buffers-kill-emacs :before 'ch/org-archive-mail-reply-tasks)
   :bind
   (("C-c b" . org-switchb)
@@ -118,7 +120,7 @@
 
 (use-package org-agenda
   :custom
-  (org-agenda-files '("~/owncloud/org/core" "~/owncloud/org/manuscripts" "~/owncloud/org/projects" "~/owncloud/org/discussions" "~/owncloud/org/external"))
+  (org-agenda-files (list (concat org-base-dir "core") (concat org-base-dir "manuscripts") (concat org-base-dir "projects") (concat org-base-dir "discussions") (concat org-base-dir "external")))
   (org-refile-targets '((org-agenda-files :maxlevel . 5)))
   (org-refile-use-outline-path 'file)
   (org-outline-path-complete-in-steps nil)
@@ -130,18 +132,18 @@
    '(("f" "Agenda and TODO by priority"
       ((agenda "")
        (alltodo ""
-		((org-agenda-files '("~/owncloud/org/projects"))
+		((org-agenda-files (list (concat org-base-dir "projects")))
 		 (org-agenda-overriding-header "Projects:")))
        (alltodo ""
-		((org-agenda-files '("~/owncloud/org/core/todo.org"))
+		((org-agenda-files (list (concat org-base-dir "core/todo.org")))
 		 (org-agenda-overriding-header "Tasks:")))))
      ("w" "Agenda and WAIT items"
       ((agenda "")
        (todo "WAIT")))
      ("r" "Reading list" alltodo ""
-      ((org-agenda-files '("~/owncloud/org/core/reads.org" "~/owncloud/org/notes/"))))
+      ((org-agenda-files (list (concat org-base-dir "core/reads.org") (concat org-base-dir "notes")))))
      ("c" "Conferences Overview" agenda ""
-      ((org-agenda-files '("~/owncloud/org/core/conferences.org"))
+      ((org-agenda-files (list (concat org-base-dir "core/conferences.org")))
        (org-agenda-show-all-dates 'nil)
        (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
        (org-agenda-span 'year)
@@ -151,7 +153,7 @@
    (defun ch/org-agenda-day-face-holidays-function (date)
      "Use weekend face if DATE is a holiday."
      (let ((holiday nil))
-       (dolist (entry (org-agenda-get-day-entries "~/owncloud/org/core/holidays.org" date))
+       (dolist (entry (org-agenda-get-day-entries (concat org-base-dir "core/holidays.org") date))
 	 (let ((category (get-text-property 0 'org-category entry)))
            (when (string= "Holidays" category)
 	     (setq holiday t))))
@@ -354,7 +356,7 @@ _vc_ column     ^^                       _h-_ priority down ^^
      (suffix . "     ${=type=:12}    ${tags keywords:*}")
      (preview . "${author editor} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
      (note . "Notes on '${title}', ${author editor}")))
-  (citar-notes-paths '("~/owncloud/org/notes"))
+  (citar-notes-paths (list (concat org-base-dir "notes")))
   :hook
   (org-mode . citar-capf-setup)
   :config
@@ -440,7 +442,7 @@ _vc_ column     ^^                       _h-_ priority down ^^
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory (file-truename "~/owncloud/org"))
+  (org-roam-directory (file-truename org-base-dir))
   (org-roam-node-display-template (concat "${title:60} " (propertize "${tags:*}" 'face 'org-tag)))
   (org-roam-completion-everywhere t)
   (org-roam-capture-templates
