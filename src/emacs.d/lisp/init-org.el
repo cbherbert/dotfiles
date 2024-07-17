@@ -295,6 +295,7 @@ _vc_ column     ^^                       _h-_ priority down ^^
 
 (use-package org-agenda-property
   :ensure t
+  :after org-agenda
   :custom
   (org-agenda-property-list '("LOCATION"))
   (org-agenda-property-position 'next-line)
@@ -502,12 +503,13 @@ _vc_ column     ^^                       _h-_ priority down ^^
 
 (use-package org-roam-ui
   :ensure t
+  :after org-roam
   :bind ("C-c n u" . org-roam-ui-mode)
   :if (>= emacs-major-version 27))
 
 (use-package consult-org-roam
   :ensure t
-  :after org-roam
+  :after org-roam consult
   :init
   (require 'consult-org-roam)
   ;; Activate the minor-mode
