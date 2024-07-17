@@ -45,10 +45,6 @@
   (org-link-descriptive t)
   (org-startup-indented t)
   (org-startup-with-inline-images t)
-  (org-agenda-files '("~/owncloud/org/core" "~/owncloud/org/manuscripts" "~/owncloud/org/projects" "~/owncloud/org/discussions" "~/owncloud/org/external"))
-  (org-agenda-skip-deadline-prewarning-if-scheduled t)
-  (org-agenda-todo-ignore-deadlines 'near)
-  (org-agenda-todo-ignore-scheduled 'all)
   (org-log-done 'time)
   ;;(org-cite-global-bibliography '("~/Library/texmf/bibtex/bib/bibtexlib.bib"))
   (org-cite-global-bibliography bibtexfile)
@@ -57,12 +53,79 @@
   (org-n-level-faces 5)
   (org-todo-keywords
    '((sequence "TODO" "INPROGRESS" "WAIT" "|" "DONE" "CANCELLED")))
+  (org-attach-store-link-p 'attach)
+  (org-habit-graph-column 60)
+  (org-capture-templates
+   '(("m" "meetings" entry (file "~/owncloud/org/core/meetings.org") "* %?\n%^t")
+     ("h" "holidays" entry (file "~/owncloud/org/core/holidays.org") "* %?\n%^{Beginning}t--%^{End}t")
+     ("d" "Templates for Discussions")
+     ("da" "Discussions Alessandro" plain (file "~/owncloud/org/discussions/discussions-alessandro.org") "%^t%?")
+     ("db" "Discussions Bastien" plain (file "~/owncloud/org/discussions/discussions-bastien.org") "%^t%?")
+     ("dt" "Discussions Tim" plain (file "~/owncloud/org/discussions/discussions-tim.org") "%^t%?")
+     ("dl" "Discussions Louis" plain (file "~/owncloud/org/discussions/discussions-louis.org") "%^t%?")
+     ("s" "Templates for Seminars")
+     ("sm" "MathInFluids" entry (file+olp "~/owncloud/org/core/seminars.org" "MathInFluids")
+      "* %(i-nonempty)%?\n%^t\n%a")
+     ("sg" "GFDiscussions" entry (file+olp "~/owncloud/org/core/seminars.org" "GFDiscussions")
+      "* %?\n%^t")
+     ("t" "TODO list" entry (file+olp "~/owncloud/org/core/todo.org" "Tasks") "* TODO %?\n%(i-nonempty)%a")
+     ("a" "answer mail" entry (file "~/owncloud/org/core/mail.org")
+      "* TODO Answer %:fromname: %a\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))" :immediate-finish t)
+     ("c" "conference" entry (file "~/owncloud/org/core/conferences.org") "* %:subject%?\n%^{LOCATION}p%^{Beginning}t--%^{End}t\n%(i-nonempty)%a")
+     ;;("c" "conference" entry (file+datetree+prompt "~/owncloud/org/core/conferences.org") "* %:subject%?\n%^{LOCATION}p%^{Beginning}t--%^{End}t\n%(i-nonempty)%a" :tree-type 'month)
+     ("r" "reviews" entry (file "~/owncloud/org/core/reviews.org") "* TODO Review %?\nDEADLINE: %^t\n%a")
+     ("l" "reading list" entry (file "~/owncloud/org/core/reads.org") "* TODO %?\n")
+     ("?" "random questions" entry (file "~/owncloud/org/core/questions.org") "* TODO %?\n")
+     ("~" "working from home" plain (file "~/owncloud/org/core/wfh.org") "%^t%?\n")
+     ;;("#" "used by gnus-icalendar-org" entry (file+olp "~/owncloud/org/core/meetings.org" "iCalendar Invites") "* %i\n" :immediate-finish t)
+     ))
+  :config
+  (defun i-nonempty ()
+    (let ((initial (plist-get org-store-link-plist :initial)))
+    (if (equal initial "")
+        ""
+      (concat initial "\n"))))
+  (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (latex . t) (python . t)))
+  (add-to-list 'org-src-lang-modes '("latex" . latex))
+  (defun ch/org-narrow-to-subtree-up (arg &optional invisible-ok)
+    "Narrow buffer to parent subtree of current heading"
+    (interactive "p")
+    (save-excursion
+      (widen)
+      (outline-up-heading arg invisible-ok)
+      (org-narrow-to-subtree)))
+  (add-hook 'org-mode-hook (lambda ()
+			     (setq-local time-stamp-active t
+					 time-stamp-start "last_modified:[ \t]*"
+					 time-stamp-end "$"
+					 time-stamp-format "\[%Y-%02m-%02d %a %02H:%02M\]")
+			     (add-hook 'before-save-hook 'time-stamp nil 'local)))
+  (defun ch/org-archive-mail-reply-tasks (_)
+    "Archive all tasks marked as DONE in mail.org file" ;; in the future perhaps only do so for tasks which are more than a week old
+    (org-map-entries
+     (lambda ()
+       (org-archive-subtree)
+       (setq org-map-continue-from (org-element-property :begin (org-element-at-point))))
+     "/DONE|CANCELLED" '("~/owncloud/org/core/mail.org")))
+  (advice-add 'save-buffers-kill-emacs :before 'ch/org-archive-mail-reply-tasks)
+  :bind
+  (("C-c b" . org-switchb)
+   ("C-c c" . org-capture)
+   ("C-c l" . org-store-link)
+   :map org-mode-map
+   ("C-x n u" . ch/org-narrow-to-subtree-up))
+  )
+
+(use-package org-agenda
+  :custom
+  (org-agenda-files '("~/owncloud/org/core" "~/owncloud/org/manuscripts" "~/owncloud/org/projects" "~/owncloud/org/discussions" "~/owncloud/org/external"))
   (org-refile-targets '((org-agenda-files :maxlevel . 5)))
   (org-refile-use-outline-path 'file)
   (org-outline-path-complete-in-steps nil)
-  (org-attach-store-link-p 'attach)
+  (org-agenda-skip-deadline-prewarning-if-scheduled t)
+  (org-agenda-todo-ignore-deadlines 'near)
+  (org-agenda-todo-ignore-scheduled 'all)
   (org-agenda-prefix-format '((agenda . " %i %-15:c%?-12t% s") (todo . " %i %-15:c") (tags . " %i %-15:c") (search . " %i %-15:c")))
-  (org-habit-graph-column 60)
   (org-agenda-custom-commands
    '(("f" "Agenda and TODO by priority"
       ((agenda "")
@@ -83,27 +146,6 @@
        (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
        (org-agenda-span 'year)
        ))
-     ))
-  (org-capture-templates
-   '(("m" "meetings" entry (file "~/owncloud/org/core/meetings.org") "* %?\n%^t")
-     ("h" "holidays" entry (file "~/owncloud/org/core/holidays.org") "* %?\n%^{Beginning}t--%^{End}t")
-     ("d" "Templates for Discussions")
-     ("da" "Discussions Alessandro" plain (file "~/owncloud/org/discussions/discussions-alessandro.org") "%^t%?")
-     ("db" "Discussions Bastien" plain (file "~/owncloud/org/discussions/discussions-bastien.org") "%^t%?")
-     ("dt" "Discussions Tim" plain (file "~/owncloud/org/discussions/discussions-tim.org") "%^t%?")
-     ("dl" "Discussions Louis" plain (file "~/owncloud/org/discussions/discussions-louis.org") "%^t%?")
-     ("s" "Templates for Seminars")
-     ("sm" "MathInFluids" entry (file+olp "~/owncloud/org/core/seminars.org" "MathInFluids")
-      "* %(i-nonempty)%?\n%^t\n%a")
-     ("sg" "GFDiscussions" entry (file+olp "~/owncloud/org/core/seminars.org" "GFDiscussions")
-      "* %?\n%^t")
-     ("t" "TODO list" entry (file+olp "~/owncloud/org/core/todo.org" "Tasks") "* TODO %?\n%(i-nonempty)%a")
-     ("a" "answer mail" entry (file "~/owncloud/org/core/mail.org")
-      "* TODO Answer %:fromname: %a\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))" :immediate-finish t)
-     ("c" "conference" entry (file "~/owncloud/org/core/conferences.org") "* %:subject%?\n%^{LOCATION}p%^{Beginning}t--%^{End}t\n%(i-nonempty)%a")
-     ("r" "reviews" entry (file "~/owncloud/org/core/reviews.org") "* TODO Review %?\nDEADLINE: %^t\n%a")
-     ("l" "reading list" entry (file "~/owncloud/org/core/reads.org") "* TODO %?\n")
-     ("?" "random questions" entry (file "~/owncloud/org/core/questions.org") "* TODO %?\n")
      ))
   (org-agenda-day-face-function
    (defun ch/org-agenda-day-face-holidays-function (date)
@@ -133,26 +175,6 @@
      (tags priority-down category-keep)
      (search category-keep)))
   :config
-  (defun i-nonempty ()
-    (let ((initial (plist-get org-store-link-plist :initial)))
-    (if (equal initial "")
-        ""
-      (concat initial "\n"))))
-  (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (latex . t) (python . t)))
-  (add-to-list 'org-src-lang-modes '("latex" . latex))
-  (defun ch/org-narrow-to-subtree-up (arg &optional invisible-ok)
-    "Narrow buffer to parent subtree of current heading"
-    (interactive "p")
-    (save-excursion
-      (widen)
-      (outline-up-heading arg invisible-ok)
-      (org-narrow-to-subtree)))
-  (add-hook 'org-mode-hook (lambda ()
-			     (setq-local time-stamp-active t
-					 time-stamp-start "last_modified:[ \t]*"
-					 time-stamp-end "$"
-					 time-stamp-format "\[%Y-%02m-%02d %a %02H:%02M\]")
-			     (add-hook 'before-save-hook 'time-stamp nil 'local)))
   ;; Add org-mode TODOs to appointments: at startup, every day at midnight, and when saving todo file
   (add-hook 'org-agenda-mode-hook #'org-agenda-to-appt)
   (run-at-time "12:05am" (* 24 3600) 'org-agenda-to-appt)
@@ -180,21 +202,8 @@
 					   ("Holidays" ,(list (all-the-icons-faicon "home" :height 1.1)) nil nil :ascent center)
 					   ("WorkFromHome" ,(list (all-the-icons-faicon "home" :height 1.1)) nil nil :ascent center)
 					   )))
-  (defun ch/org-archive-mail-reply-tasks (_)
-    "Archive all tasks marked as DONE in mail.org file" ;; in the future perhaps only do so for tasks which are more than a week old
-    (org-map-entries
-     (lambda ()
-       (org-archive-subtree)
-       (setq org-map-continue-from (org-element-property :begin (org-element-at-point))))
-     "/DONE|CANCELLED" '("~/owncloud/org/core/mail.org")))
-  (advice-add 'save-buffers-kill-emacs :before 'ch/org-archive-mail-reply-tasks)
   :bind
   (("C-c a" . org-agenda)
-   ("C-c b" . org-switchb)
-   ("C-c c" . org-capture)
-   ("C-c l" . org-store-link)
-   :map org-mode-map
-   ("C-x n u" . ch/org-narrow-to-subtree-up))
   )
 
 (use-package org-agenda-property
