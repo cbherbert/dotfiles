@@ -12,7 +12,7 @@ PKGMGR_Darwin     = port
 PKGMGR_Linux      = apt-get -y
 PKGMGR            = $(PKGMGR_$(OS))
 DOT_PRIVATE       = git@framagit.org:cherbert/dotfiles_private.git
-ORG               = $(HOME)/owncloud/org
+ORG               = $(HOME)/nextcloud/org
 
 help:
 	@echo "This repository contains the following configuration files: $(LINK_FILES)"

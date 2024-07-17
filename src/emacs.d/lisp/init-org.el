@@ -33,7 +33,7 @@
 (use-package org
   :after appt
   :preface
-  (setq org-base-dir "~/owncloud/org/")
+  (setq org-base-dir "~/nextcloud/org/")
   :custom-face
   (org-latex-and-related :inherit 'font-latex-math-face)
   :custom
