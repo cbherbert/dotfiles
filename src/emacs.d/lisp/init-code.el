@@ -71,6 +71,19 @@
 (use-package snakemake-mode
   :ensure t)
 
+;;;
+;;  Julia
+;;;
+(use-package julia-mode
+  :ensure t)
+
+(use-package lsp-julia
+  :ensure t
+  :hook (julia-mode . lsp-mode)
+  :config
+  (setq lsp-julia-default-environment "~/.julia/environments/v1.10")
+  )
+
 (provide 'init-code)
 
 ;;; init-code.el ends here
