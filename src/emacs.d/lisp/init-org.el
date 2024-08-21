@@ -51,6 +51,7 @@
   ;;(org-cite-global-bibliography '("~/Library/texmf/bibtex/bib/bibtexlib.bib"))
   (org-cite-global-bibliography bibtexfile)
   (org-export-backends '(ascii beamer html icalendar latex man md odt texinfo))
+  (org-cite-export-processors '((latex biblatex) (t csl)))
   (org-modules '(org-habit))
   (org-n-level-faces 5)
   (org-todo-keywords
