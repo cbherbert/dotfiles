@@ -199,6 +199,7 @@
 					   ("meetings" ,(list (all-the-icons-material "group" :height 1.1)) nil nil :ascent center)
 					   ("discussions" ,(list (all-the-icons-material "chat" :height 1.1)) nil nil :ascent center)
 					   ("reads" ,(list (all-the-icons-faicon "book" :height 1.1)) nil nil :ascent center)
+					   ("questions" ,(list (all-the-icons-faicon "question" :height 1.1)) nil nil :ascent center)
 					   ("GFDiscussions" ,(list (all-the-icons-wicon "day-cloudy-gusts" :height 0.8)) nil nil :ascent center)
 					   ("MathInFluids" ,(list (all-the-icons-material "functions" :height 1.1)) nil nil :ascent center)
 					   ("Holidays" ,(list (all-the-icons-faicon "home" :height 1.1)) nil nil :ascent center)
