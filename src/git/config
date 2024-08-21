@@ -50,3 +50,5 @@
 	helper = cache
 [pull]
 	rebase = false
+[diff]
+	submodule = log
