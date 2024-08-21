@@ -50,7 +50,8 @@ if [ "$(uname -s)" = "Darwin" ]; then
     [ -d "/opt/local/sbin" ] && PATH="/opt/local/sbin:$PATH"
     [ -d "/opt/local/bin" ] && PATH="/opt/local/bin:$PATH"
     [ -d "/opt/local/libexec/gnubin" ] && PATH="/opt/local/libexec/gnubin:$PATH"
-    [ -d "${macportsprefix}/share/man" ] && export MANPATH="${macportsprefix}/share/man:$MANPATH"
+    [ -d "/opt/local/share/man" ] && export MANPATH="/opt/local/share/man:$MANPATH"
+    [ -d "/opt/local/share/info" ] && export INFOPATH="/opt/local/share/info:$INFOPATH"
     # Homebrew
     if [ -d "/opt/homebrew" ]; then
 	export HOMEBREW_PREFIX="/opt/homebrew"
