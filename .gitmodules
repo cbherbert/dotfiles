@@ -16,3 +16,6 @@
 [submodule "contrib/emacs-rougier"]
 	path = contrib/emacs-rougier
 	url = https://github.com/rougier/dotemacs
+[submodule "contrib/chemacs"]
+	path = contrib/chemacs
+	url = https://github.com/plexus/chemacs2.git

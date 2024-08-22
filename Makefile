@@ -40,6 +40,11 @@ $(XDG_FILES):
 	mkdir -p $(XDG_CONFIG_HOME)/$(@D)
 	ln -sf $(DOTHOME)/src/$@ $(XDG_CONFIG_HOME)/$@
 
+chemacs:
+	mkdir -p $(XDG_CONFIG_HOME)
+	ln -sf $(DOTHOME)/contrib/$@ $(XDG_CONFIG_HOME)/emacs
+	ln -sf $(DOTHOME)/src/$@ $(XDG_CONFIG_HOME)/$@
+
 packages:
 	@while IFS='' read -r pkg; do \
 		if [ ! -z "$${pkg}" ]; then sudo $(PKGMGR) install "$${pkg}"; fi; \

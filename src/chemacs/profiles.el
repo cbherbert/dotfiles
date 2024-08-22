@@ -1,0 +1,6 @@
+(("default" . ((user-emacs-directory . "~/dotfiles/src/emacs.d")))
+ ("centaur" . ((user-emacs-directory . "~/dotfiles/contrib/emacs-centaur")))
+ ("doom" . ((user-emacs-directory . "~/dotfiles/contrib/emacs-doom")))
+ ("prelude" . ((user-emacs-directory . "~/dotfiles/contrib/emacs-prelude")))
+ ("rougier" . ((user-emacs-directory . "~/dotfiles/contrib/emacs-rougier")))
+ )
