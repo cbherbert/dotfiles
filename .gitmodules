@@ -1,0 +1,18 @@
+[submodule "contrib/solarized"]
+	path = contrib/solarized
+	url = https://github.com/altercation/solarized.git
+[submodule "contrib/thunderbird-monterail"]
+	path = contrib/thunderbird-monterail
+	url = https://github.com/cbherbert/thunderbird-monterail
+[submodule "contrib/emacs-centaur"]
+	path = contrib/emacs-centaur
+	url = https://github.com/seagle0128/.emacs.d.git
+[submodule "contrib/emacs-doom"]
+	path = contrib/emacs-doom
+	url = https://github.com/doomemacs/doomemacs
+[submodule "contrib/emacs-prelude"]
+	path = contrib/emacs-prelude
+	url = https://github.com/bbatsov/prelude.git
+[submodule "contrib/emacs-rougier"]
+	path = contrib/emacs-rougier
+	url = https://github.com/rougier/dotemacs
