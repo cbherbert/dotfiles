@@ -15,6 +15,8 @@
   :bind
   (:map mu4e-headers-mode-map
 	("~" . ch/mu4e-toggle-search-include-related))
+  (:map mu4e-compose-minor-mode-map
+	("G" . mu4e-compose-supersede))
   :custom
   (mail-user-agent 'mu4e-user-agent)
   (read-mail-command 'mu4e)
