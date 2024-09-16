@@ -12,6 +12,9 @@
 
 (use-package mu4e
   :commands mu4e
+  :bind
+  (:map mu4e-headers-mode-map
+	("~" . ch/mu4e-toggle-search-include-related))
   :custom
   (mail-user-agent 'mu4e-user-agent)
   (read-mail-command 'mu4e)
@@ -108,6 +111,13 @@
     "Setup flyspell for message writing"
     (setq flyspell-generic-check-word-predicate 'mail-mode-flyspell-verify)
     (flyspell-mode)
+    )
+  (defun ch/mu4e-toggle-search-include-related ()
+    " Switch mu4e-search-include-related on and off "
+    (interactive)
+    (setq mu4e-search-include-related (not mu4e-search-include-related))
+    (mu4e-search-rerun)
+    (message "Include related messages: %s" mu4e-search-include-related)
     )
   (defun ch/capture-mail-answer-later (msg)
     (interactive)
