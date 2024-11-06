@@ -195,6 +195,11 @@ is deferred until the file is saved. Respects `git-gutter:disabled-modes'."
   :ensure t
   )
 
+(use-package wgrep
+  :ensure t
+  :custom
+  (wgrep-auto-save-buffer t))
+
 (use-package markdown-mode
   :defer t
   :mode ("README\\.md\\'" . gfm-mode)
