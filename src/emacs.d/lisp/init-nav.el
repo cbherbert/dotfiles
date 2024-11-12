@@ -8,6 +8,10 @@
 
 ;;; Code:
 
+;;;
+;;; Hydra
+;;;
+
 (use-package hydra
   :ensure t
   :bind
@@ -118,6 +122,10 @@ _s_: move splitter
     ("h" mark-paragraph "Mark paragraph")
     )
   )
+
+;;;
+;;; Consult
+;;;
 
 (use-package consult-org
   :after consult org
@@ -251,6 +259,10 @@ _s_: move splitter
   :bind
   ("C-x C-d" . consult-dir)
   )
+
+;;;
+;;; Embark
+;;;
 
 (use-package embark
   :ensure t

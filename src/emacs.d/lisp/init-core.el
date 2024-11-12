@@ -7,6 +7,10 @@
 
 ;;; Code:
 
+;;;
+;;; Basic settings
+;;;
+
 (use-package emacs
   :custom
   (fill-column 80)
@@ -98,9 +102,9 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (exec-path-from-shell-initialize))
 
 
-;;
-;;   Buffers and Windows
-;;
+;;;
+;;; Buffers and Windows
+;;;
 
 (use-package window
   :custom
@@ -166,9 +170,9 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (defalias 'list-buffers 'ibuffer-other-window)
   )
 
-;;
-;; Files
-;;
+;;;
+;;; Files
+;;;
 
 (use-package recentf
   :custom
@@ -203,6 +207,11 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   (epa-validity-medium ((t (:foreground ,(face-foreground 'warning) :slant normal))))
   (epa-validity-disabled ((t (:foreground ,(face-foreground 'error) :inverse-video nil))))
   )
+
+;;;
+;;; Basic text edition
+;;;
+
 ;; Highlight matching parens
 ;; code for off-screen parens from centaur emacs
 (use-package paren

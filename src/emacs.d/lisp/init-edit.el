@@ -13,8 +13,9 @@
   (global-undo-tree-mode))
 
 ;;;
-;;    Spell checking
+;;; Spell checking
 ;;;
+
 (use-package ispell
   :custom
   (ispell-program-name "aspell") ;; check that it exists, otherwise fallback to ispell
@@ -68,8 +69,49 @@
   )
 
 ;;;
-;;    Git
+;;; Syntax checking
 ;;;
+(use-package flycheck
+  :ensure t
+  :custom-face
+  (flycheck-error-list-highlight ((t (:weight bold :background ,(face-background 'region)))))
+  :custom
+  (flycheck-emacs-lisp-load-path 'inherit) ;; avoid errors with emacs init files for instance
+  (flycheck-error-list-format [("File" 10) ("Line" 5 flycheck-error-list-entry-< :right-align t) ("Col" 3 nil :right-align t) ("Level" 8 flycheck-error-list-entry-level-<) ("ID" 6 t) (#("Message (Checker)" 0 7 (face flycheck-error-list-error-message) 9 16 (face flycheck-error-list-checker-name)) 0 t)])
+  :config
+  (setq flycheck-global-modes '(not dir-locals-mode
+                                    text-mode
+                                    org-mode
+                                    vterm-mode))
+  (global-flycheck-mode))
+
+(use-package flycheck-aspell
+  :ensure t
+  :after flycheck
+  :config
+  (add-to-list 'flycheck-checkers 'c-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'html-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'mail-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'markdown-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'nroff-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'texinfo-aspell-dynamic)
+  (add-to-list 'flycheck-checkers 'xml-aspell-dynamic)
+  (defun flycheck-maybe-recheck (_)
+    (when (bound-and-true-p flycheck-mode)
+      (flycheck-buffer)))
+  (advice-add #'ispell-pdict-save :after #'flycheck-maybe-recheck)
+  )
+
+(use-package consult-flycheck
+  :after flycheck consult
+  :ensure t
+  )
+
+;;;
+;;; Git
+;;;
+
 (use-package git-modes
   :ensure t)
 
@@ -158,47 +200,14 @@ is deferred until the file is saved. Respects `git-gutter:disabled-modes'."
   (define-key comint-mode-map [up] 'comint-previous-matching-input-from-input)
   )
 
-(use-package flycheck
-  :ensure t
-  :custom-face
-  (flycheck-error-list-highlight ((t (:weight bold :background ,(face-background 'region)))))
-  :custom
-  (flycheck-emacs-lisp-load-path 'inherit) ;; avoid errors with emacs init files for instance
-  (flycheck-error-list-format [("File" 10) ("Line" 5 flycheck-error-list-entry-< :right-align t) ("Col" 3 nil :right-align t) ("Level" 8 flycheck-error-list-entry-level-<) ("ID" 6 t) (#("Message (Checker)" 0 7 (face flycheck-error-list-error-message) 9 16 (face flycheck-error-list-checker-name)) 0 t)])
-  :config
-  (setq flycheck-global-modes '(not dir-locals-mode
-                                    text-mode
-                                    org-mode
-                                    vterm-mode))
-  (global-flycheck-mode))
-
-(use-package flycheck-aspell
-  :ensure t
-  :after flycheck
-  :config
-  (add-to-list 'flycheck-checkers 'c-aspell-dynamic)
-  (add-to-list 'flycheck-checkers 'html-aspell-dynamic)
-  (add-to-list 'flycheck-checkers 'mail-aspell-dynamic)
-  (add-to-list 'flycheck-checkers 'markdown-aspell-dynamic)
-  (add-to-list 'flycheck-checkers 'nroff-aspell-dynamic)
-  (add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
-  (add-to-list 'flycheck-checkers 'texinfo-aspell-dynamic)
-  (add-to-list 'flycheck-checkers 'xml-aspell-dynamic)
-  (defun flycheck-maybe-recheck (_)
-    (when (bound-and-true-p flycheck-mode)
-      (flycheck-buffer)))
-  (advice-add #'ispell-pdict-save :after #'flycheck-maybe-recheck)
-  )
-
-(use-package consult-flycheck
-  :after flycheck consult
-  :ensure t
-  )
-
 (use-package wgrep
   :ensure t
   :custom
   (wgrep-auto-save-buffer t))
+
+;;;
+;;; Specific modes
+;;;
 
 (use-package markdown-mode
   :defer t
@@ -221,7 +230,7 @@ is deferred until the file is saved. Respects `git-gutter:disabled-modes'."
   )
 
 ;;;
-;;   AUCTeX
+;;; LaTeX mode
 ;;;
 (use-package latex
   :ensure auctex

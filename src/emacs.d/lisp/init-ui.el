@@ -8,7 +8,7 @@
 ;;; Code:
 
 ;;;
-;;    Theme and mode line
+;;; Theme
 ;;;
 (if (display-graphic-p)
     ;; doom-themes do not appear properly in iTerm.
@@ -45,6 +45,10 @@
 	(setq custom-file "~/.emacs.d/custom-terminal.el")
 	(load custom-file)
 	))
+;;;
+;;; Modeline
+;;;
+
 (use-package doom-modeline
   :ensure t
   :custom
@@ -66,6 +70,10 @@
   :if (display-graphic-p)
   :config (minions-mode 1))
 
+;;;
+;;; Icons
+;;;
+
 (use-package all-the-icons
   :ensure t
   :if (display-graphic-p))
@@ -74,6 +82,10 @@
   :ensure t
   :if (display-graphic-p)
   :hook (ibuffer-mode . all-the-icons-ibuffer-mode))
+
+;;;
+;;; Buffer appearance
+;;;
 
 (use-package solaire-mode
   :ensure t
@@ -89,6 +101,10 @@
   (dimmer-configure-magit)
   (dimmer-configure-org)
   (dimmer-mode t))
+
+;;;
+;;; Dashboard
+;;;
 
 (use-package dashboard
   :ensure t

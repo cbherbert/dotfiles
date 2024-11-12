@@ -7,6 +7,10 @@
 
 ;;; Code:
 
+;;;
+;;; Minibuffer completion
+;;;
+
 (use-package vertico
   :ensure t
   :custom
@@ -79,6 +83,9 @@
   :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
   :init
   (all-the-icons-completion-mode))
+;;;
+;;; Completion at point
+;;;
 
 (use-package company
   :ensure t
@@ -92,6 +99,10 @@
 (use-package company-box
   :ensure t
   :hook (company-mode . company-box-mode))
+
+;;;
+;;; Templates
+;;;
 
 (use-package yasnippet
   :ensure t

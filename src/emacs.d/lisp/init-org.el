@@ -7,6 +7,10 @@
 
 ;;; Code:
 
+;;;
+;;; Notifications
+;;;
+
 (use-package appt
   :after alert
   :custom
@@ -29,6 +33,10 @@
   (alert-default-style (if (eq system-type 'darwin) 'osx-notifier 'libnotify))
   ;;(alert-fade-time (* appt-message-warning-time 60))
   )
+
+;;;
+;;; Org Mode
+;;;
 
 (use-package org
   :after appt
@@ -415,6 +423,10 @@ _vc_ column     ^^                       _h-_ priority down ^^
   (:map org-mode-map :package org ("C-c d s" . #'org-download-screenshot))
   )
 
+;;;
+;;; References
+;;;
+
 (use-package citar
   :ensure t
   :custom
@@ -511,6 +523,10 @@ _vc_ column     ^^                       _h-_ priority down ^^
   :config
   (citar-embark-mode)
   )
+
+;;;
+;;; Notes (org roam)
+;;;
 
 (use-package org-roam
   :ensure t

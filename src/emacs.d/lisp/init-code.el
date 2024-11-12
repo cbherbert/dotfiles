@@ -7,11 +7,19 @@
 
 ;;; Code:
 
+;;;
+;;; Basic settings for code edition
+;;;
+
 (use-package display-line-numbers
   :hook (prog-mode . display-line-numbers-mode))
 
 (use-package hl-line
   :hook (prog-mode . hl-line-mode))
+
+;;;
+;;; LSP
+;;;
 
 (use-package lsp-mode
   :ensure t
@@ -20,6 +28,11 @@
   (setq lsp-keymap-prefix "C-c s")  ;; Or 'C-l', 's-l'
   :config
   (lsp-enable-which-key-integration t))
+
+;;;
+;;; Modes for code
+;;;
+
 (add-to-list 'auto-mode-alist '("\\.fpp" . f90-mode))
 (add-to-list 'auto-mode-alist '("\\.f90_*" . f90-mode))
 ;; Fortran namelist mode:
@@ -48,7 +61,7 @@
   )
 
 ;;;
-;;  Python
+;;; Python
 ;;;
 (use-package pydoc
   :ensure t)
@@ -72,7 +85,7 @@
   :ensure t)
 
 ;;;
-;;  Julia
+;;; Julia
 ;;;
 (use-package julia-mode
   :ensure t)
