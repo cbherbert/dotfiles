@@ -56,6 +56,7 @@
   (org-n-level-faces 5)
   (org-todo-keywords
    '((sequence "TODO" "INPROGRESS" "WAIT" "|" "DONE" "CANCELLED")))
+  (org-enforce-todo-dependencies t)
   (org-attach-store-link-p 'attach)
   (org-habit-graph-column 60)
   (org-capture-templates
@@ -128,6 +129,7 @@
   (org-agenda-skip-deadline-prewarning-if-scheduled t)
   (org-agenda-todo-ignore-deadlines 'near)
   (org-agenda-todo-ignore-scheduled 'all)
+  (org-agenda-dim-blocked-tasks 'invisible)
   (org-agenda-prefix-format '((agenda . " %i %-15:c%?-12t% s") (todo . " %i %-15:c") (tags . " %i %-15:c") (search . " %i %-15:c")))
   (org-agenda-custom-commands
    '(("f" "Agenda and TODO by priority"
