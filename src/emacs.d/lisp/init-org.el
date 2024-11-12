@@ -122,6 +122,8 @@
   )
 
 (use-package org-agenda
+  :hook
+  (org-agenda-mode . hl-line-mode)
   :custom
   (org-agenda-files (list (concat org-base-dir "core") (concat org-base-dir "manuscripts") (concat org-base-dir "projects") (concat org-base-dir "discussions") (concat org-base-dir "external")))
   (org-refile-targets '((org-agenda-files :maxlevel . 5)))
