@@ -67,6 +67,7 @@
      ("db" "Discussions Bastien" plain (file ,(concat org-base-dir "discussions/discussions-bastien.org")) "%^t%?")
      ("dt" "Discussions Tim" plain (file ,(concat org-base-dir "discussions/discussions-tim.org")) "%^t%?")
      ("dl" "Discussions Louis" plain (file ,(concat org-base-dir "discussions/discussions-louis.org")) "%^t%?")
+     ("dv" "Discussions Valentine" plain (file ,(concat org-base-dir "discussions/discussions-valentine.org")) "%^t%?")
      ("s" "Templates for Seminars")
      ("sm" "MathInFluids" entry (file+olp ,(concat org-base-dir "core/seminars.org") "MathInFluids")
       "* %(i-nonempty)%?\n%^t\n%a")
