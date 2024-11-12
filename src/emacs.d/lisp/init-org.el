@@ -133,24 +133,80 @@
   (org-agenda-dim-blocked-tasks 'invisible)
   (org-agenda-prefix-format '((agenda . " %i %-15:c%?-12t% s") (todo . " %i %-15:c") (tags . " %i %-15:c") (search . " %i %-15:c")))
   (org-agenda-custom-commands
-   '(("f" "Agenda and TODO by priority"
-      ((agenda "")
-       (alltodo ""
-		((org-agenda-files (list (concat org-base-dir "projects")))
-		 (org-agenda-overriding-header "Projects:")))
-       (alltodo ""
-		((org-agenda-files (list (concat org-base-dir "core/todo.org")))
-		 (org-agenda-overriding-header "Tasks:")))))
-     ("w" "Agenda and WAIT items"
-      ((agenda "")
-       (todo "WAIT")))
+   '(("w" . "Manuscripts (writing)")
+     ("wp" "Manuscripts by priority" tags-todo "manuscript"
+      ((org-agenda-overriding-header "Manuscripts in progress")
+       (org-super-agenda-groups '((:auto-priority t)))))
+     ("wt" "Manuscripts by tags" tags-todo "manuscript"
+      ((org-agenda-overriding-header "Manuscripts in progress")
+       (org-super-agenda-groups '((:auto-tags t)))))
+     ("p" . "Projects")
+     ("pg" "Projects by Group" tags-todo "project"
+      ((org-agenda-overriding-header "Ongoing Projects")
+       (org-super-agenda-groups '((:auto-group t)))))
+     ("pt" "Projects by Tags" tags-todo "project"
+      ((org-agenda-overriding-header "Ongoing Projects")
+       (org-super-agenda-groups '((:auto-tags t)))))
+     ("pp" "Projects by Priority" tags-todo "project"
+      ((org-agenda-overriding-header "Ongoing Projects")
+       (org-super-agenda-groups '((:auto-priority t)))))
+     ("g" . "Student Projects (group)")
+     ("ga" "Alessandro" tags-todo "@alessandro")
+     ("gb" "Bastien" tags-todo "@bastien")
+     ("gd" "Dario" tags-todo "@dario")
+     ("gl" "Louis" tags-todo "@louis")
+     ("gt" "Tim" tags-todo "@tim")
+     ("gv" "Valentine" tags-todo "@valentine")
      ("r" "Reading list" alltodo ""
-      ((org-agenda-files (list (concat org-base-dir "core/reads.org") (concat org-base-dir "notes")))))
+      ((org-agenda-files (list (concat org-base-dir "core/reads.org") (concat org-base-dir "notes")))
+       (org-super-agenda-groups '((:auto-priority)))
+       ))
      ("c" "Conferences Overview" agenda ""
       ((org-agenda-files (list (concat org-base-dir "core/conferences.org")))
        (org-agenda-show-all-dates 'nil)
        (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
        (org-agenda-span 'year)
+       ))
+     ("d" "Deadlines" agenda ""
+      ((org-agenda-entry-types '(:deadline))
+       (org-agenda-overriding-header "Deadlines")
+       (org-agenda-span 1)
+       (org-deadline-warning-days 365)
+       (org-super-agenda-groups '((:name "Late" :deadline past :scheduled past)
+				  (:name "Today" :deadline today :scheduled today)
+				  (:name "Upcoming" :deadline future :scheduled future)))))
+     ("b" "Base agenda" ;;no cancelled and completed items
+      ((agenda "" ((org-agenda-span 1)
+		   (org-agenda-compact-blocks t)
+		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("NATTND" "CANCELLED")))
+		   (org-super-agenda-groups
+		    '((:name "" :category "Holidays" :category "WorkFromHome" :order 1)
+		      (:name "Mail awaiting reply"
+			     :category "mail"
+			     :order 4)
+		      (:name "Background Work"
+			     :category "tools"
+			     :category "reads"
+			     :order 6)
+		      (:name "Today"
+			     :and (:date today :not (:deadline today :scheduled today :time-grid t))
+			     :time-grid t
+			     :habit t
+			     :deadline past
+			     :scheduled past
+			     :deadline today
+			     :scheduled today
+			     :order 2
+			     )
+		      (:name "Upcoming Deadlines"
+			     :deadline future
+			     :order 5)
+		      (:name "" :anything t :order 3)
+		      ))))
+       (todo "WAIT" ((org-agenda-compact-blocks t)
+		     (org-agenda-overriding-header "")
+		     (org-super-agenda-groups
+		      '((:name "Suspended tasks" :anything t)))))
        ))
      ))
   (org-agenda-day-face-function
@@ -298,6 +354,16 @@ _vc_ column     ^^                       _h-_ priority down ^^
   (("C-c a" . org-agenda)
    :map org-agenda-mode-map
    ("@" . hydra-org-agenda/body))
+  )
+
+(use-package org-super-agenda
+  :ensure t
+  :custom
+  (org-super-agenda-unmatched-name "")
+  :custom-face
+  (org-super-agenda-header ((t (:foreground ,(face-foreground 'calendar-today)))))
+  :hook
+  (org-agenda-mode . org-super-agenda-mode)
   )
 
 (use-package org-agenda-property
