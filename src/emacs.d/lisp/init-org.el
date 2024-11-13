@@ -62,6 +62,7 @@
   (org-cite-export-processors '((latex biblatex) (t csl)))
   (org-modules '(org-habit))
   (org-n-level-faces 5)
+  (org-imenu-depth 7)
   (org-todo-keywords
    '((sequence "TODO" "INPROGRESS" "WAIT" "|" "DONE" "CANCELLED")))
   (org-enforce-todo-dependencies t)
