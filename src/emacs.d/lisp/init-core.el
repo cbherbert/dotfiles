@@ -92,6 +92,13 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :config
   (which-key-mode))
 
+;; The following is a hack to fix the fact that setting INFOPATH does
+;; not suffice to get the right Info-directory-list on macos.
+(use-package info
+  :if (eq system-type 'darwin)
+  :custom
+  (Info-additional-directory-list '("/opt/homebrew/share/info" "/opt/local/share/info/")))
+
 (use-package exec-path-from-shell
   :ensure t
   :custom
