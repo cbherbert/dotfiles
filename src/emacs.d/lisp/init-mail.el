@@ -148,6 +148,15 @@
     (mu4e-search-rerun)
     (message "Include related messages: %s" mu4e-search-include-related)
     )
+  (defvar ch/mu4e-thread-fold-status mu4e-thread--fold-status "Store global thread fold status to allow restoring it later")
+  (defun ch/mu4e-search-remember-fold-status (orig-fun &rest args)
+    " Store thread folding state to restore it after action "
+    (setq ch/mu4e-thread-fold-status mu4e-thread--fold-status))
+  (advice-add 'mu4e--search-execute :before #'ch/mu4e-search-remember-fold-status)
+  (add-hook 'mu4e-headers-found-hook (lambda ()
+				       (if ch/mu4e-thread-fold-status
+					   (mu4e-thread-fold-all)
+					 (mu4e-thread-unfold-all))))
   (defun ch/capture-mail-answer-later (msg)
     (interactive)
     (call-interactively 'org-store-link)
