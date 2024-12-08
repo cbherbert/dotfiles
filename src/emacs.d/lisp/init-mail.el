@@ -112,19 +112,51 @@
 				  (mu4e-sent-folder . "/cnrs/Sent Items")
 				  (mu4e-trash-folder . "/cnrs/Trash")))
 			))
-  (setq mu4e-headers-personal-mark (cons "p" (nerd-icons-faicon "nf-fa-user"))
-	mu4e-headers-list-mark       (cons "l" (nerd-icons-faicon "nf-fa-sitemap"))
-	mu4e-headers-attach-mark     (cons "a" (nerd-icons-faicon "nf-fa-file_text_o"))
-	mu4e-headers-flagged-mark    (cons "F" (nerd-icons-faicon "nf-fa-flag"))
-	mu4e-headers-unread-mark     (cons "u" (nerd-icons-faicon "nf-fa-eye_slash"))
-	mu4e-headers-new-mark        (cons "N" (nerd-icons-mdicon "nf-md-sync"))
-	mu4e-headers-replied-mark    (cons "R" (nerd-icons-faicon "nf-fa-reply"))
-	mu4e-headers-passed-mark     (cons "P" (nerd-icons-faicon "nf-fa-user" "nf-fa-arrow_right"))
-	mu4e-headers-encrypted-mark  (cons "x" (nerd-icons-faicon "nf-fa-lock"))
-	mu4e-headers-signed-mark     (cons "s" (nerd-icons-faicon "nf-fa-certificate"))
-	mu4e-headers-trashed-mark    (cons "T" (nerd-icons-faicon "nf-fa-trash"))
-	mu4e-headers-draft-mark      (cons "D" (nerd-icons-faicon "nf-fa-pencil"))
-	mu4e-headers-calendar-mark   (cons "c" (nerd-icons-faicon "nf-fa-calendar"))
+  ;; The following two functions are taken from doom emacs, they make sure the
+  ;; icons appear nicely with appropriate spacing
+  (defun +mu4e--get-string-width (str)
+    "Return the width in pixels of a string in the current
+window's default font. If the font is mono-spaced, this
+will also be the width of all other printable characters."
+    (let ((window (selected-window))
+          (remapping face-remapping-alist))
+      (with-temp-buffer
+	(make-local-variable 'face-remapping-alist)
+	(setq face-remapping-alist remapping)
+	(set-window-buffer window (current-buffer))
+	(insert str)
+	(car (window-text-pixel-size)))))
+
+  (cl-defun +mu4e-normalised-icon (name &key set color height v-adjust space-right)
+    "Convert :icon declaration to icon"
+    (let* ((icon-set (intern (concat "nerd-icons-" (or set "faicon"))))
+           (v-adjust (or v-adjust 0.02))
+           (height (or height 0.8))
+           (icon (if color
+                     (apply icon-set `(,name :face ,(intern (concat "nerd-icons-" color)) :height ,height :v-adjust ,v-adjust))
+                   (apply icon-set `(,name  :height ,height :v-adjust ,v-adjust))))
+           (icon-width (+mu4e--get-string-width icon))
+           (space-width (+mu4e--get-string-width " "))
+           (space-factor (- 2 (/ (float icon-width) space-width)))
+           ;; always pad the left
+           (space-left (propertize " " 'display `(space . (:width ,space-factor))))
+           ;; optionally pad the right
+           (space-right (if space-right space-left "")))
+      (format "%s%s%s" space-left icon space-right)))
+
+  (setq mu4e-headers-personal-mark (cons "p" (+mu4e-normalised-icon "nf-fa-user"))
+	mu4e-headers-list-mark       (cons "l" (+mu4e-normalised-icon "nf-fa-sitemap" :set "faicon"))
+	mu4e-headers-attach-mark     (cons "a" (+mu4e-normalised-icon "nf-fa-file_text_o" :color "silver"))
+	mu4e-headers-flagged-mark    (cons "F" (+mu4e-normalised-icon "nf-fa-flag"))
+	mu4e-headers-unread-mark     (cons "u" (+mu4e-normalised-icon "nf-fa-eye_slash" :v-adjust 0.05))
+	mu4e-headers-new-mark        (cons "N" (+mu4e-normalised-icon "nf-md-sync" :set "mdicon" :v-adjust -0.10))
+	mu4e-headers-replied-mark    (cons "R" (+mu4e-normalised-icon "nf-fa-reply"))
+	mu4e-headers-passed-mark     (cons "P" (+mu4e-normalised-icon "nf-fa-arrow_right"))
+	mu4e-headers-encrypted-mark  (cons "x" (+mu4e-normalised-icon "nf-fa-lock"))
+	mu4e-headers-signed-mark     (cons "s" (+mu4e-normalised-icon "nf-fa-certificate" :height 0.7 :color "dpurple"))
+	mu4e-headers-trashed-mark    (cons "T" (+mu4e-normalised-icon "nf-fa-trash"))
+	mu4e-headers-draft-mark      (cons "D" (+mu4e-normalised-icon "nf-fa-pencil"))
+	mu4e-headers-calendar-mark   (cons "c" (+mu4e-normalised-icon "nf-fa-calendar"))
 	)
 
 
