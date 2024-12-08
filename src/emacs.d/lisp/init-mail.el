@@ -64,6 +64,7 @@
   (message-signature-file "~/dotfiles/private/signature")
   (mu4e-compose-signature-auto-include nil)
   (mu4e-thread-fold-unread t)
+  (mu4e-use-fancy-chars t)
   :custom-face
   (mu4e-highlight-face ((t (:inherit default :weight bold :foreground ,(face-foreground 'success)))))
   (mu4e-header-face ((t (:inherit font-lock-comment-face))))
@@ -111,7 +112,23 @@
 				  (mu4e-sent-folder . "/cnrs/Sent Items")
 				  (mu4e-trash-folder . "/cnrs/Trash")))
 			))
-    (defun ch/mu4e-ask-maildir-level2 (orig-fun &rest args)
+  (setq mu4e-headers-personal-mark (cons "p" (nerd-icons-faicon "nf-fa-user"))
+	mu4e-headers-list-mark       (cons "l" (nerd-icons-faicon "nf-fa-sitemap"))
+	mu4e-headers-attach-mark     (cons "a" (nerd-icons-faicon "nf-fa-file_text_o"))
+	mu4e-headers-flagged-mark    (cons "F" (nerd-icons-faicon "nf-fa-flag"))
+	mu4e-headers-unread-mark     (cons "u" (nerd-icons-faicon "nf-fa-eye_slash"))
+	mu4e-headers-new-mark        (cons "N" (nerd-icons-mdicon "nf-md-sync"))
+	mu4e-headers-replied-mark    (cons "R" (nerd-icons-faicon "nf-fa-reply"))
+	mu4e-headers-passed-mark     (cons "P" (nerd-icons-faicon "nf-fa-user" "nf-fa-arrow_right"))
+	mu4e-headers-encrypted-mark  (cons "x" (nerd-icons-faicon "nf-fa-lock"))
+	mu4e-headers-signed-mark     (cons "s" (nerd-icons-faicon "nf-fa-certificate"))
+	mu4e-headers-trashed-mark    (cons "T" (nerd-icons-faicon "nf-fa-trash"))
+	mu4e-headers-draft-mark      (cons "D" (nerd-icons-faicon "nf-fa-pencil"))
+	mu4e-headers-calendar-mark   (cons "c" (nerd-icons-faicon "nf-fa-calendar"))
+	)
+
+
+  (defun ch/mu4e-ask-maildir-level2 (orig-fun &rest args)
     " Access second-level maildirs "
     (let ((response (apply orig-fun (list (car args))))
 	  (flag (car (cdr args))))
