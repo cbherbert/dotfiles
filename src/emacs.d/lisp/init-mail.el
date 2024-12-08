@@ -168,7 +168,7 @@
   (add-to-list 'mu4e-headers-actions
 	       '("answer later" . ch/capture-mail-answer-later) t)
   (add-to-list 'mu4e-view-actions
-	       '("answer-later" . ch/capture-mail-answer-later) t)
+	       '("answer later" . ch/capture-mail-answer-later) t)
   (add-to-list 'mu4e-headers-actions
 	       '("todo entry from mail" . ch/capture-mail-todo) t)
   (add-to-list 'mu4e-view-actions
