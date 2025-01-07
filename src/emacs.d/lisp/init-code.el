@@ -24,11 +24,20 @@
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
+  :custom-face
+  (lsp-face-highlight-textual ((t (:foreground ,(face-foreground 'all-the-icons-lsilver)))))
   :init
   (setq lsp-keymap-prefix "C-c s")  ;; Or 'C-l', 's-l'
   :config
   (lsp-enable-which-key-integration t))
 
+(use-package lsp-ui
+  :after lsp-mode
+  :ensure t)
+
+(use-package consult-lsp
+  :after consul lsp-mode
+  :ensure t)
 ;;;
 ;;; Modes for code
 ;;;
@@ -80,6 +89,9 @@
     (when (bound-and-true-p conda-project-env-path)
       (conda-env-activate-for-buffer)))
   )
+
+(use-package lsp-pyright
+  :ensure t)
 
 (use-package snakemake-mode
   :ensure t)
