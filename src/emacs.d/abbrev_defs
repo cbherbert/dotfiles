@@ -73,6 +73,7 @@
     ("qualitativemnt" "qualitativement" nil :count 0)
     ("questoin" "question" nil :count 1)
     ("realted" "related" nil :count 0)
+    ("rectnagular" "rectangular" nil :count 0)
     ("recuperer" "récupérer" nil :count 0)
     ("represente" "représente" nil :count 0)
     ("simualtes" "simulates" nil :count 0)
