@@ -260,7 +260,7 @@ Can be an integer to determine the exact padding."
    (flycheck-error-list-filename :foreground cyan)
 
    (help-key-binding :inherit 'fixed-pitch :background bg-alt :foreground violet
-		     :box `(:line-width 1 :color base5))
+		     :box `(:line-width 1 :color ,base5))
    (bookmark-menu-bookmark :weight 'bold :foreground magenta)
 
    )
