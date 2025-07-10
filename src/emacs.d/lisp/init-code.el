@@ -24,8 +24,6 @@
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
-  :custom-face
-  (lsp-face-highlight-textual ((t (:foreground ,(face-foreground 'all-the-icons-lsilver)))))
   :init
   (setq lsp-keymap-prefix "C-c s")  ;; Or 'C-l', 's-l'
   :config

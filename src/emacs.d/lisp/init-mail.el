@@ -65,16 +65,6 @@
   (mu4e-compose-signature-auto-include nil)
   (mu4e-thread-fold-unread t)
   (mu4e-use-fancy-chars t)
-  :custom-face
-  (mu4e-highlight-face ((t (:inherit default :weight bold :foreground ,(face-foreground 'success)))))
-  (mu4e-header-face ((t (:inherit font-lock-comment-face))))
-  (mu4e-header-key-face ((t (:inherit gnus-header-content))))
-  (mu4e-related-face ((t (:inherit mu4e-header-face :slant normal))))
-  (mu4e-forwarded-face ((t (:inherit mu4e-header-face :slant normal :weight normal))))
-  (mu4e-replied-face ((t (:inherit mu4e-header-face :slant normal :weight normal))))
-  (mu4e-unread-face ((t (:inherit default :weight bold))))
-  (mu4e-header-highlight-face ((t (:inherit hl-line :weight bold :extend t :underline t :foreground ,(face-foreground 'success)))))
-  (mu4e-thread-fold-face ((t (:inherit which-key-group-description-face))))
   :hook
   (mu4e-view-mode . visual-line-mode)
   (mu4e-compose-mode . ch/mu4e-compose-hook)

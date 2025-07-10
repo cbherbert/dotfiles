@@ -42,8 +42,6 @@
   :after appt
   :preface
   (setq org-base-dir "~/nextcloud/org/")
-  :custom-face
-  (org-latex-and-related :inherit 'font-latex-math-face)
   :custom
   (org-list-allow-alphabetical t)
   (org-pretty-entities-include-sub-superscripts t)
@@ -371,8 +369,6 @@ _vc_ column     ^^                       _h-_ priority down ^^
   :ensure t
   :custom
   (org-super-agenda-unmatched-name "")
-  :custom-face
-  (org-super-agenda-header ((t (:foreground ,(face-foreground 'calendar-today)))))
   :hook
   (org-agenda-mode . org-super-agenda-mode)
   )

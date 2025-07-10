@@ -209,10 +209,6 @@ Version 2020-12-02 2021-04-14 2021-08-01"
   :custom
   (epg-pinentry-mode 'loopback)
   (epg-gpg-home-directory (getenv "GNUPGHOME"))
-  :custom-face
-  (epa-validity-high ((t (:foreground ,(face-foreground 'success)))))
-  (epa-validity-medium ((t (:foreground ,(face-foreground 'warning) :slant normal))))
-  (epa-validity-disabled ((t (:foreground ,(face-foreground 'error) :inverse-video nil))))
   )
 
 ;;;

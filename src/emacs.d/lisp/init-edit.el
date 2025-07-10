@@ -73,8 +73,6 @@
 ;;;
 (use-package flycheck
   :ensure t
-  :custom-face
-  (flycheck-error-list-highlight ((t (:weight bold :background ,(face-background 'region)))))
   :custom
   (flycheck-emacs-lisp-load-path 'inherit) ;; avoid errors with emacs init files for instance
   (flycheck-error-list-format [("File" 10) ("Line" 5 flycheck-error-list-entry-< :right-align t) ("Col" 3 nil :right-align t) ("Level" 8 flycheck-error-list-entry-level-<) ("ID" 6 t) (#("Message (Checker)" 0 7 (face flycheck-error-list-error-message) 9 16 (face flycheck-error-list-checker-name)) 0 t)])

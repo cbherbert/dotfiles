@@ -22,8 +22,6 @@
   ;; (vertico-resize t)
   ;; enable cycling for `vertico-next' and `vertico-previous'.
   (vertico-cycle t)
-  :custom-face
-  (vertico-current ((t (:foreground ,(face-foreground 'success) :background ,(face-background 'region) :extend: t))))
   :config
   ;; Add arrow prefix to current candidate:
   (defvar +vertico-current-arrow t)

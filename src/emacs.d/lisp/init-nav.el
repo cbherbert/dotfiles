@@ -134,8 +134,6 @@ _s_: move splitter
 
 (use-package consult
   :ensure t
-  :custom-face
-  (consult-bookmark :inherit 'bookmark-menu-bookmark)
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings (mode-specific-map)
          ("C-c h" . consult-history)

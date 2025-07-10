@@ -24,6 +24,30 @@
 	(load custom-file)
 	(doom-themes-visual-bell-config)
 	)
+      (use-package doom-solarized-dark-custom-theme
+	:after all-the-icons
+	:custom-face
+	(calendar-today :foreground violet)
+	(consult-bookmark :inherit 'bookmark-menu-bookmark)
+	(vertico-current ((t (:foreground ,(face-foreground 'success) :background ,(face-background 'region) :extend: t))))
+	(dashboard-banner-logo-title :inherit 'default)
+	(epa-validity-high ((t (:foreground ,(face-foreground 'success)))))
+	(epa-validity-medium ((t (:foreground ,(face-foreground 'warning) :slant normal))))
+	(epa-validity-disabled ((t (:foreground ,(face-foreground 'error) :inverse-video nil))))
+	(flycheck-error-list-highlight ((t (:weight bold :background ,(face-background 'region)))))
+	(lsp-face-highlight-textual ((t (:foreground ,(face-foreground 'all-the-icons-lsilver)))))
+	(mu4e-highlight-face ((t (:inherit default :weight bold :foreground ,(face-foreground 'success)))))
+	(mu4e-header-face ((t (:inherit font-lock-comment-face))))
+	(mu4e-header-key-face ((t (:inherit gnus-header-content))))
+	(mu4e-related-face ((t (:inherit mu4e-header-face :slant normal))))
+	(mu4e-forwarded-face ((t (:inherit mu4e-header-face :slant normal :weight normal))))
+	(mu4e-replied-face ((t (:inherit mu4e-header-face :slant normal :weight normal))))
+	(mu4e-unread-face ((t (:inherit default :weight bold))))
+	(mu4e-header-highlight-face ((t (:inherit hl-line :weight bold :extend t :underline t :foreground ,(face-foreground 'success)))))
+	(mu4e-thread-fold-face ((t (:inherit which-key-group-description-face))))
+	(org-latex-and-related :inherit 'font-latex-math-face)
+	(org-super-agenda-header ((t (:foreground ,(face-foreground 'calendar-today)))))
+	)
       (when (eq system-type 'darwin)
 	(set-face-attribute 'default nil :family "Hack")
 	;; default font size (point * 10)
@@ -139,8 +163,6 @@
 				   "Info" "Browse Manuals"
 				   (lambda (&rest _) (info)))
 				  )))
-  :custom-face
-  (dashboard-banner-logo-title :inherit 'default)
   :config
   (dashboard-setup-startup-hook))
 

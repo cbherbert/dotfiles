@@ -226,7 +226,6 @@ Can be an integer to determine the exact padding."
    (org-scheduled-previously :foreground red :weight 'normal)
    (org-scheduled-today :foreground yellow :weight 'normal)
    (org-date-selected :background yellow :foreground brightwhite)
-   (calendar-today :foreground violet)
    ;;;; org-roam
    (org-roam-header-line :foreground violet :weight 'bold)
    (org-roam-title :foreground magenta :weight 'bold)
