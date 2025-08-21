@@ -50,7 +50,7 @@
     ("fucntion" "function" nil :count 0)
     ("fucntions" "functions" nil :count 0)
     ("functoins" "functions" nil :count 0)
-    ("hte" "the" nil :count 21)
+    ("hte" "the" nil :count 22)
     ("incldue" "include" nil :count 0)
     ("initilization" "initialization" nil :count 0)
     ("interessés" "intéressés" nil :count 0)
@@ -78,6 +78,7 @@
     ("recuperer" "récupérer" nil :count 0)
     ("represente" "représente" nil :count 0)
     ("simualtes" "simulates" nil :count 0)
+    ("simulaitons" "simulations" nil :count 0)
     ("simulatoin" "simulation" nil :count 0)
     ("staricases" "staircases" nil :count 0)
     ("sufficently" "sufficiently" nil :count 0)
@@ -94,3 +95,4 @@
     ("vriability" "variability" nil :count 0)
     ("égalemetn" "également" nil :count 0)
    ))
+
