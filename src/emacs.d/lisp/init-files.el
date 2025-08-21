@@ -7,6 +7,12 @@
 
 ;;; Code:
 
+(use-package dired
+  :custom
+  (dired-listing-switches "-alh")
+  (dired-dwim-target 'dired-dwim-target-recent)
+  )
+
 ;; Color dired mode
 (use-package diredful
   :ensure t
