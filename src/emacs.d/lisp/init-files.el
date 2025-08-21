@@ -14,12 +14,10 @@
   )
 
 ;; Color dired mode
-(use-package diredful
+(use-package diredfl
   :ensure t
   :config
-  (unless (display-graphic-p)
-    (setq diredful-init-file "~/dotfiles/src/diredful-conf.el"))
-  (diredful-mode 1)
+  (diredfl-global-mode 1)
   )
 
 (use-package all-the-icons-dired
