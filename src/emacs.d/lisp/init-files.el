@@ -20,6 +20,11 @@
   (diredfl-global-mode 1)
   )
 
+(use-package dired-git-info
+    :ensure t
+    :bind (:map dired-mode-map
+                (")" . dired-git-info-mode)))
+
 (use-package all-the-icons-dired
   :ensure t
   :if (display-graphic-p)
