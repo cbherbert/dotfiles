@@ -65,28 +65,24 @@
       (use-package catppuccin-theme
 	:custom
 	(catppuccin-flavor 'frappe)
-	;; :custom-face
-	;; (vertico-current ((t (:foreground ,(catppuccin-color 'green)))))
 	:config
 	(defun custom-theme-faces-upon-enable-catppuccin ()
 	  (let ((custom--inhibit-theme-enable nil))
 	    (custom-theme-set-faces
 	     'catppuccin
-	     '(vertico-current ((t (:foreground "#a6e3a1")))))
+	     `(vertico-current ((t (:foreground ,(catppuccin-color 'green))))))
 	    )
 	  )
 	)
       (use-package zenburn-theme
 	:preface
 	(setq ch/zenburn-color-alist '((fg . "#DCDCCC") (bg . "#1C1C1C") (green . "#5F7F5F") (cyan . "#93E0E3")))
-	;; :custom-face
-	;; (vertico-current ((t (:foreground ,(alist-get 'green ch/zenburn-color-alist)))))
 	:config
 	(defun custom-theme-faces-upon-enable-zenburn ()
 	  (let ((custom--inhibit-theme-enable nil))
 	    (custom-theme-set-faces
 	     'zenburn
-	     '(vertico-current ((t (:foreground "#5F7F5F")))))
+	     `(vertico-current ((t (:foreground ,(alist-get 'green ch/zenburn-color-alist))))))
 	    )
 	  )
 	)
