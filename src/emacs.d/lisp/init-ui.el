@@ -17,11 +17,11 @@
       (tool-bar-mode -1)
       (use-package doom-themes
 	:ensure t
+      (setq custom-theme-directory (expand-file-name "themes" user-emacs-directory))
+      (setq custom-file (expand-file-name "custom-gui.el" user-emacs-directory))
+      (load custom-file)
 	:config
-	(setq custom-theme-directory (expand-file-name "themes" user-emacs-directory))
 	(load-theme 'doom-solarized-dark-custom t)
-	(setq custom-file (expand-file-name "custom-gui.el" user-emacs-directory))
-	(load custom-file)
 	(doom-themes-visual-bell-config)
 	)
       (use-package doom-solarized-dark-custom-theme
