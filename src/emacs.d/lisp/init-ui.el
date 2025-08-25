@@ -18,6 +18,23 @@
       (setq custom-theme-directory (expand-file-name "themes" user-emacs-directory))
       (setq custom-file (expand-file-name "custom-gui.el" user-emacs-directory))
       (load custom-file)
+      (defun ch/disable-all-themes (orig-fun &rest r)
+	"Disable all currently enabled themes, as defined by `custom-enabled-themes'."
+	(mapc #'disable-theme custom-enabled-themes)
+	)
+      (advice-add 'load-theme :before #'ch/disable-all-themes)
+      (defun custom-theme-faces-upon-enable (theme)
+	(when (eq theme 'catppuccin)
+	  (custom-theme-faces-upon-enable-catppuccin)
+	  )
+	(when (eq theme 'zenburn)
+	  (custom-theme-faces-upon-enable-zenburn)
+	  )
+	(when (eq theme 'doom-solarized-dark-custom)
+	  (custom-theme-faces-upon-enable-solarized)
+	  )
+	)
+      (add-hook 'enable-theme-functions #'custom-theme-faces-upon-enable)
       (use-package doom-themes
 	:ensure t
 	:config
@@ -26,7 +43,7 @@
 	)
       (use-package doom-solarized-dark-custom-theme
 	:after all-the-icons
-	:config
+	:preface
 	(defun custom-theme-faces-upon-enable-solarized ()
 	  (let ((custom--inhibit-theme-enable nil))
 	    (custom-theme-set-faces
@@ -56,23 +73,6 @@
 	    )
 	  )
 	)
-      (defun ch/disable-all-themes (orig-fun &rest r)
-	"Disable all currently enabled themes, as defined by `custom-enabled-themes'."
-	(mapc #'disable-theme custom-enabled-themes)
-	)
-      (advice-add 'load-theme :before #'ch/disable-all-themes)
-      (defun custom-theme-faces-upon-enable (theme)
-	(when (eq theme 'catppuccin)
-	  (custom-theme-faces-upon-enable-catppuccin)
-	  )
-	(when (eq theme 'zenburn)
-	  (custom-theme-faces-upon-enable-zenburn)
-	  )
-	(when (eq theme 'doom-solarized-dark-custom)
-	  (custom-theme-faces-upon-enable-solarized)
-	  )
-	)
-      (add-hook 'enable-theme-functions #'custom-theme-faces-upon-enable)
       (use-package catppuccin-theme
 	:custom
 	(catppuccin-flavor 'frappe)
