@@ -56,7 +56,7 @@
 	    )
 	  )
 	)
-      (defun ch/disable-all-themes (orig-fun %rest r)
+      (defun ch/disable-all-themes (orig-fun &rest r)
 	"Disable all currently enabled themes, as defined by `custom-enabled-themes'."
 	(mapc #'disable-theme custom-enabled-themes)
 	)
