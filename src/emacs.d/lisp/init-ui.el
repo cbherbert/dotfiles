@@ -23,18 +23,19 @@
 	(mapc #'disable-theme custom-enabled-themes)
 	)
       (advice-add 'load-theme :before #'ch/disable-all-themes)
-      (defun custom-theme-faces-upon-enable (theme)
-	(when (eq theme 'catppuccin)
-	  (custom-theme-faces-upon-enable-catppuccin)
-	  )
-	(when (eq theme 'zenburn)
-	  (custom-theme-faces-upon-enable-zenburn)
-	  )
-	(when (eq theme 'doom-solarized-dark-custom)
-	  (custom-theme-faces-upon-enable-solarized)
+      (defvar ch/theme-faces-customization nil
+	"Association list storing all the custom faces for each theme I use.")
+      (defun ch/define-theme-faces-customization (theme &rest faces)
+	"Store custom faces to be applied each time the theme is enabled."
+	(push (cons theme (list faces)) ch/theme-faces-customization))
+      (defun ch/apply-theme-faces-customization (theme)
+	"Apply custom faces for given theme."
+	(let ((custom--inhibit-theme-enable nil)
+	      (faces (car (alist-get theme ch/theme-faces-customization))))
+	  (apply #'custom-theme-set-faces theme faces)
 	  )
 	)
-      (add-hook 'enable-theme-functions #'custom-theme-faces-upon-enable)
+      (add-hook 'enable-theme-functions #'ch/apply-theme-faces-customization)
       (use-package doom-themes
 	:ensure t
 	:config
@@ -43,7 +44,12 @@
 	)
       (use-package doom-solarized-dark-custom-theme
 	:after all-the-icons
-	:preface
+	:config
+	(ch/define-theme-faces-customization
+	 'doom-solarized-dark-custom
+	 '(vertico-current ((t (:foreground "#859900"))))
+	 '(calendar-today ((t (:foreground "#6c71c4"))))
+	 )
 	(defun custom-theme-faces-upon-enable-solarized ()
 	  (let ((custom--inhibit-theme-enable nil))
 	    (custom-theme-set-faces
@@ -77,25 +83,17 @@
 	:custom
 	(catppuccin-flavor 'frappe)
 	:config
-	(defun custom-theme-faces-upon-enable-catppuccin ()
-	  (let ((custom--inhibit-theme-enable nil))
-	    (custom-theme-set-faces
-	     'catppuccin
-	     `(vertico-current ((t (:foreground ,(catppuccin-color 'green))))))
-	    )
-	  )
+	(ch/define-theme-faces-customization
+	 'catppuccin
+	 `(vertico-current ((t (:foreground ,(catppuccin-color 'green))))))
 	)
       (use-package zenburn-theme
 	:preface
 	(setq ch/zenburn-color-alist '((fg . "#DCDCCC") (bg . "#1C1C1C") (green . "#5F7F5F") (cyan . "#93E0E3")))
 	:config
-	(defun custom-theme-faces-upon-enable-zenburn ()
-	  (let ((custom--inhibit-theme-enable nil))
-	    (custom-theme-set-faces
-	     'zenburn
-	     `(vertico-current ((t (:foreground ,(alist-get 'green ch/zenburn-color-alist))))))
-	    )
-	  )
+	(ch/define-theme-faces-customization
+	 'zenburn
+	 `(vertico-current ((t (:foreground ,(alist-get 'green ch/zenburn-color-alist))))))
 	)
       (when (eq system-type 'darwin)
 	(set-face-attribute 'default nil :family "Hack")
