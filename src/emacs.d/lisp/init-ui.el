@@ -36,6 +36,12 @@
 	  )
 	)
       (add-hook 'enable-theme-functions #'ch/apply-theme-faces-customization)
+      ;; To make sure that the face specifications for custom faces in
+      ;; `doom-solarized-dark-custom' are correct (and because they rely on
+      ;; existing faces through `face-foreground' and `face-background'), I need
+      ;; to load twice: first before defining the face customizations and a
+      ;; second time after they are defined to apply them.
+      ;; Alternatively I could define all faces directly.
       (use-package doom-themes
 	:ensure t
 	:config
@@ -68,6 +74,7 @@
 	 '(org-latex-and-related ((t (:inherit 'font-latex-math-face))))
 	 `(org-super-agenda-header ((t (:foreground ,(doom-color 'violet)))))
 	 )
+	(load-theme 'doom-solarized-dark-custom t)
 	)
       (use-package catppuccin-theme
 	:custom
