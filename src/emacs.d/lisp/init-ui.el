@@ -95,7 +95,11 @@
 	:config
 	(ch/define-theme-faces-customization
 	 'catppuccin
+	 `(custom-state ((t (:foreground ,(catppuccin-color 'green)))))
 	 `(vertico-current ((t (:foreground ,(catppuccin-color 'green) :background ,(face-background 'region) :extend: t))))
+	 `(flycheck-info  ((t (:underline  (:style wave :color ,(catppuccin-color 'green))))))
+	 `(flycheck-warning  ((t (:underline  (:style wave :color ,(catppuccin-color 'peach))))))
+	 `(flycheck-error  ((t (:underline  (:style wave :color ,(catppuccin-color 'red))))))
 	 `(mu4e-highlight-face ((t (:inherit default :weight bold :foreground ,(catppuccin-color 'green)))))
 	 '(message-mml ((t (:inherit message-header-other))))
 	 '(mu4e-header-face ((t (:inherit font-lock-comment-face))))
@@ -103,6 +107,7 @@
 	 '(mu4e-related-face ((t (:inherit mu4e-header-face :slant normal))))
 	 '(mu4e-thread-fold-face ((t (:inherit which-key-group-description-face))))
 	 '(org-checkbox ((t (:inherit 'org-todo :weight bold))))
+	 `(org-mode-line-clock ((t (:foreground ,(catppuccin-color 'green)))))
 	 `(org-super-agenda-header ((t (:foreground ,(catppuccin-color 'mauve)))))
 	 )
 	)
