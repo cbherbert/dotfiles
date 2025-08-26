@@ -3,6 +3,8 @@ private
 /src/emacs.d/.org-id-locations
 /src/emacs.d/.lsp-session-v1
 /src/emacs.d/ac-comphist.dat
+/src/emacs.d/custom-gui.el
+/src/emacs.d/custom-terminal.el
 /src/emacs.d/eln-cache/
 /src/emacs.d/elpa/
 /src/emacs.d/eshell/

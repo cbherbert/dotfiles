@@ -7,14 +7,23 @@
 
 ;;; Code:
 
+(use-package dired
+  :custom
+  (dired-listing-switches "-alh")
+  (dired-dwim-target 'dired-dwim-target-recent)
+  )
+
 ;; Color dired mode
-(use-package diredful
+(use-package diredfl
   :ensure t
   :config
-  (unless (display-graphic-p)
-    (setq diredful-init-file "~/dotfiles/src/diredful-conf.el"))
-  (diredful-mode 1)
+  (diredfl-global-mode 1)
   )
+
+(use-package dired-git-info
+    :ensure t
+    :bind (:map dired-mode-map
+                (")" . dired-git-info-mode)))
 
 (use-package all-the-icons-dired
   :ensure t
