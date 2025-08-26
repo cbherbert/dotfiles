@@ -83,7 +83,16 @@
 	:config
 	(ch/define-theme-faces-customization
 	 'catppuccin
-	 `(vertico-current ((t (:foreground ,(catppuccin-color 'green))))))
+	 `(vertico-current ((t (:foreground ,(catppuccin-color 'green) :background ,(face-background 'region) :extend: t))))
+	 `(mu4e-highlight-face ((t (:inherit default :weight bold :foreground ,(catppuccin-color 'green)))))
+	 '(message-mml ((t (:inherit message-header-other))))
+	 '(mu4e-header-face ((t (:inherit font-lock-comment-face))))
+	 '(mu4e-replied-face ((t (:inherit mu4e-header-face :slant normal :weight normal))))
+	 '(mu4e-related-face ((t (:inherit mu4e-header-face :slant normal))))
+	 '(mu4e-thread-fold-face ((t (:inherit which-key-group-description-face))))
+	 '(org-checkbox ((t (:inherit 'org-todo :weight bold))))
+	 `(org-super-agenda-header ((t (:foreground ,(catppuccin-color 'mauve)))))
+	 )
 	)
       (use-package zenburn-theme
 	:preface
