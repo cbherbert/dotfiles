@@ -18,6 +18,18 @@
       (setq custom-theme-directory (expand-file-name "themes" user-emacs-directory))
       (setq custom-file (expand-file-name "custom-gui.el" user-emacs-directory))
       (load custom-file)
+      ;;;
+      ;;; Theme customization and switching
+      ;;;
+      ;; Below is some code to customize some faces easily for different themes
+      ;; and for smooth theme switching. In particular I want to disable all
+      ;; themes before enabling a new one to avoid any side effects and to
+      ;; apply my custom face definitions each time the theme is enabled.
+      ;;
+      ;; Related approaches can be found online:
+      ;; https://github.com/alphapapa/unpackaged.el#customize-theme-faces
+      ;; https://www.unwoundstack.com/blog/switching-emacs-themes.html
+      ;; https://emacsredux.com/blog/2025/02/13/customizing-color-themes/
       (defun ch/disable-all-themes (orig-fun &rest r)
 	"Disable all currently enabled themes, as defined by `custom-enabled-themes'."
 	(mapc #'disable-theme custom-enabled-themes)
