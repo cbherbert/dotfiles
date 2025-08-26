@@ -27,6 +27,7 @@
 	"Association list storing all the custom faces for each theme I use.")
       (defun ch/define-theme-faces-customization (theme &rest faces)
 	"Store custom faces to be applied each time the theme is enabled."
+	(setq ch/theme-faces-customization (assq-delete-all theme ch/theme-faces-customization))
 	(push (cons theme (list faces)) ch/theme-faces-customization))
       (defun ch/apply-theme-faces-customization (theme)
 	"Apply custom faces for given theme."
