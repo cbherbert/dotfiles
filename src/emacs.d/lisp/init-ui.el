@@ -103,11 +103,16 @@
 	:config
 	(ch/define-theme-faces-customization
 	 'catppuccin
+	 `(company-tooltip-common ((t (:foreground ,(catppuccin-color 'blue) :weight bold))))
+	 `(company-tooltip-common-selection ((t (:inherit company-tooltip-common))))
 	 `(custom-state ((t (:foreground ,(catppuccin-color 'green)))))
 	 `(diff-context ((t (:foreground ,(catppuccin-color 'overlay0)))))
 	 `(diff-file-header ((t (:foreground ,(catppuccin-color 'sapphire)))))
 	 `(dired-marked ((t (:foreground ,(catppuccin-color 'maroon) :weight bold))))
 	 `(doom-modeline-host ((t (:foreground ,(catppuccin-color 'pink)))))
+	 '(elfeed-search-title-face ((t (:inherit font-lock-comment-face))))
+	 `(elfeed-search-feed-face ((t (:foreground ,(catppuccin-color 'blue) :weight bold))))
+	 `(elfeed-search-last-update-face ((t (:foreground ,(catppuccin-color 'lavender) :weight bold))))
 	 `(epa-validity-high ((t (:foreground ,(face-foreground 'success)))))
 	 `(epa-validity-medium ((t (:foreground ,(face-foreground 'warning) :slant normal))))
 	 `(epa-validity-disabled ((t (:foreground ,(face-foreground 'error) :inverse-video nil))))
