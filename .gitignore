@@ -18,3 +18,6 @@ private
 /src/emacs.d/srecode-map.el
 /src/emacs.d/tramp
 /src/emacs.d/transient/
+/src/emacs.d/network-security.data
+/src/emacs.d/projects
+/src/emacs.d/xenops/
