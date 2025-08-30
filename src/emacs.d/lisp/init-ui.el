@@ -272,6 +272,7 @@
   (doom-modeline-major-mode-icon (display-graphic-p))
   (doom-modeline-time-icon (display-graphic-p))
   (display-time-default-load-average nil)
+  (doom-modeline-buffer-encoding nil)
   :hook (after-init . doom-modeline-mode)
   :config
   (display-time-mode 1)
