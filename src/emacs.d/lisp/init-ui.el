@@ -249,14 +249,6 @@
 	 `(org-super-agenda-header ((t (:foreground ,(catppuccin-color 'mauve)))))
 	 )
 	)
-      (use-package zenburn-theme
-	:preface
-	(setq ch/zenburn-color-alist '((fg . "#DCDCCC") (bg . "#1C1C1C") (green . "#5F7F5F") (cyan . "#93E0E3")))
-	:config
-	(ch/define-theme-faces-customization
-	 'zenburn
-	 `(vertico-current ((t (:foreground ,(alist-get 'green ch/zenburn-color-alist))))))
-	)
       (when (eq system-type 'darwin)
 	(set-face-attribute 'default nil :family "Hack")
 	;; default font size (point * 10)
