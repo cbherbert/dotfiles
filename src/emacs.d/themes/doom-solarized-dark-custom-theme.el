@@ -166,14 +166,6 @@ Can be an integer to determine the exact padding."
     :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-inactive)))
    (mode-line-emphasis :foreground (if -modeline-bright base8 highlight))
 
-   (completions-common-part :foreground magenta :background base0)
-   (dired-directory :foreground violet :weight 'bold)
-   (dired-symlink :foreground magenta)
-   (dired-special :foreground cyan)
-   (dired-marked :foreground red)
-   (dired-broken-symlink :background orange :foreground brightwhite)
-   (all-the-icons-dired-dir-face :foreground cyan)
-
    ;;;; centaur-tabs
    (centaur-tabs-active-bar-face :background blue)
    (centaur-tabs-modified-marker-selected
@@ -188,7 +180,6 @@ Can be an integer to determine the exact padding."
    (css-selector             :foreground blue)
    ;;;; doom-modeline
    (doom-modeline-bar :background blue)
-   (doom-modeline-host :foreground magenta)
    (doom-modeline-evil-emacs-state  :foreground magenta)
    (doom-modeline-evil-insert-state :foreground blue)
    ;;;; elscreen
@@ -198,10 +189,6 @@ Can be an integer to determine the exact padding."
                    :background selection
                    :distant-foreground bg
                    :extend t)
-   ;;;; latex
-   (font-latex-sectioning-2-face :inherit 'font-latex-sectioning-3-face :foreground orange :height 1.1)
-   (font-latex-sectioning-3-face :inherit 'font-latex-sectioning-4-face :foreground yellow :height 1.1)
-   (font-latex-sectioning-4-face :inherit 'font-latex-sectioning-5-face :foreground blue :height 1.1)
    ;;;; markdown-mode
    (markdown-markup-face :foreground base5)
    (markdown-header-face :inherit 'bold :foreground red)
@@ -221,29 +208,6 @@ Can be an integer to determine the exact padding."
    ;;;; org <built-in>
    ((org-block &override) :background base0)
    ((org-block-begin-line &override) :foreground comments :background base0)
-   (org-mode-line-clock :foreground green)
-   (org-mode-line-clock-overrun :foreground "#d75f00" :weight 'bold)
-   (org-scheduled-previously :foreground red :weight 'normal)
-   (org-scheduled-today :foreground yellow :weight 'normal)
-   (org-date-selected :background yellow :foreground brightwhite)
-   ;;;; org-roam
-   (org-roam-header-line :foreground violet :weight 'bold)
-   (org-roam-title :foreground magenta :weight 'bold)
-   (org-roam-olp :foreground base1)
-   ;;;; orderless
-   (orderless-match-face-0 :foreground magenta :background region)
-   (orderless-match-face-1 :foreground cyan :background region)
-   (orderless-match-face-2 :foreground yellow :background region)
-   (orderless-match-face-3 :foreground green :background region)
-   ;;;; magit
-   (magit-header-line :foreground "#d75f00" :background "#eee8d5" :weight 'bold
-		      :box `(:line-width 3 :color "#93a1a1"))
-   (magit-diff-file-heading :foreground yellow :weight 'bold)
-   (magit-branch-local :foreground blue)
-   (magit-branch-remote :foreground magenta)
-   ;;;; treemacs
-   (treemacs-git-modified-face :inherit 'magit-diff-file-heading)
-   (treemacs-git-untracked-face :inherit 'magit-filename)
    ;;;; solaire-mode
    (solaire-mode-line-face
     :inherit 'mode-line
@@ -252,17 +216,7 @@ Can be an integer to determine the exact padding."
    (solaire-mode-line-inactive-face
     :inherit 'mode-line-inactive
     :background modeline-bg-inactive-alt
-    :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-inactive-alt)))
-
-   (flycheck-error-list-line-number :foreground violet)
-   (flycheck-error-list-column-number :foreground violet)
-   (flycheck-error-list-filename :foreground cyan)
-
-   (help-key-binding :inherit 'fixed-pitch :background bg-alt :foreground violet
-		     :box `(:line-width 1 :color ,base5))
-   (bookmark-menu-bookmark :weight 'bold :foreground magenta)
-
-   )
+    :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-inactive-alt))))
 
   ;;;; Base theme variable overrides-
   ;; ()
