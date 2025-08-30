@@ -66,6 +66,7 @@
 	:config
 	(ch/define-theme-faces-customization
 	 'doom-solarized-dark
+	 ;; some basic faces
 	 `(vertico-current ((t (:foreground ,(face-foreground 'success) :background ,(face-background 'region) :extend: t))))
 	 ;; an issue is that vertico-current is overriden by faces like
 	 ;; consult-file or consult-bookmark for instance in the consult-buffer
@@ -80,17 +81,21 @@
 	 `(completions-common-part ((t (:foreground ,(doom-color 'magenta) :background ,(doom-color 'base0)))))
 	 `(help-key-binding ((t (:inherit 'fixed-pitch :background ,(doom-color 'bg-alt) :foreground ,(doom-color 'violet)
 					  :box (:line-width 1 :color ,(doom-color 'base5))))))
+	 '(dashboard-banner-logo-title ((t (:inherit 'default))))
+	 `(doom-modeline-host ((t (:foreground ,(doom-color 'magenta)))))
+	 `(markdown-code-face ((t (:background ,(doom-color 'bg-alt) :extend t))))
+	 ;; dired
 	 `(dired-directory ((t (:foreground ,(doom-color 'violet) :weight bold))))
 	 `(dired-symlink ((t (:foreground ,(doom-color 'magenta)))))
 	 `(dired-special ((t (:foreground ,(doom-color 'cyan)))))
 	 `(dired-marked ((t (:foreground ,(doom-color 'red)))))
 	 `(dired-broken-symlink ((t (:background ,(doom-color 'orange) :foreground "#fff6e3"))))
 	 `(all-the-icons-dired-dir-face ((t (:foreground ,(doom-color 'cyan)))))
-	 '(dashboard-banner-logo-title ((t (:inherit 'default))))
-	 `(doom-modeline-host ((t (:foreground ,(doom-color 'magenta)))))
+	 ;; GPG
 	 `(epa-validity-high ((t (:foreground ,(face-foreground 'success)))))
 	 `(epa-validity-medium ((t (:foreground ,(face-foreground 'warning) :slant normal))))
 	 `(epa-validity-disabled ((t (:foreground ,(face-foreground 'error) :inverse-video nil))))
+	 ;; flycheck
 	 `(flycheck-error-list-line-number ((t (:foreground ,(doom-color 'violet)))))
 	 `(flycheck-error-list-column-number ((t (:foreground ,(doom-color 'violet)))))
 	 `(flycheck-error-list-filename ((t (:foreground ,(doom-color 'cyan)))))
@@ -105,7 +110,6 @@
 	 `(lsp-ui-sideline-current-symbol ((t (:foreground ,(doom-color 'red) :box (:line-width 1 :color ,(doom-color 'red)) :height 0.99))))
 	 `(lsp-ui-sideline-symbol-info ((t (:inherit 'default :foreground ,(doom-color 'green)))))
 	 `(lsp-ui-doc-highlight-hover ((t (:background ,(doom-color 'bg-alt)))))
-	 `(markdown-code-face ((t (:background ,(doom-color 'bg-alt) :extend t))))
 	 ;; magit
 	 '(magit-header-line ((t (:foreground "#d75f00" :background "#eee8d5" :weight bold
 					      :box (:line-width 3 :color "#93a1a1")))))
