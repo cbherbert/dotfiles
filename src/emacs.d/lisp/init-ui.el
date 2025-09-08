@@ -12,7 +12,7 @@
   (custom-theme-directory (expand-file-name "themes" user-emacs-directory))
   (custom-file (expand-file-name (if (display-graphic-p) "custom-gui.el" "custom-terminal.el") user-emacs-directory))
   :config
-  (load custom-file)
+  (load custom-file t)
   )
 
 ;;;
@@ -62,7 +62,7 @@
   (doom-themes-visual-bell-config)
   )
 (use-package doom-solarized-dark-theme
-  :after all-the-icons
+  :after all-the-icons doom-themes
   :config
   (ch/define-theme-faces-customization
    'doom-solarized-dark
@@ -307,7 +307,7 @@
   :ensure t
   :if (display-graphic-p)
   :config
-  (solaire-global-mode +1))
+  (solaire-global-mode 1))
 
 (use-package dimmer
   :ensure t
@@ -316,7 +316,7 @@
   (dimmer-configure-hydra)
   (dimmer-configure-magit)
   (dimmer-configure-org)
-  (dimmer-mode t))
+  (dimmer-mode 1))
 
 ;;;
 ;;; Dashboard
