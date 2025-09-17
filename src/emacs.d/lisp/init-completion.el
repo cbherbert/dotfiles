@@ -69,18 +69,18 @@
 (use-package marginalia
   :after vertico
   :ensure t
-  :custom
-  (marginalia-align 'right)
-  :init
-  (marginalia-mode))
+  :custom (marginalia-align 'right)
+  :hook (after-init . marginalia-mode))
 
 (use-package all-the-icons-completion
   :after (marginalia all-the-icons)
   :ensure t
+  :vc (:url "https://github.com/maxecharel/all-the-icons-completion.git"
+	    :branch "contrib"
+	    :rev :newest)
   :if (display-graphic-p)
-  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
-  :init
-  (all-the-icons-completion-mode))
+  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup))
+
 ;;;
 ;;; Completion at point
 ;;;
