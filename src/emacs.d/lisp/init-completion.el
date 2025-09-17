@@ -105,12 +105,19 @@
 (use-package yasnippet
   :ensure t
   :custom
-  (yas-snippet-dirs '((expand-file-name "snippets" user-emacs-directory)))
+  (yas-snippet-dirs `(,(expand-file-name "snippets" user-emacs-directory)))
   (yas-wrap-around-region t)
   :hook ((text-mode
           prog-mode
           conf-mode
           snippet-mode) . yas-minor-mode-on)
+  ; because the scratch buffer is prog-mode this leads to yasnippet being loaded
+  ; immediately, however the overhead does not seem to be large so I will keep
+  ; it that way for now
+  :config
+  (yas-reload-all)
+  ; this is necessary, otherwise the snippets in `yas-snippet-dirs` are not
+  ; loaded. Using `(yas-global-mode 1)` would be another option.
   )
 
 (provide 'init-completion)
